@@ -26,9 +26,21 @@ const latest = (await response.json())
 	.reduce((best, version) => (best === null || newer(parse(version), parse(best)) ? version : best), null);
 
 if (latest !== null && newer(parse(latest), parse(pinned))) {
+	// A release older than `gg reference --json` cannot produce a snapshot, so
+	// asking for a refresh would block every page with no way to comply.
+	if (!(await canDescribeItself(latest))) {
+		console.log(`::warning::gg ${latest} has been released, but it has no \`gg reference\` command, so the reference stays at ${pinned}.`);
+		process.exit(0);
+	}
 	console.error(`The reference describes gg ${pinned}, and gg ${latest} has been released.`);
 	console.error(`Run scripts/refresh-reference.sh ${latest}, then npm run build.`);
 	process.exit(1);
+}
+
+// Whether a release's help lists `gg reference`, read from the source at its tag.
+async function canDescribeItself(version) {
+	const source = await fetch(`https://raw.githubusercontent.com/glyph-guild/gg/v${version}/Gg.Cli/CliArgs.cs`);
+	return source.ok && (await source.text()).includes('"gg reference --json');
 }
 
 console.log(`The reference describes gg ${pinned}, the newest release.`);
