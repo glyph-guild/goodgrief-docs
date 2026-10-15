@@ -1,0 +1,25 @@
+name: Check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Generates the reference pages, fails on a page naming a gg command that
+      # does not exist, and fails on a broken internal link.
+      - run: npm run build
+      - run: npm run check:reference
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

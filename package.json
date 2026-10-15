@@ -3,9 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/generate-reference.mjs && astro dev",
+    "start": "node scripts/generate-reference.mjs && astro dev",
+    "build": "node scripts/generate-reference.mjs && astro build",
+    "check:reference": "node scripts/check-reference-current.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
