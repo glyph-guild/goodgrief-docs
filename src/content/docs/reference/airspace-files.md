@@ -44,7 +44,7 @@ Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds
 | `obligations` | Both, added up | Machine checks and human checks. See [`obligations:`](/concepts/envelope/#obligations). |
 | `instructions` | Both, added up | Standing guidance passed to the agent word for word: root's first, then the work kind's. |
 | `learned` | Both, added up | What earlier flights found out about an environment, each entry with `against` (the repository and commit, image or environment it applies to) and `advice` (a list of sentences). Drafted by a flight and reviewed by a person before it applies. |
-| `variables` | Both, combined | Environment variables set on what a flight runs, as `NAME: value`. Two layers may not give one variable different values. Never a secret. |
+| `variables` | Root or work kind | Environment variables set on what a flight runs, as `NAME: value`. A flight with a work kind receives only the work kind's variables; root's apply only to a flight with no work kind. Never a secret. |
 | `loops` | Work kind replaces root | How the work is done. See [`loops:`](/concepts/envelope/#loops). |
 | `destinations` | Work kind replaces root | Where finished work goes. See [`destinations:`](/concepts/envelope/#destinations). |
 | `produces` | Work kind | The facts the work can yield. See [`produces:`](/concepts/envelope/#produces) and [Fact vocabulary](/reference/fact-vocabulary/). |
