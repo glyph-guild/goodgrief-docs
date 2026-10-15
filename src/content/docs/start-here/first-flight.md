@@ -145,6 +145,8 @@ The console supports everything above. Run `gg` with no arguments, then:
 - `d` decides the gate of the selected flight.
 - `?` lists every key, and `q` quits.
 
+![The gate window for GG-48 in the console, showing the code-review obligation, its approver, the commit, and why it applies, with a to approve and r to reject on the last line.](/screenshots/console/gate-decision.svg)
+
 ## Next steps
 
 - [Anatomy of a flight](/concepts/anatomy-of-a-flight/): every stage of a flight, and the ways one can leave early.

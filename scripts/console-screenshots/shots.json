@@ -1,0 +1,14 @@
+{
+  "rows": 34,
+  "cols": 140,
+  "signedOut": [["wait", 6], ["shot", "sign-in", "gg — signing in"]],
+  "signedIn": [
+    ["wait", 7], ["shot", "queue", "gg — the queue"],
+    ["key", "j", 0.5], ["key", "j", 1],
+    ["key", "o", 3], ["shot", "flight-detail", "gg — a flight"], ["key", "\u001b", 1],
+    ["key", "d", 3], ["shot", "gate-decision", "gg — answering a gate"], ["key", "\u001b", 1],
+    ["key", ".", 3], ["shot", "flights", "gg — flights"],
+    ["key", ";", 4], ["shot", "board", "gg — the board"],
+    ["key", "u", 4], ["shot", "runners", "gg — runners"]
+  ]
+}

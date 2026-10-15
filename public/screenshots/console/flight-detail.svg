@@ -1,0 +1,358 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1204 670" role="img" aria-label="gg — a flight" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
+<rect width="100%" height="100%" rx="8" fill="#1e1e24"/>
+<rect width="100%" height="30" rx="8" fill="#2b2b33"/>
+<rect y="22" width="100%" height="8" fill="#2b2b33"/>
+<circle cx="18" cy="15" r="5.5" fill="#ff5f57"/><circle cx="36" cy="15" r="5.5" fill="#febc2e"/><circle cx="54" cy="15" r="5.5" fill="#28c840"/>
+<text x="602" y="19" fill="#9da5b4" font-size="12" text-anchor="middle">gg — a flight</text>
+<rect x="14.0" y="44" width="252.0" height="18.5" fill="#7cb0cc" shape-rendering="crispEdges"/>
+<text x="14.0" y="57.5" fill="#101820" font-weight="700" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> gg                           </text>
+<rect x="266.0" y="44" width="739.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="739.2" lengthAdjust="spacingAndGlyphs">╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄</text>
+<rect x="1005.2" y="44" width="176.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.39 </text>
+<rect x="1181.6" y="44" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1181.6" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">╮</text>
+<rect x="14.0" y="62" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="62" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="75.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┏┥queue┝━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓┊</text>
+<rect x="14.0" y="80" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<text x="14.0" y="93.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> + new agent                  </text>
+<rect x="266.0" y="80" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="93.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃9c</text>
+<rect x="299.6" y="80" width="16.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="93.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┏┥</text>
+<rect x="316.4" y="80" width="428.4" height="18.5" fill="#708090" shape-rendering="crispEdges"/>
+<text x="316.4" y="93.5" fill="#ffffff" xml:space="preserve" textLength="428.4" lengthAdjust="spacingAndGlyphs">GG-48  Add retry with backoff to the webhook sender</text>
+<rect x="744.8" y="80" width="394.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="744.8" y="93.5" fill="#d3d3d3" xml:space="preserve" textLength="394.8" lengthAdjust="spacingAndGlyphs">┝━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓</text>
+<rect x="1139.6" y="80" width="50.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="93.5" fill="#d3d3d3" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs">    ┃┊</text>
+<rect x="14.0" y="98" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="98" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="111.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃e2</text>
+<rect x="299.6" y="98" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="111.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮┃</text>
+<rect x="1139.6" y="98" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="111.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▖</text>
+<rect x="1148.0" y="98" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="111.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="116" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="116" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┊┃</text>
+<rect x="282.8" y="116" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="282.8" y="129.5" fill="#ffffff" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">GG</text>
+<rect x="299.6" y="116" width="33.6" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┃┊┌┤</text>
+<rect x="333.2" y="116" width="50.4" height="18.5" fill="#708090" shape-rendering="crispEdges"/>
+<text x="333.2" y="129.5" fill="#ffffff" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs">intent</text>
+<rect x="383.6" y="116" width="756.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="383.6" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="756.0" lengthAdjust="spacingAndGlyphs">├──────────────────────────────────────────────────────────────────────────────────────┐┊┃</text>
+<rect x="1139.6" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="129.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="116" width="25.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1173.2" y="116" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1173.2" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┃┊</text>
+<rect x="14.0" y="134" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="134" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="134" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊│</text>
+<rect x="324.8" y="134" width="67.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">ado#1287</text>
+<rect x="392.0" y="134" width="722.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1114.4" y="134" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">│┊┃</text>
+<rect x="1139.6" y="134" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="147.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="134" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="152" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="152" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="152" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊│</text>
+<rect x="324.8" y="152" width="789.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1114.4" y="152" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">│┊┃</text>
+<rect x="1139.6" y="152" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="165.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="152" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="170" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="170" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="183.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="170" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="183.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊│</text>
+<rect x="324.8" y="170" width="789.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1114.4" y="170" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="183.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">│┊┃</text>
+<rect x="1139.6" y="170" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="183.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="170" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="183.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="188" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="188" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="188" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊│</text>
+<rect x="324.8" y="188" width="789.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1114.4" y="188" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">│┊┃</text>
+<rect x="1139.6" y="188" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="201.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="188" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="206" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="206" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="219.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="206" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="219.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊│</text>
+<rect x="324.8" y="206" width="789.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1114.4" y="206" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="219.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">│┊┃</text>
+<rect x="1139.6" y="206" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="219.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="206" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="219.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="224" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="224" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="237.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="224" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="237.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊│</text>
+<rect x="324.8" y="224" width="789.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="1114.4" y="224" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="237.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">│┊┃</text>
+<rect x="1139.6" y="224" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="237.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="224" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="237.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="242" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="242" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="255.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="242" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="255.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊└──────────────────────────────────────────────────────────────────────────────────────────────┘┊┃</text>
+<rect x="1139.6" y="242" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="255.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="242" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="255.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="260" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="260" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="273.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="260" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="273.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="260" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="273.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">id         </text>
+<rect x="417.2" y="260" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="273.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">6f1c2a10-0000-0000-0000-000000000030                                               </text>
+<rect x="1114.4" y="260" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="273.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="260" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="273.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="260" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="273.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="278" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="278" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="291.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="278" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="291.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="278" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="291.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">stage      </text>
+<rect x="417.2" y="278" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="291.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">evaluated                                                                          </text>
+<rect x="1114.4" y="278" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="291.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="278" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="291.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="278" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="291.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="296" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="296" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="309.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="296" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="309.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="296" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="309.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">state      </text>
+<rect x="417.2" y="296" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="309.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">open                                                                               </text>
+<rect x="1114.4" y="296" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="309.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="296" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="309.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="296" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="309.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="314" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="314" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="327.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="314" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="327.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="314" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="327.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">opened     </text>
+<rect x="417.2" y="314" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="327.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">2026-10-15 06:26:00Z                                                               </text>
+<rect x="1114.4" y="314" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="327.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="314" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="327.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="314" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="327.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="332" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="332" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="345.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="332" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="345.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="332" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="345.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">envelope   </text>
+<rect x="417.2" y="332" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="345.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">v9                                                                                 </text>
+<rect x="1114.4" y="332" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="345.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="332" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="345.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="332" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="345.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="350" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="350" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="363.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="350" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="363.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="350" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="363.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">attempts   </text>
+<rect x="417.2" y="350" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="363.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">1                                                                                  </text>
+<rect x="1114.4" y="350" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="363.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="350" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="363.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="350" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="363.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="368" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="368" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="381.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="368" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="381.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs">┃┊ </text>
+<rect x="324.8" y="368" width="92.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="324.8" y="381.5" fill="#848586" xml:space="preserve" textLength="92.4" lengthAdjust="spacingAndGlyphs">facts      </text>
+<rect x="417.2" y="368" width="697.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="417.2" y="381.5" fill="#808080" xml:space="preserve" textLength="697.2" lengthAdjust="spacingAndGlyphs">on the recorded tab                                                                </text>
+<rect x="1114.4" y="368" width="25.2" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="1114.4" y="381.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┊┃</text>
+<rect x="1139.6" y="368" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="381.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="368" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="381.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="386" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="386" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="399.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="386" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="399.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="386" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="399.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="386" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="399.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="404" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="404" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="417.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="404" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="417.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="404" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="417.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="404" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="417.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="422" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="422" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="435.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="422" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="435.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="422" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="435.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="422" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="435.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="440" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="440" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="453.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="440" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="453.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="440" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="453.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="440" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="453.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="458" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="458" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="471.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="458" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="471.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="458" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="471.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="458" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="471.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="476" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="476" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="489.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="476" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="489.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="476" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="489.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="476" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="489.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="494" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="494" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="507.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="494" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="507.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊                                                                                                ┊┃</text>
+<rect x="1139.6" y="494" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="507.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="494" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="507.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="512" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="512" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="525.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="512" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="525.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊       ╭┬┄┄┄┄┬┬┄┄┄┬┬┄┄┄┄┄┄┄┄┬┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯┃</text>
+<rect x="1139.6" y="512" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="525.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="512" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="525.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="530" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="530" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="543.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┃  </text>
+<rect x="299.6" y="530" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="543.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃┊details┊┊gate┊┊log┊┊recorded┊                                                                    ┃</text>
+<rect x="1139.6" y="530" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="543.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="530" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="543.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">   ┃┊</text>
+<rect x="14.0" y="548" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="548" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="561.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊┗━━</text>
+<rect x="299.6" y="548" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="561.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┃╰┄┄┄┄┄┄┄╯╰┄┄┄┄╯╰┄┄┄╯╰┄┄┄┄┄┄┄┄╯                                                                    ┃</text>
+<rect x="1139.6" y="548" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="561.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="548" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="561.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">━━━┛┊</text>
+<rect x="14.0" y="566" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="566" width="33.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="579.5" fill="#d3d3d3" xml:space="preserve" textLength="33.6" lengthAdjust="spacingAndGlyphs">┊   </text>
+<rect x="299.6" y="566" width="840.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="299.6" y="579.5" fill="#d3d3d3" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛</text>
+<rect x="1139.6" y="566" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1139.6" y="579.5" fill="#000000" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">▌</text>
+<rect x="1148.0" y="566" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1148.0" y="579.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">┄┄┄┄╯</text>
+<rect x="14.0" y="584" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="584" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="597.5" fill="#d3d3d3" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">┊queu</text>
+<rect x="308.0" y="584" width="840.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="308.0" y="597.5" fill="#000000" xml:space="preserve" textLength="840.0" lengthAdjust="spacingAndGlyphs">▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘</text>
+<rect x="1148.0" y="584" width="42.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="14.0" y="602" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<rect x="266.0" y="602" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="615.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">╰┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯╰┄┄┄┄┄┄┄┄┄┄┄┄╯       </text>
+<rect x="14.0" y="620" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<text x="14.0" y="633.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> ctrl-g then 0-9, + or H      </text>
+<rect x="266.0" y="620" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="14.0" y="638" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
+<text x="14.0" y="651.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> history                      </text>
+<rect x="266.0" y="638" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="266.0" y="651.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">a approve · r reject · x ground it · m move it to another model · f fly it again · v gate · w watch it · c    </text>
+</svg>

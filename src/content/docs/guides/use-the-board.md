@@ -119,6 +119,8 @@ Run `gg` with no arguments, then:
 - In an open row, `o` opens the nomination, `d` declines it, and `f` goes to the flight it became.
 - Nominations waiting on a person also appear in the queue (`,`). There, `enter` opens or declines one, `space` marks it, `o` opens it, and `d` declines every marked row.
 
+![The board tab: two gated nominations from the triage watch waiting to be opened, one already opened, and below them the triage watch's last sweep.](/screenshots/console/board.svg)
+
 ## Related
 
 - [Set up a watch](/guides/set-up-a-watch/): the most common source of nominations.

@@ -105,6 +105,8 @@ On the machine itself, `gg doctor` checks what the runner needs, including wheth
 
 In the console, the runners tab (`u`) lists the fleet with this machine's runner first. `enter` opens a runner.
 
+![The runners tab: four runners with whose they are, their state, the flight each is working on and the environment each advertises. Above them, a notice says no runner is registered on this machine and offers to start one.](/screenshots/console/runners.svg)
+
 ## Taking a runner out of the fleet
 
 To take a runner out of the fleet for good, run, from any signed-in machine:
