@@ -1,11 +1,11 @@
 ---
 title: Tour the console
-description: The console's tabs and how to reach each one, how to open a flight and decide a gate, where help is, and how to quit.
+description: The console's agent column, its tabs and how to reach each one, how to open a flight and decide a gate, where help is, and how to quit.
 sidebar:
   order: 5
 ---
 
-The [console](/reference/glossary/#console) is the terminal application that opens when `gg` is run with no arguments. It shows what is waiting on a person, every [flight](/reference/glossary/#flight), the organisation's machines and more, and every action in it has a key. This page covers the keys needed to find the way around. [Console keys](/reference/console-keys/) lists all of them.
+The [console](/reference/glossary/#console) is the terminal application that opens when `gg` is run with no arguments. It shows what is waiting on a person, every [flight](/reference/glossary/#flight), the organisation's machines and more, and every action in it has a key. It also holds AI agent sessions beside gg itself, so a person can work with several agents and switch between them and gg without leaving the terminal. This page covers the keys needed to find the way around. [Console keys](/reference/console-keys/) lists all of them.
 
 The console needs a signed-in machine; [Sign in](/start-here/sign-in/) covers that. If nobody is signed in when the console opens, it offers to sign in. The console is not available on Windows, where gg is a command-line tool only.
 
@@ -16,6 +16,62 @@ gg
 ```
 
 ![The gg console on the queue tab, listing two nominations waiting to be opened and one flight awaiting a decision, with the tab bar along the bottom and the available keys on the last line.](/screenshots/console/queue.svg)
+
+## Agents beside the console
+
+The column on the left is the agent column. It lists gg, then every agent session gg is holding, then **+ new agent**, then **history**. The console opens with the column in place, even before any agent is running.
+
+![The console with three agents in the column on the left: the first waiting, the second working, and the third needing the person. Each row shows the agent's number, an activity mark, what the agent is working on and how long it has been running. The queue is on the right.](/screenshots/console/mux-column.svg)
+
+Each agent runs in a terminal of its own inside gg and keeps running while gg, or another agent, is on screen. A row shows:
+
+- **the agent's number**, which is also the key that switches to it;
+- **what it is doing**: `»` while it works, `?` when it needs the person, such as to approve a command, and `·` while it waits for the next instruction;
+- **what it is working on**, taken from the agent's own title;
+- **how long it has been running**, and a `•` when its screen changed while it was hidden.
+
+The activity marks come from the agent's own hooks, so they appear for Claude Code sessions on this machine.
+
+### Switching
+
+Press `ctrl+g`, then:
+
+| Key | Shows |
+|---|---|
+| `0` | gg |
+| `1` to `9` | That agent |
+| `+` | The new-agent menu |
+| `h` | The history of earlier sessions |
+| `esc` | Stays where it is |
+
+Clicking a row in the column switches to it as well. While `ctrl+g` is waiting for the next key, the column's hint and the last line both list the choices:
+
+![The console after ctrl+g: the column's hint reads "0 gg, 1-9, + new, H history", and the last line lists 0 gg, agents 1 to 3, + a new agent, h history and esc to stay.](/screenshots/console/mux-switch-agents.svg)
+
+When an agent is on screen, gg keeps the top line, which names the agent and how to get back:
+
+![An agent session on screen, with gg's bar on the top line reading "gg · Claude Code · ctrl-g then 0 for gg" and the agent column on the left.](/screenshots/console/mux-agent.svg)
+
+### Starting an agent
+
+`ctrl+g` then `+`, or **+ new agent** in the column, opens a menu. The arrow keys or `j` and `k` move, and `enter` picks:
+
+![The new-agent menu, listing Claude Code here, Manage gg with an agent, Plan itinerary, Manage the airspace with an agent, Plan flight and Remote control.](/screenshots/console/mux-new-agent.svg)
+
+| Choice | What it starts |
+|---|---|
+| Claude Code here | A plain Claude Code session in the folder gg was started from. |
+| Manage gg with an agent | An agent that can read gates, the board, flights and runners freely, and asks the person before every action it takes. |
+| Plan itinerary | An agent that drafts a plan of several flights. See [Plan with itineraries](/guides/plan-with-itineraries/). |
+| Manage the airspace with an agent | An agent that drafts changes to the airspace. See [Change the airspace](/guides/change-the-airspace/). |
+| Plan flight | An agent that helps write a new flight before it opens. |
+| Remote control… | A session on another machine in the fleet. See [Driving an agent](/concepts/driving-an-agent/). |
+
+gg holds at most nine agents at once. **history** lists the plans proposed from this machine and the agent sessions started from it, newest first. Opening a session resumes it in the folder where it ran.
+
+Quitting gg ends every agent it holds, so while any are running, `q` first says which ones and asks for `q` again.
+
+[Driving an agent](/concepts/driving-an-agent/#the-agent-column) explains the column in more depth, including remote sessions.
 
 ## The tabs
 

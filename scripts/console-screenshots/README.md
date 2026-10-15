@@ -8,5 +8,6 @@ scripts/console-screenshots/run.sh "$(command -v gg)"
 ```
 
 - `shots.json` lists the keys pressed and the screens saved.
+- `fake-claude` stands in for Claude Code in the agent-column shots. gg starts it in place of the real agent, it sets a title and reports its activity through `gg mux mark` as the real agent's hooks would, and its screen is a short example transcript. No real agent session is started.
 - The console never sees a real organisation's data, so the screenshots can be published as they are.
 - After a gg release changes the console, rerun this and check every image before committing.

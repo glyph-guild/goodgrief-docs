@@ -1,14 +1,207 @@
 {
   "rows": 34,
   "cols": 140,
-  "signedOut": [["wait", 6], ["shot", "sign-in", "gg — signing in"]],
+  "signedOut": [
+    [
+      "wait",
+      6
+    ],
+    [
+      "shot",
+      "sign-in",
+      "gg — signing in"
+    ]
+  ],
   "signedIn": [
-    ["wait", 7], ["shot", "queue", "gg — the queue"],
-    ["key", "j", 0.5], ["key", "j", 1],
-    ["key", "o", 3], ["shot", "flight-detail", "gg — a flight"], ["key", "\u001b", 1],
-    ["key", "d", 3], ["shot", "gate-decision", "gg — answering a gate"], ["key", "\u001b", 1],
-    ["key", ".", 3], ["shot", "flights", "gg — flights"],
-    ["key", ";", 4], ["shot", "board", "gg — the board"],
-    ["key", "u", 4], ["shot", "runners", "gg — runners"]
+    [
+      "wait",
+      7
+    ],
+    [
+      "shot",
+      "queue",
+      "gg — the queue"
+    ],
+    [
+      "key",
+      "j",
+      0.5
+    ],
+    [
+      "key",
+      "j",
+      1
+    ],
+    [
+      "key",
+      "o",
+      3
+    ],
+    [
+      "shot",
+      "flight-detail",
+      "gg — a flight"
+    ],
+    [
+      "key",
+      "\u001b",
+      1
+    ],
+    [
+      "key",
+      "d",
+      3
+    ],
+    [
+      "shot",
+      "gate-decision",
+      "gg — answering a gate"
+    ],
+    [
+      "key",
+      "\u001b",
+      1
+    ],
+    [
+      "key",
+      ".",
+      3
+    ],
+    [
+      "shot",
+      "flights",
+      "gg — flights"
+    ],
+    [
+      "key",
+      ";",
+      4
+    ],
+    [
+      "shot",
+      "board",
+      "gg — the board"
+    ],
+    [
+      "key",
+      "u",
+      4
+    ],
+    [
+      "shot",
+      "runners",
+      "gg — runners"
+    ]
+  ],
+  "agents": [
+    [
+      "wait",
+      7
+    ],
+    [
+      "key",
+      "\u0007",
+      0.4
+    ],
+    [
+      "key",
+      "+",
+      2
+    ],
+    [
+      "shot",
+      "mux-new-agent",
+      "gg — a new agent"
+    ],
+    [
+      "key",
+      "\r",
+      4
+    ],
+    [
+      "shot",
+      "mux-agent",
+      "gg — an agent beside gg"
+    ],
+    [
+      "key",
+      "\u0007",
+      0.4
+    ],
+    [
+      "key",
+      "0",
+      3
+    ],
+    [
+      "key",
+      "\u0007",
+      0.4
+    ],
+    [
+      "key",
+      "+",
+      2
+    ],
+    [
+      "key",
+      "\r",
+      4
+    ],
+    [
+      "key",
+      "\u0007",
+      0.4
+    ],
+    [
+      "key",
+      "0",
+      3
+    ],
+    [
+      "key",
+      "\u0007",
+      0.4
+    ],
+    [
+      "key",
+      "+",
+      2
+    ],
+    [
+      "key",
+      "\r",
+      4
+    ],
+    [
+      "key",
+      "\u0007",
+      0.4
+    ],
+    [
+      "key",
+      "0",
+      4
+    ],
+    [
+      "shot",
+      "mux-column",
+      "gg — agents beside the console"
+    ],
+    [
+      "key",
+      "\u0007",
+      0.6
+    ],
+    [
+      "shot",
+      "mux-switch-agents",
+      "gg — switching"
+    ],
+    [
+      "key",
+      "\u001b",
+      1
+    ]
   ]
 }

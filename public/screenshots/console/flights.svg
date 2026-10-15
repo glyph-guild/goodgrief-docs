@@ -46,15 +46,15 @@
 <rect x="266.0" y="98" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="111.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┊┃</text>
 <rect x="282.8" y="98" width="890.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="282.8" y="111.5" fill="#ffffff" xml:space="preserve" textLength="890.4" lengthAdjust="spacingAndGlyphs">GG-48  open     evaluated implement   31m Add retry with backoff to the webhook sender                    </text>
+<text x="282.8" y="111.5" fill="#ffffff" xml:space="preserve" textLength="890.4" lengthAdjust="spacingAndGlyphs">GG-48  open     evaluated implement   30m Add retry with backoff to the webhook sender                    </text>
 <rect x="1173.2" y="98" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1173.2" y="111.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┃┊</text>
 <rect x="14.0" y="116" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="116" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="266.0" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃GG-47  open     leased    investigate 38m Why does login sign people out after an hour?                   ┃┊</text>
+<text x="266.0" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃GG-47  open     leased    investigate 37m Why does login sign people out after an hour?                   ┃┊</text>
 <rect x="14.0" y="134" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="134" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="266.0" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃GG-46  open     ready     review      45m Review: move session settings into config                       ┃┊</text>
+<text x="266.0" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃GG-46  open     ready     review      44m Review: move session settings into config                       ┃┊</text>
 <rect x="14.0" y="152" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="152" width="75.6" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="75.6" lengthAdjust="spacingAndGlyphs">┊┃GG-45  </text>

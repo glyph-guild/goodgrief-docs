@@ -54,6 +54,8 @@ Once the machine takes the flight, watch it as described [above](#watching-a-run
 
 ## The agent column
 
+![The console with three agents in the column on the left: the first waiting, the second working, and the third needing the person.](/screenshots/console/mux-column.svg)
+
 The console can hold agents beside gg itself, each running in a terminal of its own inside gg, and switch between them. Agents keep running while another one, or gg, is on screen. A column on the left lists gg, then each agent, then **+ new agent**, then the history of earlier sessions. At most nine agents are held at once.
 
 | Keys | What they do |
