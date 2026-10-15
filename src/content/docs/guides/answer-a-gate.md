@@ -144,6 +144,8 @@ Run `gg` with no arguments, then:
 - On an open flight, `a` approves and `r` rejects when a gate is waiting.
 - When a gate is a runner asking for its agent to be signed in, `s` signs the agent in instead.
 
+![The gate window for GG-48: the code-review obligation, its approver, the commit and branch, the condition that applied, why it applied, and how long it has waited.](/screenshots/console/gate-decision.svg)
+
 ## Related
 
 - [The envelope: obligations](/concepts/envelope/#obligations): how obligations, conditions and approvers are declared.

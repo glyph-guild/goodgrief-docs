@@ -15,13 +15,15 @@ To open it, run:
 gg
 ```
 
+![The gg console on the queue tab, listing two nominations waiting to be opened and one flight awaiting a decision, with the tab bar along the bottom and the available keys on the last line.](/screenshots/console/queue.svg)
+
 ## The tabs
 
-The bar along the top lists every tab, each with the key that jumps to it. `tab` moves to the next one.
+The bar along the bottom lists every tab, each with the key that jumps to it, and the last line lists the keys that work on the screen in view. `tab` moves to the next one.
 
 | Tab | Key | What it shows |
 |---|---|---|
-| queue | `,` | Everything waiting on this person, with the detail of the selected row beside it. The console opens here. |
+| queue | `,` | Everything waiting on this person. The console opens here. |
 | itineraries | `'` | Plans made of several flights, and the flights (legs) each plan is made of. See [itinerary](/reference/glossary/#itinerary). |
 | board | `;` | Every [nomination](/reference/glossary/#nomination), including those already answered, and the [watches](/reference/glossary/#watch) that make them. `v` switches between the two lists. |
 | flights | `.` | Every recent flight, whether or not it needs anyone. |
@@ -43,9 +45,11 @@ The arrow keys move through any list; `j` and `k` do the same. `enter` acts on t
 
 The queue holds everything that is waiting on this person: flights stopped at a [gate](/reference/glossary/#gate), nominations waiting to be opened or declined, and failures that need attention. On a healthy day it can be empty, and the flights tab still shows everything that has run.
 
-The detail beside the queue always describes the selected row, so moving the cursor down the queue reads each one in turn.
+Each row says what it is waiting for: a nomination asks whether to open it, and a flight stopped at a gate is awaiting a decision. `o` opens the selected row.
 
 ## Opening a flight
+
+![The flights tab, listing recent flights with their number, state, stage, work kind, age and a description of the work.](/screenshots/console/flights.svg)
 
 On the queue, `o` opens the selected flight. On the flights tab, `enter` does the same. The flight's window shows its history and its current state, and offers what can be done with it, for example:
 
@@ -58,9 +62,13 @@ On the queue, `o` opens the selected flight. On the flights tab, `enter` does th
 
 `a` on the main screen opens a short list of actions for the flight under the cursor.
 
+![A flight's window for GG-48, showing its intent, id, stage, state, when it opened, the envelope version and the number of attempts.](/screenshots/console/flight-detail.svg)
+
 ## Deciding a gate
 
 When a flight is stopped at a gate, select it and press `d`. The window that opens states the question and who may answer it (the approver). Press `a` to approve or `r` to reject. This records the same [decision](/reference/glossary/#decision) as `gg decide` on the command line.
+
+![The gate window for GG-48: the code-review obligation, its approver, the commit and branch, the condition that applied, why it applied, and how long it has waited. The last line offers a to approve, r to reject and esc to close.](/screenshots/console/gate-decision.svg)
 
 ## Starting a flight
 

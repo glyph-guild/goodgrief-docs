@@ -52,6 +52,8 @@ If the code expires before it is approved, or the request is declined, gg says s
 
 In the console, the same sign-in is offered when nobody is signed in: `y` starts it, `o` opens the address in a browser, `l` copies the address and `c` copies the code.
 
+![The gg console when nobody is signed in: a window says there is nothing to show yet and offers a Sign in button, and the last line offers y to sign in or esc to carry on signed out.](/screenshots/console/sign-in.svg)
+
 ## 3. Check
 
 To see who this machine is signed in as, run:
