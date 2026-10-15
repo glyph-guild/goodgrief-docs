@@ -72,8 +72,7 @@ Grounding is not withdrawing. A flight is [withdrawn](/reference/glossary/#withd
 
 Run `gg` with no arguments, then:
 
-- `t` takes over the selected flight. It is offered only when the flight has a working tree someone is holding.
-- `h` hands the flight back, after it has been taken.
+- Taking over and handing back are not yet offered in the console. Use `gg take` in a terminal.
 - On an open flight, `x` grounds it. The console asks first: `y` grounds it, and `esc` leaves it flying.
 - `y` on the main screen flies a new flight by hand: the person does the work themselves, on their own machine, under the same rules as any other flight.
 

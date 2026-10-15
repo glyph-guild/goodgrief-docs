@@ -14,7 +14,7 @@ A gate is a flight that has stopped and is waiting on a person. A nomination is 
 Nominations arrive from several places:
 
 - **[Watches](/reference/glossary/#watch).** A watch looks at something on a schedule, such as a work-item query, and nominates work from what it finds. [Set up a watch](/guides/set-up-a-watch/) covers them.
-- **Plans.** A planning flight, or a plan a person proposes, puts each of its legs on the board. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
+- **Plans.** A planning flight, or a plan a person proposes, nominates each of its legs. Legs are listed with their plan by `gg itineraries` rather than on the board. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
 - **Pull requests.** A pull request opened or updated in a registered repository can nominate a flight, such as a review.
 - **Flights opened directly.** A flight opened with `gg fly` also passes through the board, as a nomination that opens at once. It never waits there.
 
@@ -73,7 +73,7 @@ Each nomination shows:
 | `because` | Why a gated nomination is gated, when the gate came from a spent budget. |
 | `nominated` | When it was proposed. |
 
-`gg board --all` includes nominations that have ended, each with an `ended` line, a `because` line and, when it opened, the `flight` it became. A nomination ends in one of seven ways:
+`gg board --all` includes nominations that have ended, each with an `ended` line, a `because` line and, when it opened, the `flight` it became. A nomination ends in one of six ways:
 
 | Ending | Who ended it |
 |---|---|
@@ -81,11 +81,10 @@ Each nomination shows:
 | `declined` | A person said no. |
 | `refused` | The rules said no, and the reason names the rule. |
 | `superseded` | A newer version of the same work arrived. |
-| `withdrawn` | The work it was about ended, such as a closed item or a merged pull request. |
 | `lapsed` | Nobody opened it in time. |
 | `dropped` | The plan that named it no longer does. |
 
-Only `opened` and `declined` are a person's decision; the others belong to the board, the work itself, the clock and the rules.
+Only `opened` and `declined` are a person's decision; the others belong to the board, the clock and the rules.
 
 ## 2. Open or decline a nomination
 

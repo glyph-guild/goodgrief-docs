@@ -87,7 +87,7 @@ gg itinerary check plan.yaml
 Each leg gets one verdict:
 
 - **`opens`**: a flight would open for this leg.
-- **`stands`**: the leg would wait on the [board](/guides/use-the-board/) until someone opens it.
+- **`stands`**: the leg would wait as a [nomination](/reference/glossary/#nomination) until someone opens it.
 - **`refused`**: a rule refuses the leg, and the line below gives the reason.
 
 The lines under a leg can also name the version of the rules it would run under, each gate it would wait on and who answers it, rules that could never apply to it, and what the fleet would need to run it. If the plan as a whole would be refused, gg says so before the legs.
@@ -108,13 +108,13 @@ proposed ITN-63 - nothing opens until its gate is answered
 
 Only a plan the check would accept can be proposed. A proposed plan is held by a flight of the planner's kind that no runner ever takes; it exists only to carry the plan's gate. The same plan proposed twice by the same person is one plan.
 
-A proposed plan cannot be revised. To change it, ground its flight with `gg ground` and propose a new one.
+A plan drafted with the agent tools can be revised while its gate is unanswered: proposing the revised draft replaces the earlier plan, whose legs are declined. A plan proposed with `gg itinerary propose` is changed by grounding its flight with `gg ground` and proposing a new one.
 
 ## 4. Approve it
 
 The plan's gate appears in `gg gates` like any other. [Answer a gate](/guides/answer-a-gate/) explains how to decide it.
 
-- **When it is approved**, the legs are opened through the board, and each leg's flight is attributed to the person who proposed the plan. The plan's own flight then ends `landed`.
+- **When it is approved**, each leg opens as a flight, and each leg's flight is attributed to the person who proposed the plan. The plan's own flight then ends `landed`.
 - **When it is rejected**, every leg that is still waiting is declined, and the plan's flight ends `withdrawn`.
 
 After approval, a leg with `after` is not offered to any machine until the leg it follows has landed. If that leg is grounded or fails, the legs after it stay held, because their premise is false. `gg why` on a held leg names the leg it follows and how that leg ended. A permanently held leg is something a person ends, for example with `gg ground`.
@@ -181,6 +181,6 @@ Run `gg` with no arguments, then `'` to open the itineraries tab. `enter` opens 
 
 ## Related
 
-- [Use the board](/guides/use-the-board/): where legs wait before they open.
+- [Itineraries](/concepts/itineraries/): how plans and legs behave.
 - [Answer a gate](/guides/answer-a-gate/): approving the plan.
 - [Fly from a work item](/guides/fly-from-a-work-item/): when one flight is enough.

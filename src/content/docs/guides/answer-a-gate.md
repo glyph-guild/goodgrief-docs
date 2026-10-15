@@ -131,6 +131,8 @@ The `approver` line says who the rules expect to decide. An approver is written 
 - **A role**, such as `platform-owner`, written as a bare word.
 - **A named person**, written as `<provider>:<subject>`, the form `gg whoami` prints.
 
+When the approver is a role, the control plane does not check the role: anyone in the organisation who may decide gates can answer it. To limit a gate to one person, name that person as the approver.
+
 When the approver is a named person, only that person can decide the gate. The control plane refuses anyone else, including an administrator, and says whose gate it is. Gates that belong to a person's own [watch](/reference/glossary/#watch) work the same way: only that person can answer them. [Set up a watch](/guides/set-up-a-watch/) explains personal watches.
 
 ## The same steps in the console
