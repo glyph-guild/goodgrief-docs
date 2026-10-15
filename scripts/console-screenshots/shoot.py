@@ -1,4 +1,4 @@
-"""Drive the gg console in a pty and save screens as SVG (see README.md).
+"""Drive the gg console in a pty and save screens as SVG.
 
 usage: shoot.py <script.json> <outdir>
 
@@ -117,6 +117,8 @@ def main():
     if pid == 0:
         import fcntl, struct, termios
         fcntl.ioctl(0, termios.TIOCSWINSZ, struct.pack("HHHH", rows, cols, 0, 0))
+        if script.get("cwd"):
+            os.chdir(script["cwd"])
         os.execvpe(script["cmd"][0], script["cmd"], env)
     import fcntl, struct, termios
     fcntl.ioctl(fd, termios.TIOCSWINSZ, struct.pack("HHHH", rows, cols, 0, 0))
