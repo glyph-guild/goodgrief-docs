@@ -17,7 +17,9 @@ gg
 
 ![The gg console on the queue tab, listing two nominations waiting to be opened and one flight awaiting a decision, with the tab bar along the bottom and the available keys on the last line.](/screenshots/console/queue.svg)
 
-## Agents beside the console
+## gg includes tmux-like features
+
+Like tmux, gg is a terminal multiplexer. It runs AI agent sessions in terminals of its own, keeps every one of them running, shows one at a time beside the console, and switches between them with a prefix key, `ctrl+g`. A person can have several agents working at once and move between them and gg without leaving the terminal or opening another window. [How gg works as a terminal multiplexer](/concepts/terminal-multiplexer/) explains the technical detail, and how it compares with tmux.
 
 The column on the left is the agent column. It lists gg, then every agent session gg is holding, then **+ new agent**, then **history**. The console opens with the column in place, even before any agent is running.
 
