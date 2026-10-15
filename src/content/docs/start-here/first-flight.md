@@ -9,8 +9,8 @@ This page follows one [flight](/reference/glossary/#flight) from start to finish
 
 ## Prerequisites
 
-- **gg is installed.** The install steps are in the [gg README](https://github.com/glyph-guild/gg#install).
-- **gg is pointed at the organisation's control plane and signed in:**
+- **gg is installed.** See [Install gg](/start-here/install/).
+- **gg is pointed at the organisation's control plane and signed in** ([Sign in](/start-here/sign-in/) has the details):
 
   ```sh
   gg config set control-plane <url>

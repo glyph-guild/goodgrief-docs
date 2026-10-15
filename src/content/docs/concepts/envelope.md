@@ -77,7 +77,7 @@ Only root may set this field.
 - **`executor`**: who does the work. `frontier` means an AI agent; `human` means a person.
 - **`model`**: which model the agent runs on. Leaving it out uses the account's default.
 - **`moves`**: what the agent is allowed to do, such as `read`, `search`, `edit`, `run-tests` and `write`. Moves that open something for review include `propose` and `propose-landing`. The single move `anything` removes the list entirely and must appear on its own.
-- **`budget`**: how long the agent has (`wall-clock`, such as `20m`) and, optionally, how many attempts the work may have (`attempts`). A new attempt starts each time a person sends the work back. Leaving out `attempts` allows any number.
+- **`budget`**: how long the agent has (`wall-clock`, such as `20m`) and, optionally, how many times the work may be run again automatically when that time runs out (`attempts`). The limit applies when `on-exhaustion` is `handoff-to-agent`; once it is reached, the flight waits for a person instead. Leaving out `attempts` sets no limit.
 - **`on-exhaustion`**: who takes over when the budget runs out: `handoff-to-human` or `handoff-to-agent`.
 - **`discharges`**: which of the envelope's checks this loop is responsible for satisfying.
 - **`mcp`**: optionally, which tools from the organisation's MCP servers the agent may call.

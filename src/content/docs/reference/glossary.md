@@ -25,7 +25,7 @@ The person, or role, that may decide a [human check](#obligation). Declared on t
 
 ## Attempt
 
-One try at a flight's work. When a person rejects the work, or the budget runs out and the work is handed back, a new attempt begins. `gg show` numbers attempts `#1`, `#2` and so on. The envelope's `budget.attempts` limits how many a flight may have.
+One try at a flight's work. When a person rejects the work, or the budget runs out and the work is handed back, a new attempt begins. `gg show` numbers attempts `#1`, `#2` and so on. The envelope's `budget.attempts` limits how many times the work is run again automatically after its time runs out.
 
 ## Board
 

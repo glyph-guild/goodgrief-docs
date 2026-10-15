@@ -14,6 +14,7 @@ export default defineConfig({
 			editLink: { baseUrl: 'https://github.com/glyph-guild/goodgrief-docs/edit/main/' },
 			sidebar: [
 				{ label: 'Start here', items: [{ autogenerate: { directory: 'start-here' } }] },
+				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
 				{ label: 'Concepts', items: [{ autogenerate: { directory: 'concepts' } }] },
 				{ label: 'Reference', items: [{ autogenerate: { directory: 'reference' } }] },
 				{ label: 'Contributing', items: [{ autogenerate: { directory: 'contributing' } }] },

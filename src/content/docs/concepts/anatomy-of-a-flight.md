@@ -42,7 +42,7 @@ Not every flight passes through all six stages:
 
 - **Rejected when opened.** The request to open the flight fails, and no flight is created. This happens when a request names an environment that does not exist or a repository that was never registered, or when the rules contradict each other. gg states which.
 - **Halted.** Good Grief found a rule it cannot evaluate as yes or no, so it stops and reports the rule rather than guessing. **The flight is still open**: once the rule is fixed, it can continue.
-- **Sent back.** The work is attempted again, because a reviewer rejected it or it ran out of time. Each retry is a new attempt, and the envelope limits how many a flight may have.
+- **Sent back.** The work is attempted again, because a reviewer rejected it or it ran out of time. Each retry is a new attempt. When retries happen automatically after the time runs out, the envelope's attempt limit decides when to stop and wait for a person.
 
 ## Waiting is not the same as finished
 
