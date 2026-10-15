@@ -19,3 +19,7 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# generated from src/data/gg-reference.json by scripts/generate-reference.mjs
+src/content/docs/reference/cli.md
+src/content/docs/reference/console-keys.md

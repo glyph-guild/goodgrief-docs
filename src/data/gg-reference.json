@@ -1,0 +1,1918 @@
+{
+  "version": "0.88.39\u002B5b5e8c7a613fa2500f361680b53874940d812f39",
+  "commands": [
+    {
+      "usage": "gg",
+      "summary": "the console",
+      "options": []
+    },
+    {
+      "usage": "gg fly \u003Ctext\u003E|--uri \u003Curi\u003E|--ticket \u003Cprovider\u003E#\u003Cid\u003E",
+      "summary": "open a flight",
+      "options": [
+        {
+          "usage": "--repo \u003Cname\u003E",
+          "summary": "which repository it is about, by its registered name"
+        },
+        {
+          "usage": "--runner \u003Cid|name\u003E",
+          "summary": "open it for one machine"
+        },
+        {
+          "usage": "--work-kind \u003Cname\u003E",
+          "summary": "which work kind\u0027s rules govern it"
+        },
+        {
+          "usage": "--environment \u003Cname\u003E",
+          "summary": "which charted environment it runs in"
+        },
+        {
+          "usage": "--model \u003Cname\u003E",
+          "summary": "which model it runs on, from root\u0027s models:"
+        },
+        {
+          "usage": "--attended",
+          "summary": "and watch it from wherever you are"
+        },
+        {
+          "usage": "--file \u003Crepo\u003E:\u003Cpath\u003E[@ref]",
+          "summary": "about a file in a registered repository, read by the runner"
+        }
+      ]
+    },
+    {
+      "usage": "gg flights [--all] [--intent \u003Cprovider\u003E#\u003Cid\u003E|\u003Curi\u003E|\u003Crepo\u003E:\u003Cpath\u003E]",
+      "summary": "flights in the air, or every one",
+      "options": [
+        {
+          "usage": "--limit \u003Crows\u003E --after \u003Ccursor\u003E",
+          "summary": "one page of them, and where to carry on"
+        }
+      ]
+    },
+    {
+      "usage": "gg show \u003Cflight\u003E",
+      "summary": "one flight, by GG-42 or by id",
+      "options": []
+    },
+    {
+      "usage": "gg log \u003Cflight\u003E",
+      "summary": "a flight\u0027s log",
+      "options": []
+    },
+    {
+      "usage": "gg facts \u003Cflight\u003E",
+      "summary": "what a flight recorded, and which budget held it",
+      "options": []
+    },
+    {
+      "usage": "gg runners",
+      "summary": "the runners this tenant has",
+      "options": []
+    },
+    {
+      "usage": "gg watches [--limit \u003Crows\u003E] [--after \u003Ccursor\u003E]",
+      "summary": "how each watch is doing: executor, last report, cost",
+      "options": []
+    },
+    {
+      "usage": "gg plan [flight]",
+      "summary": "what must hold before a flight can start",
+      "options": []
+    },
+    {
+      "usage": "gg itinerary check \u003Cfile\u003E",
+      "summary": "what admission would do with each leg of a plan",
+      "options": []
+    },
+    {
+      "usage": "gg itinerary propose \u003Cfile\u003E",
+      "summary": "propose a plan; nothing opens until its gate is answered",
+      "options": []
+    },
+    {
+      "usage": "gg itinerary tools [--draft \u003Cname\u003E]",
+      "summary": "a tool server any Claude Code session drafts a plan with",
+      "options": []
+    },
+    {
+      "usage": "gg manage tools",
+      "summary": "gg\u0027s management layer as tools for a Claude Code session",
+      "options": []
+    },
+    {
+      "usage": "gg mux mark \u003Cworking|waiting|notification\u003E",
+      "summary": "what a mux agent\u0027s own hooks run; always exits 0",
+      "options": []
+    },
+    {
+      "usage": "gg itineraries [--intent \u003Ckey\u003E] [--limit \u003Crows\u003E] [--after \u003Ccursor\u003E]",
+      "summary": "every plan here, and its legs",
+      "options": []
+    },
+    {
+      "usage": "gg itinerary show \u003CITN-n\u003E",
+      "summary": "one plan, and every leg of it in full",
+      "options": [
+        {
+          "usage": "--print-registration",
+          "summary": "the \u0060claude mcp add\u0060 line that registers it"
+        }
+      ]
+    },
+    {
+      "usage": "gg gates",
+      "summary": "flights stopped, waiting on somebody",
+      "options": []
+    },
+    {
+      "usage": "gg board [--all] [--limit \u003Crows\u003E] [--after \u003Ccursor\u003E]",
+      "summary": "what has been nominated and needs somebody",
+      "options": []
+    },
+    {
+      "usage": "gg board open \u003Cid\u003E \u003Cwhy\u003E",
+      "summary": "turn a standing nomination into a flight",
+      "options": []
+    },
+    {
+      "usage": "gg board decline \u003Cid\u003E \u003Cwhy\u003E",
+      "summary": "say it is not going to be one",
+      "options": []
+    },
+    {
+      "usage": "gg why \u003Cflight\u003E [obligation]",
+      "summary": "why a flight is stopped, and what would open it",
+      "options": []
+    },
+    {
+      "usage": "gg decide \u003Cflight\u003E \u003Cobligation\u003E \u003Coutcome\u003E [reason]",
+      "summary": "open a gate, or refuse it",
+      "options": []
+    },
+    {
+      "usage": "gg ground \u003Cflight\u003E \u003Cwhy\u003E",
+      "summary": "stop a flight that could still have been done",
+      "options": []
+    },
+    {
+      "usage": "gg model \u003Cflight\u003E \u003Cmodel\u003E",
+      "summary": "move a flight in the air to another model root lists",
+      "options": []
+    },
+    {
+      "usage": "gg take \u003Cflight\u003E [--return \u003Coutcome\u003E [--note \u003Cnote\u003E]]",
+      "summary": "take a flight over, and hand it back",
+      "options": []
+    },
+    {
+      "usage": "gg runner labels",
+      "summary": "what each runner advertises, with its disposition",
+      "options": []
+    },
+    {
+      "usage": "gg runner retire \u003Cid|name\u003E",
+      "summary": "take a runner out of the fleet, for good",
+      "options": []
+    },
+    {
+      "usage": "gg tenant name \u003Cname\u003E",
+      "summary": "what this tenant is called; only somebody who administers it may say",
+      "options": []
+    },
+    {
+      "usage": "gg fleet enroll --profile \u003Cname\u003E --uses \u003Cn\u003E --expires \u003Cduration\u003E [--tenant | --claim [--reserve]]",
+      "summary": "a token some machines may join with, shown once",
+      "options": []
+    },
+    {
+      "usage": "gg fleet tokens",
+      "summary": "this tenant\u0027s enrollment tokens, without their secrets",
+      "options": []
+    },
+    {
+      "usage": "gg fleet revoke \u003Cid\u003E",
+      "summary": "an enrollment token enrolls nothing more",
+      "options": []
+    },
+    {
+      "usage": "gg runner claim|unclaim \u003Cid|name\u003E",
+      "summary": "make a machine yours, or give it back",
+      "options": []
+    },
+    {
+      "usage": "gg runner reserve|release \u003Cid\u003E",
+      "summary": "keep your machine to your own flights, or not",
+      "options": []
+    },
+    {
+      "usage": "gg runner ownership \u003Cid\u003E tenant|open",
+      "summary": "an admin\u0027s word: nobody\u0027s to claim, or anybody\u0027s",
+      "options": []
+    },
+    {
+      "usage": "gg runner watch \u003Cid|name\u003E",
+      "summary": "watch it, and whatever it flies next",
+      "options": []
+    },
+    {
+      "usage": "gg runner repin \u003Cid\u003E",
+      "summary": "trust a runner\u0027s key again after it changed",
+      "options": []
+    },
+    {
+      "usage": "gg invite",
+      "summary": "a link that makes somebody a second principal here",
+      "options": []
+    },
+    {
+      "usage": "gg credential add --repo \u003Cslug\u003E|--agent \u003Cname\u003E|--tracker \u003Ckey\u003E|--analysis \u003Ckey\u003E",
+      "summary": "register a credential for what it is actually for; the value is prompted for and never an argument",
+      "options": []
+    },
+    {
+      "usage": "gg credential send --repo \u003Cslug\u003E|--agent \u003Cname\u003E|--tracker \u003Ckey\u003E|--analysis \u003Ckey\u003E",
+      "summary": "send it to every machine your fleet profiles say needs it; the list is printed before anything moves",
+      "options": []
+    },
+    {
+      "usage": "gg credential send --runner \u003Cid|name\u003E --repo \u003Cslug\u003E|--agent \u003Cname\u003E|--tracker \u003Ckey\u003E|--analysis \u003Ckey\u003E",
+      "summary": "put one on a machine that cannot be reached any other way",
+      "options": []
+    },
+    {
+      "usage": "gg key create",
+      "summary": "mint this person\u0027s key; the passphrase is prompted for",
+      "options": []
+    },
+    {
+      "usage": "gg key list",
+      "summary": "the public keys this tenant\u0027s people have registered",
+      "options": []
+    },
+    {
+      "usage": "gg credential list",
+      "summary": "the references the control plane holds",
+      "options": []
+    },
+    {
+      "usage": "gg credential rm \u003Cid\u003E",
+      "summary": "forget one, here and there",
+      "options": []
+    },
+    {
+      "usage": "gg credential trust-this-machine \u003Clocator\u003E",
+      "summary": "let THIS machine open a credential sealed to you, so a flight here can resolve it with nobody present",
+      "options": []
+    },
+    {
+      "usage": "gg agent login --runner \u003Cid|name\u003E [--agent \u003Cname\u003E]",
+      "summary": "log a runner\u0027s agent in from here: it runs the ceremony, you visit the URL and bring back the code",
+      "options": []
+    },
+    {
+      "usage": "gg airspace show|pull|diff|apply",
+      "summary": "its names, and its working copy",
+      "options": [
+        {
+          "usage": "apply --declare-names",
+          "summary": "declare names it needs, under root, first"
+        }
+      ]
+    },
+    {
+      "usage": "gg airspace retire \u003Cname\u003E",
+      "summary": "retire a name - always opens a gate",
+      "options": []
+    },
+    {
+      "usage": "gg airspace name \u003Crole\u003E \u003Cname\u003E [--under \u003Cparent\u003E]",
+      "summary": "declare a name a document can reach",
+      "options": []
+    },
+    {
+      "usage": "gg airspace name watch \u003Cname\u003E --personal",
+      "summary": "declare a watch that is yours alone; its gate is yours",
+      "options": []
+    },
+    {
+      "usage": "gg airspace repositories add --name \u003Cn\u003E --provider \u003Cp\u003E --id \u003Cid\u003E --path \u003Cpath\u003E [--ref \u003Cref\u003E] [--credential required|none] [--narrowings \u003Cdir\u003E]",
+      "summary": "make a repository nameable - a new one rides a gate",
+      "options": []
+    },
+    {
+      "usage": "gg envelope show",
+      "summary": "the rules governing this tenant\u0027s flights",
+      "options": []
+    },
+    {
+      "usage": "gg strategy apply \u003Cname\u003E \u003Cfile\u003E",
+      "summary": "manage a pool under the named strategy",
+      "options": []
+    },
+    {
+      "usage": "gg strategy build \u003Cname\u003E",
+      "summary": "build the strategy\u0027s recipe; the pin moves when it lands",
+      "options": []
+    },
+    {
+      "usage": "gg environment chart \u003Cname\u003E [--means \u003Cpredicate\u003E]",
+      "summary": "chart one, so an envelope may select it - rides a gate",
+      "options": []
+    },
+    {
+      "usage": "gg environments",
+      "summary": "every environment name an envelope may select",
+      "options": []
+    },
+    {
+      "usage": "gg strategies",
+      "summary": "what furnishes each of them, and inside which bounds",
+      "options": []
+    },
+    {
+      "usage": "gg pools",
+      "summary": "what each managed pool last attested, and when",
+      "options": []
+    },
+    {
+      "usage": "gg envelope apply \u003Cfile\u003E|-",
+      "summary": "write them back",
+      "options": []
+    },
+    {
+      "usage": "gg envelope validate \u003Cfile\u003E|-",
+      "summary": "check a file without sending it anywhere",
+      "options": []
+    },
+    {
+      "usage": "gg config show",
+      "summary": "every setting, and where its value came from",
+      "options": []
+    },
+    {
+      "usage": "gg config init",
+      "summary": "write a file seeded from what is in force",
+      "options": []
+    },
+    {
+      "usage": "gg config set \u003Ckey\u003E \u003Cvalue\u003E",
+      "summary": "change one setting",
+      "options": []
+    },
+    {
+      "usage": "gg config validate \u003Cfile\u003E|-",
+      "summary": "check a configuration without applying it",
+      "options": []
+    },
+    {
+      "usage": "gg config offered",
+      "summary": "what your control plane offers this machine",
+      "options": []
+    },
+    {
+      "usage": "gg config accept \u003Cversion\u003E",
+      "summary": "take the offer you just read, by version",
+      "options": []
+    },
+    {
+      "usage": "gg allowance",
+      "summary": "what the allowance this machine spends from has left",
+      "options": []
+    },
+    {
+      "usage": "gg allowances",
+      "summary": "what every allowance in the fleet has left",
+      "options": []
+    },
+    {
+      "usage": "gg allowances report",
+      "summary": "tell the fleet what this machine\u0027s meter says",
+      "options": []
+    },
+    {
+      "usage": "gg allowances floor \u003Cname\u003E [--session \u003Cpct\u003E] [--week \u003Cpct\u003E] | --clear",
+      "summary": "keep a share back",
+      "options": []
+    },
+    {
+      "usage": "gg allowances override \u003Cname\u003E --minutes \u003Cn\u003E --reason \u003Cwhy\u003E",
+      "summary": "spend somebody\u0027s floor",
+      "options": []
+    },
+    {
+      "usage": "gg doctor",
+      "summary": "check what gg needs to work",
+      "options": []
+    },
+    {
+      "usage": "gg update",
+      "summary": "whether this gg is behind, and what would move it",
+      "options": []
+    },
+    {
+      "usage": "gg bundle",
+      "summary": "a redacted diagnostics bundle to send us",
+      "options": []
+    },
+    {
+      "usage": "gg reference --json",
+      "summary": "every command and console key, as the docs site reads them",
+      "options": []
+    },
+    {
+      "usage": "gg login",
+      "summary": "sign in on this machine",
+      "options": []
+    },
+    {
+      "usage": "gg logout",
+      "summary": "forget the session here",
+      "options": []
+    },
+    {
+      "usage": "gg whoami",
+      "summary": "who this machine is signed in as",
+      "options": []
+    },
+    {
+      "usage": "gg admin grant \u003Cprincipal\u003E",
+      "summary": "make somebody an administrator of this tenant",
+      "options": []
+    },
+    {
+      "usage": "gg admin revoke \u003Cprincipal\u003E",
+      "summary": "take it back",
+      "options": []
+    },
+    {
+      "usage": "gg runner up",
+      "summary": "take work on this machine",
+      "options": []
+    },
+    {
+      "usage": "gg runner maintain \u003Cpool\u003E",
+      "summary": "keep a managed pool warm, reset and attested",
+      "options": []
+    },
+    {
+      "usage": "gg service install --control-plane \u003Curl\u003E [--enroll] [--user \u003Cname\u003E] [--agent-binary \u003Cpath\u003E]",
+      "summary": "make this machine\u0027s runner a service",
+      "options": []
+    },
+    {
+      "usage": "gg service uninstall",
+      "summary": "remove exactly what service install wrote",
+      "options": []
+    },
+    {
+      "usage": "gg version",
+      "summary": "binary, protocol and fact vocabulary",
+      "options": []
+    }
+  ],
+  "keys": [
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "esc",
+      "does": "back to the console (so does any key)",
+      "when": "while the mark is up"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "space",
+      "does": "back to the console (so does any key)",
+      "when": "while the mark is up"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "back to the console (so does any key)",
+      "when": "while the mark is up"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "0",
+      "does": "gg",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "1",
+      "does": "agent 1",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "2",
+      "does": "agent 2",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "3",
+      "does": "agent 3",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "4",
+      "does": "agent 4",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "5",
+      "does": "agent 5",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "6",
+      "does": "agent 6",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "7",
+      "does": "agent 7",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "8",
+      "does": "agent 8",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "9",
+      "does": "agent 9",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "\u002B",
+      "does": "a new agent",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "h",
+      "does": "history",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "ctrl\u002Bg",
+      "does": "show the mark",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "esc",
+      "does": "stay in gg",
+      "when": "after ctrl-g"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "g",
+      "does": "refresh"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "?",
+      "does": "help"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "ctrl\u002Bf",
+      "does": "freeze to select"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "q",
+      "does": "quit"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "a",
+      "does": "actions"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "d",
+      "does": "decide"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "tab",
+      "does": "next tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "what can be done",
+      "when": "on the queue tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "u",
+      "does": "runners"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": ",",
+      "does": "queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": ".",
+      "does": "flights"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": ";",
+      "does": "board"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "\u0027",
+      "does": "itineraries"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "[",
+      "does": "intents"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "ctrl\u002Bg",
+      "does": "switch: then 0 gg, 1-9 an agent, \u002B new, H history"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "r",
+      "does": "repositories"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "e",
+      "does": "envelope"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "o",
+      "does": "open the flight",
+      "when": "on a flight in the queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "n",
+      "does": "new flight"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "c",
+      "does": "add credential"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "x",
+      "does": "forget credential"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "i",
+      "does": "invite"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "y",
+      "does": "fly by hand"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "t",
+      "does": "take over",
+      "when": "when the flight has a tree somebody is holding"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "h",
+      "does": "hand back",
+      "when": "after you have taken it"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "v",
+      "does": "the fleet\u0027s allowances",
+      "when": "for an administrator whose file asked for the pane"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "ctrl\u002Br",
+      "does": "read",
+      "when": "while the line below is showing part of its message"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "open or decline it",
+      "when": "on a nomination in the queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "space",
+      "does": "mark",
+      "when": "on a nomination in the queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "o",
+      "does": "open the nomination",
+      "when": "on a nomination in the queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "d",
+      "does": "decline the marked",
+      "when": "with rows marked in the queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "*",
+      "does": "mark every failure",
+      "when": "while a watch\u0027s failure is in the queue"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "\u003E",
+      "does": "go to it",
+      "when": "while a notification is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "!",
+      "does": "notifications",
+      "when": "while a notification is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "open this plan",
+      "when": "on a plan"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "*",
+      "does": "everybody\u0027s rows",
+      "when": "while the board is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "v",
+      "does": "nominations / sweeps",
+      "when": "while the board is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "open this row",
+      "when": "on a board row"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "open this flight",
+      "when": "on the flights tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "open this runner",
+      "when": "on the runners tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "t",
+      "does": "enrollment tokens",
+      "when": "on the runners tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "o",
+      "does": "keep a share back",
+      "when": "on your own machine\u0027s allowance, on the runners tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "read this item",
+      "when": "on the intents tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "f",
+      "does": "fly this",
+      "when": "while the intents tab is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "v",
+      "does": "next source",
+      "when": "while the intents tab is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "l",
+      "does": "plan from this",
+      "when": "while the intents tab is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "/",
+      "does": "narrow the list",
+      "when": "while the intents tab is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "ctrl\u002B/",
+      "does": "go to or find",
+      "when": "while the intents tab is showing"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "a",
+      "does": "actions"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "where is it",
+      "when": "on the credentials tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "a",
+      "does": "actions"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "enter",
+      "does": "say where the airspace is",
+      "when": "on the airspace tab"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "v",
+      "does": "next view",
+      "when": "while the cursor is on a document"
+    },
+    {
+      "mode": "Normal",
+      "heading": "",
+      "key": "w",
+      "does": "read the document",
+      "when": "while the cursor is on a document"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "e",
+      "does": "edit the configuration"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "o",
+      "does": "take what is offered"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "tab",
+      "does": "keys / environment"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "esc",
+      "does": "close help"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "space",
+      "does": "fold or unfold this group",
+      "when": "while the cursor is on a group"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "right",
+      "does": "next value",
+      "when": "on the Look page"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "left",
+      "does": "previous value",
+      "when": "on the Look page"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "h",
+      "does": "hide this / bring it back",
+      "when": "on the Look page"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "r",
+      "does": "put it all back",
+      "when": "on the Look page"
+    },
+    {
+      "mode": "Help",
+      "heading": "while this page is open",
+      "key": "c",
+      "does": "copy the changes",
+      "when": "on the Look page"
+    },
+    {
+      "mode": "FlightActions",
+      "heading": "while the actions list is open",
+      "key": "v",
+      "does": "open the flight"
+    },
+    {
+      "mode": "FlightActions",
+      "heading": "while the actions list is open",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "FlightActions",
+      "heading": "while the actions list is open",
+      "key": "d",
+      "does": "decide a gate on this flight",
+      "when": "when a gate is waiting on this flight"
+    },
+    {
+      "mode": "FlightActions",
+      "heading": "while the actions list is open",
+      "key": "a",
+      "does": "approve it",
+      "when": "when an ordinary gate is waiting on this flight"
+    },
+    {
+      "mode": "FlightActions",
+      "heading": "while the actions list is open",
+      "key": "s",
+      "does": "log the agent in",
+      "when": "when this flight\u0027s gate is a runner\u0027s agent-login ask"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "x",
+      "does": "ground it"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "m",
+      "does": "move it to another model"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "f",
+      "does": "fly it again"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "v",
+      "does": "gate"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "w",
+      "does": "watch it"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "t",
+      "does": "the ticket",
+      "when": "when the flight names a ticket a reader here can read"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "a",
+      "does": "approve",
+      "when": "when a gate is waiting on this flight"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "r",
+      "does": "reject",
+      "when": "when a gate is waiting on this flight"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "t",
+      "does": "the link",
+      "when": "when the flight names a link and no ticket a reader here can read"
+    },
+    {
+      "mode": "FlightDetail",
+      "heading": "",
+      "key": "s",
+      "does": "log the agent in",
+      "when": "when this flight\u0027s gate is a runner\u0027s agent-login ask"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "v",
+      "does": "next view"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "r",
+      "does": "restart it",
+      "when": "over the runner on this machine"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "x",
+      "does": "shut it down",
+      "when": "over the runner on this machine"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "m",
+      "does": "claim it for yourself",
+      "when": "over a machine whose control plane says whose it is"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "o",
+      "does": "hold it back for the tenant",
+      "when": "over a machine whose control plane says whose it is"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "h",
+      "does": "hold it to your own flights",
+      "when": "over a machine somebody has claimed"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "w",
+      "does": "watch this runner",
+      "when": "while it is beating"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "c",
+      "does": "give it a credential",
+      "when": "while it is beating"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "n",
+      "does": "start a session here",
+      "when": "on the sessions of a machine that takes them"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "D",
+      "does": "forget every ended session",
+      "when": "on the sessions of a machine that takes them"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "enter",
+      "does": "attach to it",
+      "when": "over a session that is running"
+    },
+    {
+      "mode": "Runner",
+      "heading": "",
+      "key": "d",
+      "does": "forget it",
+      "when": "over a session that ended"
+    },
+    {
+      "mode": "HandFlight",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ConfirmFlight",
+      "heading": "when asked whether to open a second flight",
+      "key": "y",
+      "does": "open a second flight"
+    },
+    {
+      "mode": "ConfirmFlight",
+      "heading": "when asked whether to open a second flight",
+      "key": "esc",
+      "does": "leave it alone"
+    },
+    {
+      "mode": "ConfirmGround",
+      "heading": "when asked whether to ground a flight",
+      "key": "y",
+      "does": "ground it"
+    },
+    {
+      "mode": "ConfirmGround",
+      "heading": "when asked whether to ground a flight",
+      "key": "esc",
+      "does": "leave it flying"
+    },
+    {
+      "mode": "ConfirmApply",
+      "heading": "",
+      "key": "y",
+      "does": "apply them"
+    },
+    {
+      "mode": "ConfirmApply",
+      "heading": "",
+      "key": "esc",
+      "does": "leave the airspace as it is"
+    },
+    {
+      "mode": "BrowseFind",
+      "heading": "",
+      "key": "enter",
+      "does": "go there or find it"
+    },
+    {
+      "mode": "BrowseFind",
+      "heading": "",
+      "key": "esc",
+      "does": "back to the list"
+    },
+    {
+      "mode": "AirspacePath",
+      "heading": "",
+      "key": "enter",
+      "does": "set it"
+    },
+    {
+      "mode": "AirspacePath",
+      "heading": "",
+      "key": "ctrl\u002Bd",
+      "does": "use the directory gg was launched from"
+    },
+    {
+      "mode": "AirspacePath",
+      "heading": "",
+      "key": "ctrl\u002Bv",
+      "does": "paste the clipboard"
+    },
+    {
+      "mode": "AirspacePath",
+      "heading": "",
+      "key": "ctrl\u002Bo",
+      "does": "browse for a directory"
+    },
+    {
+      "mode": "AirspacePath",
+      "heading": "",
+      "key": "esc",
+      "does": "leave it as it is"
+    },
+    {
+      "mode": "ReadingEnvelope",
+      "heading": "",
+      "key": "d",
+      "does": "what would change"
+    },
+    {
+      "mode": "ReadingEnvelope",
+      "heading": "",
+      "key": "o",
+      "does": "the last apply"
+    },
+    {
+      "mode": "ReadingEnvelope",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "ReadingEnvelope",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ReadingChangeset",
+      "heading": "",
+      "key": "e",
+      "does": "the rules in force"
+    },
+    {
+      "mode": "ReadingChangeset",
+      "heading": "",
+      "key": "o",
+      "does": "the last apply"
+    },
+    {
+      "mode": "ReadingChangeset",
+      "heading": "",
+      "key": "x",
+      "does": "retire what is missing"
+    },
+    {
+      "mode": "ReadingChangeset",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "ReadingChangeset",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ReadingOutcome",
+      "heading": "",
+      "key": "d",
+      "does": "what would change"
+    },
+    {
+      "mode": "ReadingOutcome",
+      "heading": "",
+      "key": "e",
+      "does": "the rules in force"
+    },
+    {
+      "mode": "ReadingOutcome",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "ReadingOutcome",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ReadingSaid",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "ReadingSaid",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "AirspaceActions",
+      "heading": "while the airspace actions are open",
+      "key": "p",
+      "does": "pull the airspace"
+    },
+    {
+      "mode": "AirspaceActions",
+      "heading": "while the airspace actions are open",
+      "key": "s",
+      "does": "apply the airspace"
+    },
+    {
+      "mode": "AirspaceActions",
+      "heading": "while the airspace actions are open",
+      "key": "o",
+      "does": "what would change, and the last apply"
+    },
+    {
+      "mode": "AirspaceActions",
+      "heading": "while the airspace actions are open",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "c",
+      "does": "register a credential"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "p",
+      "does": "register one at the prompt"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "x",
+      "does": "forget one"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "m",
+      "does": "mint your key"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "t",
+      "does": "let this machine open one"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "b",
+      "does": "send one where it is needed"
+    },
+    {
+      "mode": "CredentialActions",
+      "heading": "while the credential actions are open",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "CredentialAudience",
+      "heading": "while a broadcast is being reviewed",
+      "key": "space",
+      "does": "pick this machine, or leave it out",
+      "when": "while the list is being read"
+    },
+    {
+      "mode": "CredentialAudience",
+      "heading": "while a broadcast is being reviewed",
+      "key": "enter",
+      "does": "go on",
+      "when": "while the list is being read"
+    },
+    {
+      "mode": "CredentialAudience",
+      "heading": "while a broadcast is being reviewed",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "CredentialAudience",
+      "heading": "while a broadcast is being reviewed",
+      "key": "enter",
+      "does": "send it",
+      "when": "once the list has been read"
+    },
+    {
+      "mode": "CredentialWhereabouts",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ConfirmRetire",
+      "heading": "",
+      "key": "y",
+      "does": "retire them"
+    },
+    {
+      "mode": "ConfirmRetire",
+      "heading": "",
+      "key": "esc",
+      "does": "leave the names as they are"
+    },
+    {
+      "mode": "FleetTokens",
+      "heading": "while reading the tenant\u0027s enrollment tokens",
+      "key": "x",
+      "does": "revoke this one"
+    },
+    {
+      "mode": "FleetTokens",
+      "heading": "while reading the tenant\u0027s enrollment tokens",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ConfirmRevoke",
+      "heading": "when asked whether to revoke one",
+      "key": "y",
+      "does": "revoke it"
+    },
+    {
+      "mode": "ConfirmRevoke",
+      "heading": "when asked whether to revoke one",
+      "key": "esc",
+      "does": "leave it live"
+    },
+    {
+      "mode": "ConfirmOwnership",
+      "heading": "when asked who may claim a machine",
+      "key": "y",
+      "does": "say so"
+    },
+    {
+      "mode": "ConfirmOwnership",
+      "heading": "when asked who may claim a machine",
+      "key": "esc",
+      "does": "leave it as it is"
+    },
+    {
+      "mode": "ConfirmFlyAgain",
+      "heading": "when asked whether to fly one again",
+      "key": "y",
+      "does": "open one on this intent"
+    },
+    {
+      "mode": "ConfirmFlyAgain",
+      "heading": "when asked whether to fly one again",
+      "key": "esc",
+      "does": "leave it alone"
+    },
+    {
+      "mode": "GateDecision",
+      "heading": "while answering a gate",
+      "key": "a",
+      "does": "approve"
+    },
+    {
+      "mode": "GateDecision",
+      "heading": "while answering a gate",
+      "key": "r",
+      "does": "reject"
+    },
+    {
+      "mode": "GateDecision",
+      "heading": "while answering a gate",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "GateDecision",
+      "heading": "while answering a gate",
+      "key": "s",
+      "does": "log the agent in",
+      "when": "when this gate is a runner\u0027s agent-login ask"
+    },
+    {
+      "mode": "BoardDetail",
+      "heading": "while a board row is open",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "BoardDetail",
+      "heading": "while a board row is open",
+      "key": "f",
+      "does": "go to the flight",
+      "when": "on a row that opened into one"
+    },
+    {
+      "mode": "BoardDetail",
+      "heading": "while a board row is open",
+      "key": "o",
+      "does": "open it",
+      "when": "on a standing nomination"
+    },
+    {
+      "mode": "BoardDetail",
+      "heading": "while a board row is open",
+      "key": "d",
+      "does": "decline it",
+      "when": "on a standing nomination"
+    },
+    {
+      "mode": "SignIn",
+      "heading": "",
+      "key": "y",
+      "does": "sign in"
+    },
+    {
+      "mode": "SignIn",
+      "heading": "",
+      "key": "esc",
+      "does": "carry on signed out"
+    },
+    {
+      "mode": "SignIn",
+      "heading": "",
+      "key": "o",
+      "does": "open in browser",
+      "when": "once a code is showing"
+    },
+    {
+      "mode": "SignIn",
+      "heading": "",
+      "key": "l",
+      "does": "copy the link",
+      "when": "once a code is showing"
+    },
+    {
+      "mode": "SignIn",
+      "heading": "",
+      "key": "c",
+      "does": "copy the code",
+      "when": "once a code is showing"
+    },
+    {
+      "mode": "ComposeChoice",
+      "heading": "",
+      "key": "w",
+      "does": "write it in your editor"
+    },
+    {
+      "mode": "ComposeChoice",
+      "heading": "",
+      "key": "m",
+      "does": "compose it with an agent"
+    },
+    {
+      "mode": "ComposeChoice",
+      "heading": "",
+      "key": "l",
+      "does": "plan its legs with an agent"
+    },
+    {
+      "mode": "ComposeChoice",
+      "heading": "",
+      "key": "s",
+      "does": "start a Claude Code agent"
+    },
+    {
+      "mode": "ComposeChoice",
+      "heading": "",
+      "key": "esc",
+      "does": "open nothing"
+    },
+    {
+      "mode": "WorkKindChoice",
+      "heading": "",
+      "key": "enter",
+      "does": "fly it for this"
+    },
+    {
+      "mode": "WorkKindChoice",
+      "heading": "",
+      "key": "l",
+      "does": "plan several flights with an agent"
+    },
+    {
+      "mode": "WorkKindChoice",
+      "heading": "",
+      "key": "s",
+      "does": "start a Claude Code agent"
+    },
+    {
+      "mode": "WorkKindChoice",
+      "heading": "",
+      "key": "tab",
+      "does": "kind / repositories"
+    },
+    {
+      "mode": "WorkKindChoice",
+      "heading": "",
+      "key": "esc",
+      "does": "open nothing"
+    },
+    {
+      "mode": "WorkKindChoice",
+      "heading": "",
+      "key": "space",
+      "does": "name it, or stop",
+      "when": "on the repositories tab"
+    },
+    {
+      "mode": "CredentialRepositoryChoice",
+      "heading": "",
+      "key": "enter",
+      "does": "send one for this"
+    },
+    {
+      "mode": "CredentialRepositoryChoice",
+      "heading": "",
+      "key": "esc",
+      "does": "send nothing"
+    },
+    {
+      "mode": "ModelChoice",
+      "heading": "when asked which model to move a flight to",
+      "key": "enter",
+      "does": "move it to this one"
+    },
+    {
+      "mode": "ModelChoice",
+      "heading": "when asked which model to move a flight to",
+      "key": "esc",
+      "does": "leave it where it is"
+    },
+    {
+      "mode": "BrowseFilter",
+      "heading": "",
+      "key": "enter",
+      "does": "pick this"
+    },
+    {
+      "mode": "BrowseFilter",
+      "heading": "",
+      "key": "v",
+      "does": "next criterion"
+    },
+    {
+      "mode": "BrowseFilter",
+      "heading": "",
+      "key": "b",
+      "does": "list the work again"
+    },
+    {
+      "mode": "BrowseFilter",
+      "heading": "",
+      "key": "x",
+      "does": "take the filter off"
+    },
+    {
+      "mode": "BrowseFilter",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "WorkItemDetail",
+      "heading": "",
+      "key": "v",
+      "does": "history, fields, flights, then actions"
+    },
+    {
+      "mode": "WorkItemDetail",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "WorkItemDetail",
+      "heading": "",
+      "key": "o",
+      "does": "open it in a browser"
+    },
+    {
+      "mode": "WorkItemDetail",
+      "heading": "",
+      "key": "l",
+      "does": "plan from it with an agent"
+    },
+    {
+      "mode": "WorkItemDetail",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "WorkItemDetail",
+      "heading": "",
+      "key": "f",
+      "does": "go to the flight",
+      "when": "on the flights tab, on a flight loaded here"
+    },
+    {
+      "mode": "FloorChoice",
+      "heading": "",
+      "key": "1",
+      "does": "keep a tenth back"
+    },
+    {
+      "mode": "FloorChoice",
+      "heading": "",
+      "key": "2",
+      "does": "keep a quarter back"
+    },
+    {
+      "mode": "FloorChoice",
+      "heading": "",
+      "key": "3",
+      "does": "keep half back"
+    },
+    {
+      "mode": "FloorChoice",
+      "heading": "",
+      "key": "0",
+      "does": "keep nothing back"
+    },
+    {
+      "mode": "FloorChoice",
+      "heading": "",
+      "key": "esc",
+      "does": "leave the floor as it is"
+    },
+    {
+      "mode": "Notifications",
+      "heading": "",
+      "key": "\u003E",
+      "does": "go to it"
+    },
+    {
+      "mode": "Notifications",
+      "heading": "",
+      "key": "x",
+      "does": "dismiss it"
+    },
+    {
+      "mode": "Notifications",
+      "heading": "",
+      "key": "esc",
+      "does": "put them down"
+    },
+    {
+      "mode": "Notifications",
+      "heading": "",
+      "key": "left",
+      "does": "previous",
+      "when": "with more than one notification"
+    },
+    {
+      "mode": "Notifications",
+      "heading": "",
+      "key": "right",
+      "does": "next",
+      "when": "with more than one notification"
+    },
+    {
+      "mode": "Watching",
+      "heading": "",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "Watching",
+      "heading": "",
+      "key": "esc",
+      "does": "back"
+    },
+    {
+      "mode": "ItineraryDetail",
+      "heading": "while a plan is open",
+      "key": "c",
+      "does": "copy"
+    },
+    {
+      "mode": "ItineraryDetail",
+      "heading": "while a plan is open",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "ItineraryDetail",
+      "heading": "while a plan is open",
+      "key": "t",
+      "does": "open the ticket",
+      "when": "on a plan about a ticket a reader here can read"
+    },
+    {
+      "mode": "ItineraryDetail",
+      "heading": "while a plan is open",
+      "key": "f",
+      "does": "go to the flight",
+      "when": "on a leg that opened into one"
+    },
+    {
+      "mode": "CredentialWizard",
+      "heading": "",
+      "key": "esc",
+      "does": "close"
+    },
+    {
+      "mode": "CredentialWizard",
+      "heading": "",
+      "key": "enter",
+      "does": "next",
+      "when": "when there is a list to pick from"
+    },
+    {
+      "mode": "CredentialWizard",
+      "heading": "",
+      "key": "left",
+      "does": "back",
+      "when": "after the first step"
+    },
+    {
+      "mode": "CredentialWizard",
+      "heading": "",
+      "key": "enter",
+      "does": "save",
+      "when": "on the review"
+    }
+  ]
+}
