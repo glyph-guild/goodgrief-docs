@@ -5,7 +5,7 @@ sidebar:
   order: 7
 ---
 
-A [work kind](/reference/glossary/#work-kind) is the rules for one kind of work, such as an investigation, a review or a change. It supplies how the agent works, what the work produces and where it lands, and it is chosen for a flight with `gg fly --work-kind`. Use this guide to write a new work kind, or to make a variant of an existing one.
+A [work kind](/reference/glossary/#work-kind) is the rules for one kind of work, such as an investigation, a review or a change. It supplies how the agent works, what the work produces and where it lands, and it is chosen for a flight with `gg fly --work-kind`. A flight opened without one runs under the organisation's `implement` work kind, or under root alone when there is none. Use this guide to write a new work kind, or to make a variant of an existing one.
 
 Each field is described in full in [The envelope](/concepts/envelope/). This page shows how the fields fit together in one file.
 

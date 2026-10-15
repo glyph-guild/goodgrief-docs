@@ -17,6 +17,7 @@ export default defineConfig({
 				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
 				{ label: 'Concepts', items: [{ autogenerate: { directory: 'concepts' } }] },
 				{ label: 'Reference', items: [{ autogenerate: { directory: 'reference' } }] },
+				{ label: 'Troubleshooting', items: [{ autogenerate: { directory: 'troubleshooting' } }] },
 				{ label: 'Contributing', items: [{ autogenerate: { directory: 'contributing' } }] },
 			],
 		}),
