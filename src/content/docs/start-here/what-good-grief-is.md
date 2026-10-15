@@ -1,11 +1,13 @@
 ---
 title: What Good Grief is
-description: Good Grief lets AI agents do real work in repositories, under rules an organisation sets, with a person deciding wherever it matters.
+description: Good Grief is an orchestration framework for AI agents, in which an organisation defines kinds of work that run on a schedule or on request under a formal, managed set of rules.
 sidebar:
   order: 1
 ---
 
-Good Grief lets AI agents do real work in an organisation's repositories, such as investigating a bug, planning a change or making one. The organisation sets the rules for that work, and a person makes the decisions that matter.
+Good Grief is an orchestration framework for AI agents. An organisation defines the kinds of work its agents do, and each kind can run on a regular schedule or be started by hand. All work follows a formal, managed set of rules: what an agent may do, how long it may take, what a person must approve, and where the result may go.
+
+Its first use is software development, such as investigating a bug or building a feature in an organisation's repositories. The same framework can orchestrate other kinds of work.
 
 All of it happens through **gg**, a single command-line tool. gg has two roles:
 
