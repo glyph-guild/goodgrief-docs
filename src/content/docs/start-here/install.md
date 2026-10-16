@@ -1,27 +1,29 @@
 ---
 title: Install gg
-description: Install the gg command on a laptop running macOS, Linux or Windows, pinned to a chosen release, and check that it works.
+description: Install the newest release of the gg command on a laptop running macOS, Linux or Windows, and check that it works.
 sidebar:
   order: 3
 ---
 
 gg is a single command-line program. The same program opens the [console](/reference/glossary/#console) and, on a machine set up for it, works as a [runner](/reference/glossary/#runner). This page installs it on a laptop: the program and nothing running. Making a machine a runner is a different install, described in [Run a runner](/guides/run-a-runner/).
 
-The examples on this page install gg 0.88.39. Replace that number with the release the organisation uses.
+The commands on this page install the newest release of gg. The installers always install one exact version, so each command first looks up which release is the newest and then installs that one.
 
-## Why a version, not the newest
+## Installing a particular release
 
-Every install command names an exact release, and the installers refuse to run without one, so a machine runs a release somebody chose rather than whichever one was published last.
+To install a particular release instead, such as the one the rest of the organisation runs, replace the first line with that version: `v=<version>` on macOS and Linux, or `$v='<version>'` on Windows. The [releases page](https://github.com/glyph-guild/gg/releases) lists every release.
 
 ## macOS or Linux
 
 Run:
 
 ```sh
-v=0.88.39
+v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
 curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
   | sudo sh -s -- --version $v
 ```
+
+The first line asks GitHub which release is the newest; the second downloads that release's installer and runs it.
 
 The installer:
 
@@ -43,7 +45,7 @@ gg login
 In PowerShell, run:
 
 ```powershell
-$v='0.88.39'
+$v=(irm https://api.github.com/repos/glyph-guild/gg/releases/latest).tag_name.TrimStart('v')
 & ([scriptblock]::Create((irm https://github.com/glyph-guild/gg/releases/download/v$v/install.ps1))) -Version $v
 ```
 
@@ -56,6 +58,7 @@ On Windows, gg is a command-line tool only. Every command works, but running `gg
 At least one other program, a Git interface, is also called `gg`. If a different program already sits where the installer would put its link, the installer stops rather than replace it, and asks for another name. To answer in advance, for example on a machine with nobody at the keyboard, pass `--as`:
 
 ```sh
+v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
 curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
   | sudo sh -s -- --version $v --as goodgrief
 ```
@@ -68,17 +71,16 @@ A runner is always installed as `gg`, because its service runs `/usr/local/bin/g
 
 ## By hand
 
-To see every step, download the release archive and install the files directly. On Linux, for example:
+To see every step, download the newest release's archive and install the files directly. On Linux, for example:
 
 ```sh
-v=0.88.39
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/gg-linux-x64.tar.gz | tar xz
+curl -fsSL https://github.com/glyph-guild/gg/releases/latest/download/gg-linux-x64.tar.gz | tar xz
 sudo install -m 0755 gg /usr/local/bin/gg
 sudo install -m 0644 libporta_pty.so libonigwrap.so /usr/local/bin/
 gg --version
 ```
 
-A release carries archives for `linux-x64`, `linux-arm64`, `osx-arm64`, `osx-x64` and `win-x64`. Choose the archive for the machine, and on macOS use `.dylib` in place of `.so`.
+To download a particular release instead, replace `latest/download` with `download/v<version>`. A release carries archives for `linux-x64`, `linux-arm64`, `osx-arm64`, `osx-x64` and `win-x64`. Choose the archive for the machine, and on macOS use `.dylib` in place of `.so`.
 
 **Both `install` lines are required.** gg loads its two native libraries from its own directory, which is why they go beside the binary. It loads them the first time they are needed, not at startup. Without them, gg starts and runs normally, then opens the editor without the gg bar along the top. At that point it names the missing file.
 
@@ -89,15 +91,14 @@ Unlike the installer, this route does not check the release's build attestation.
 On a machine that already has the .NET SDK, gg can be installed from nuget.org:
 
 ```sh
-v=0.88.39
-sudo dotnet tool install GlyphGuild.Gg.Cli --version $v --tool-path /usr/local/lib/gg
+sudo dotnet tool install GlyphGuild.Gg.Cli --tool-path /usr/local/lib/gg
 sudo ln -sf /usr/local/lib/gg/gg /usr/local/bin/gg
 ```
 
 The package is called `GlyphGuild.Gg.Cli` because the name `gg` is taken on nuget.org. The command it installs is still `gg`.
 
 - **`--tool-path`, not `-g`.** A global install lands in the home directory of whoever ran it. On a runner, that is the account the runner runs as, which could then rewrite its own program.
-- **`--version`.** A tool installed without one takes whatever reached nuget.org last.
+- **`--version <version>`** installs a particular release. Without it, the newest release on nuget.org is installed.
 
 ## Check the install
 
