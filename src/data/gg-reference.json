@@ -1,308 +1,308 @@
 {
-  "version": "0.88.39\u002B5b5e8c7a613fa2500f361680b53874940d812f39",
+  "version": "0.88.44\u002B028a590b0a2942fbc68e1043f4e3161ba2d970e2",
   "commands": [
     {
       "usage": "gg",
-      "summary": "the console",
+      "summary": "open the console",
       "options": []
     },
     {
       "usage": "gg fly \u003Ctext\u003E|--uri \u003Curi\u003E|--ticket \u003Cprovider\u003E#\u003Cid\u003E",
-      "summary": "open a flight",
+      "summary": "open a flight (a piece of work an agent carries out)",
       "options": [
         {
           "usage": "--repo \u003Cname\u003E",
-          "summary": "which repository it is about, by its registered name"
+          "summary": "the repository it is about, by its registered name"
         },
         {
           "usage": "--runner \u003Cid|name\u003E",
-          "summary": "open it for one machine"
+          "summary": "run it on one named machine only"
         },
         {
           "usage": "--work-kind \u003Cname\u003E",
-          "summary": "which work kind\u0027s rules govern it"
+          "summary": "the work kind whose rules govern it"
         },
         {
           "usage": "--environment \u003Cname\u003E",
-          "summary": "which charted environment it runs in"
+          "summary": "the charted environment it runs in"
         },
         {
           "usage": "--model \u003Cname\u003E",
-          "summary": "which model it runs on, from root\u0027s models:"
+          "summary": "the model it runs on; gg airspace show lists them"
         },
         {
           "usage": "--attended",
-          "summary": "and watch it from wherever you are"
+          "summary": "say that a person will watch it while it runs"
         },
         {
           "usage": "--file \u003Crepo\u003E:\u003Cpath\u003E[@ref]",
-          "summary": "about a file in a registered repository, read by the runner"
+          "summary": "work from a file in a registered repository, which the runner reads"
         }
       ]
     },
     {
-      "usage": "gg flights [--all] [--intent \u003Cprovider\u003E#\u003Cid\u003E|\u003Curi\u003E|\u003Crepo\u003E:\u003Cpath\u003E]",
-      "summary": "flights in the air, or every one",
+      "usage": "gg flights [--all] [--intent \u003Cprovider\u003E#\u003Cid\u003E|\u003Curi\u003E|\u003Crepo\u003E:\u003Cpath\u003E] [--kind \u003Cwork kind\u003E]",
+      "summary": "list flights in progress, or every flight with --all",
       "options": [
         {
           "usage": "--limit \u003Crows\u003E --after \u003Ccursor\u003E",
-          "summary": "one page of them, and where to carry on"
+          "summary": "show one page, and continue from the cursor it prints"
         }
       ]
     },
     {
       "usage": "gg show \u003Cflight\u003E",
-      "summary": "one flight, by GG-42 or by id",
+      "summary": "show one flight, by number (GG-42) or by id",
       "options": []
     },
     {
       "usage": "gg log \u003Cflight\u003E",
-      "summary": "a flight\u0027s log",
+      "summary": "show a flight\u0027s log",
       "options": []
     },
     {
       "usage": "gg facts \u003Cflight\u003E",
-      "summary": "what a flight recorded, and which budget held it",
+      "summary": "show what a flight recorded, and the budget each item counted against",
       "options": []
     },
     {
       "usage": "gg runners",
-      "summary": "the runners this tenant has",
+      "summary": "list this organisation\u0027s runners",
       "options": []
     },
     {
       "usage": "gg watches [--limit \u003Crows\u003E] [--after \u003Ccursor\u003E]",
-      "summary": "how each watch is doing: executor, last report, cost",
+      "summary": "show how each watch is doing: executor, last report, cost",
       "options": []
     },
     {
       "usage": "gg plan [flight]",
-      "summary": "what must hold before a flight can start",
+      "summary": "show what must be true before a flight can start",
       "options": []
     },
     {
       "usage": "gg itinerary check \u003Cfile\u003E",
-      "summary": "what admission would do with each leg of a plan",
+      "summary": "check a plan file and show what would happen to each leg",
       "options": []
     },
     {
       "usage": "gg itinerary propose \u003Cfile\u003E",
-      "summary": "propose a plan; nothing opens until its gate is answered",
+      "summary": "propose a plan; nothing starts until a person answers its gate",
       "options": []
     },
     {
       "usage": "gg itinerary tools [--draft \u003Cname\u003E]",
-      "summary": "a tool server any Claude Code session drafts a plan with",
+      "summary": "run a tool server that a Claude Code session drafts a plan with",
       "options": []
     },
     {
       "usage": "gg manage tools",
-      "summary": "gg\u0027s management layer as tools for a Claude Code session",
+      "summary": "run gg\u0027s management commands as tools for a Claude Code session",
       "options": []
     },
     {
       "usage": "gg mux mark \u003Cworking|waiting|notification\u003E",
-      "summary": "what a mux agent\u0027s own hooks run; always exits 0",
+      "summary": "record an agent\u0027s state for the mux; its hooks run this, and it always exits 0",
       "options": []
     },
     {
       "usage": "gg itineraries [--intent \u003Ckey\u003E] [--limit \u003Crows\u003E] [--after \u003Ccursor\u003E]",
-      "summary": "every plan here, and its legs",
+      "summary": "list every plan and its legs",
       "options": []
     },
     {
       "usage": "gg itinerary show \u003CITN-n\u003E",
-      "summary": "one plan, and every leg of it in full",
+      "summary": "show one plan and every leg in full",
       "options": [
         {
           "usage": "--print-registration",
-          "summary": "the \u0060claude mcp add\u0060 line that registers it"
+          "summary": "print the \u0060claude mcp add\u0060 line that registers it"
         }
       ]
     },
     {
       "usage": "gg gates",
-      "summary": "flights stopped, waiting on somebody",
+      "summary": "list flights waiting for a person to decide (gates)",
       "options": []
     },
     {
       "usage": "gg board [--all] [--limit \u003Crows\u003E] [--after \u003Ccursor\u003E]",
-      "summary": "what has been nominated and needs somebody",
+      "summary": "list proposed work (nominations) waiting for a person",
       "options": []
     },
     {
       "usage": "gg board open \u003Cid\u003E \u003Cwhy\u003E",
-      "summary": "turn a standing nomination into a flight",
+      "summary": "turn a waiting nomination into a flight",
       "options": []
     },
     {
       "usage": "gg board decline \u003Cid\u003E \u003Cwhy\u003E",
-      "summary": "say it is not going to be one",
+      "summary": "decline a waiting nomination",
       "options": []
     },
     {
       "usage": "gg why \u003Cflight\u003E [obligation]",
-      "summary": "why a flight is stopped, and what would open it",
+      "summary": "explain why a flight is stopped, and what would let it continue",
       "options": []
     },
     {
       "usage": "gg decide \u003Cflight\u003E \u003Cobligation\u003E \u003Coutcome\u003E [reason]",
-      "summary": "open a gate, or refuse it",
+      "summary": "answer a gate: let the flight continue, or turn it down",
       "options": []
     },
     {
       "usage": "gg ground \u003Cflight\u003E \u003Cwhy\u003E",
-      "summary": "stop a flight that could still have been done",
+      "summary": "stop a flight for good and record why",
       "options": []
     },
     {
       "usage": "gg model \u003Cflight\u003E \u003Cmodel\u003E",
-      "summary": "move a flight in the air to another model root lists",
+      "summary": "move a flight in progress to another model; gg airspace show lists them",
       "options": []
     },
     {
       "usage": "gg take \u003Cflight\u003E [--return \u003Coutcome\u003E [--note \u003Cnote\u003E]]",
-      "summary": "take a flight over, and hand it back",
+      "summary": "take over a flight in person, and hand it back",
       "options": []
     },
     {
       "usage": "gg runner labels",
-      "summary": "what each runner advertises, with its disposition",
+      "summary": "show what each runner advertises, and its disposition",
       "options": []
     },
     {
       "usage": "gg runner retire \u003Cid|name\u003E",
-      "summary": "take a runner out of the fleet, for good",
+      "summary": "remove a runner from the fleet permanently",
       "options": []
     },
     {
       "usage": "gg tenant name \u003Cname\u003E",
-      "summary": "what this tenant is called; only somebody who administers it may say",
+      "summary": "rename this organisation; only an administrator can do this",
       "options": []
     },
     {
       "usage": "gg fleet enroll --profile \u003Cname\u003E --uses \u003Cn\u003E --expires \u003Cduration\u003E [--tenant | --claim [--reserve]]",
-      "summary": "a token some machines may join with, shown once",
+      "summary": "create a token that lets machines join the fleet; it is shown once",
       "options": []
     },
     {
       "usage": "gg fleet tokens",
-      "summary": "this tenant\u0027s enrollment tokens, without their secrets",
+      "summary": "list this organisation\u0027s enrollment tokens, without their secrets",
       "options": []
     },
     {
       "usage": "gg fleet revoke \u003Cid\u003E",
-      "summary": "an enrollment token enrolls nothing more",
+      "summary": "stop an enrollment token from enrolling any more machines",
       "options": []
     },
     {
       "usage": "gg runner claim|unclaim \u003Cid|name\u003E",
-      "summary": "make a machine yours, or give it back",
+      "summary": "take ownership of a machine, or give it up",
       "options": []
     },
     {
       "usage": "gg runner reserve|release \u003Cid\u003E",
-      "summary": "keep your machine to your own flights, or not",
+      "summary": "keep an owned machine for its owner\u0027s flights only, or undo that",
       "options": []
     },
     {
       "usage": "gg runner ownership \u003Cid\u003E tenant|open",
-      "summary": "an admin\u0027s word: nobody\u0027s to claim, or anybody\u0027s",
+      "summary": "administrators: give a machine to the organisation, or open it to anyone to claim",
       "options": []
     },
     {
       "usage": "gg runner watch \u003Cid|name\u003E",
-      "summary": "watch it, and whatever it flies next",
+      "summary": "watch a runner live, and the flights it takes next",
       "options": []
     },
     {
       "usage": "gg runner repin \u003Cid\u003E",
-      "summary": "trust a runner\u0027s key again after it changed",
+      "summary": "trust a runner\u0027s new key after it changed",
       "options": []
     },
     {
       "usage": "gg invite",
-      "summary": "a link that makes somebody a second principal here",
+      "summary": "create a link that adds another person to this organisation",
       "options": []
     },
     {
       "usage": "gg credential add --repo \u003Cslug\u003E|--agent \u003Cname\u003E|--tracker \u003Ckey\u003E|--analysis \u003Ckey\u003E",
-      "summary": "register a credential for what it is actually for; the value is prompted for and never an argument",
+      "summary": "register a credential for one repository, agent, tracker or analysis service; gg asks for the value",
       "options": []
     },
     {
       "usage": "gg credential send --repo \u003Cslug\u003E|--agent \u003Cname\u003E|--tracker \u003Ckey\u003E|--analysis \u003Ckey\u003E",
-      "summary": "send it to every machine your fleet profiles say needs it; the list is printed before anything moves",
+      "summary": "send a credential to every machine whose fleet profile needs it; gg prints the list before sending",
       "options": []
     },
     {
       "usage": "gg credential send --runner \u003Cid|name\u003E --repo \u003Cslug\u003E|--agent \u003Cname\u003E|--tracker \u003Ckey\u003E|--analysis \u003Ckey\u003E",
-      "summary": "put one on a machine that cannot be reached any other way",
+      "summary": "send a credential to one machine that cannot be reached any other way",
       "options": []
     },
     {
       "usage": "gg key create",
-      "summary": "mint this person\u0027s key; the passphrase is prompted for",
+      "summary": "create a key for the signed-in person; gg asks for the passphrase",
       "options": []
     },
     {
       "usage": "gg key list",
-      "summary": "the public keys this tenant\u0027s people have registered",
+      "summary": "list the public keys people in this organisation have registered",
       "options": []
     },
     {
       "usage": "gg credential list",
-      "summary": "the references the control plane holds",
+      "summary": "list the credential references the control plane stores",
       "options": []
     },
     {
       "usage": "gg credential rm \u003Cid\u003E",
-      "summary": "forget one, here and there",
+      "summary": "delete a credential from this machine and the control plane",
       "options": []
     },
     {
       "usage": "gg credential trust-this-machine \u003Clocator\u003E",
-      "summary": "let THIS machine open a credential sealed to you, so a flight here can resolve it with nobody present",
+      "summary": "let this machine open a credential sealed to the signed-in person, so flights here can use it with nobody present",
       "options": []
     },
     {
       "usage": "gg agent login --runner \u003Cid|name\u003E [--agent \u003Cname\u003E]",
-      "summary": "log a runner\u0027s agent in from here: it runs the ceremony, you visit the URL and bring back the code",
+      "summary": "sign a runner\u0027s agent in from this machine: gg starts the sign-in, then a person opens the URL and enters the code here",
       "options": []
     },
     {
       "usage": "gg airspace show|pull|diff|apply",
-      "summary": "its names, and its working copy",
+      "summary": "show the airspace\u0027s names, and sync its working copy",
       "options": [
         {
           "usage": "apply --declare-names",
-          "summary": "declare names it needs, under root, first"
+          "summary": "declare any names it needs first, under root"
         }
       ]
     },
     {
       "usage": "gg airspace retire \u003Cname\u003E",
-      "summary": "retire a name - always opens a gate",
+      "summary": "retire a name; a person must answer a gate first",
       "options": []
     },
     {
       "usage": "gg airspace name \u003Crole\u003E \u003Cname\u003E [--under \u003Cparent\u003E]",
-      "summary": "declare a name a document can reach",
+      "summary": "declare a name that a document can refer to",
       "options": []
     },
     {
       "usage": "gg airspace name watch \u003Cname\u003E --personal",
-      "summary": "declare a watch that is yours alone; its gate is yours",
+      "summary": "declare a watch for one person only; that person answers its gate",
       "options": []
     },
     {
       "usage": "gg airspace repositories add --name \u003Cn\u003E --provider \u003Cp\u003E --id \u003Cid\u003E --path \u003Cpath\u003E [--ref \u003Cref\u003E] [--credential required|none] [--narrowings \u003Cdir\u003E]",
-      "summary": "make a repository nameable - a new one rides a gate",
+      "summary": "register a repository so flights can name it; a new one needs a gate answered",
       "options": []
     },
     {
       "usage": "gg envelope show",
-      "summary": "the rules governing this tenant\u0027s flights",
+      "summary": "show the rules (envelope) that govern this organisation\u0027s flights",
       "options": []
     },
     {
@@ -312,32 +312,32 @@
     },
     {
       "usage": "gg strategy build \u003Cname\u003E",
-      "summary": "build the strategy\u0027s recipe; the pin moves when it lands",
+      "summary": "build a strategy\u0027s recipe; the strategy uses the build once it finishes",
       "options": []
     },
     {
       "usage": "gg environment chart \u003Cname\u003E [--means \u003Cpredicate\u003E]",
-      "summary": "chart one, so an envelope may select it - rides a gate",
+      "summary": "chart an environment so an envelope can select it; needs a gate answered",
       "options": []
     },
     {
       "usage": "gg environments",
-      "summary": "every environment name an envelope may select",
+      "summary": "list every environment an envelope can select",
       "options": []
     },
     {
       "usage": "gg strategies",
-      "summary": "what furnishes each of them, and inside which bounds",
+      "summary": "list what provides each environment, and within which limits",
       "options": []
     },
     {
       "usage": "gg pools",
-      "summary": "what each managed pool last attested, and when",
+      "summary": "show what each managed pool last reported about itself, and when",
       "options": []
     },
     {
       "usage": "gg envelope apply \u003Cfile\u003E|-",
-      "summary": "write them back",
+      "summary": "send a changed envelope to the control plane",
       "options": []
     },
     {
@@ -347,12 +347,12 @@
     },
     {
       "usage": "gg config show",
-      "summary": "every setting, and where its value came from",
+      "summary": "show every setting, and where its value came from",
       "options": []
     },
     {
       "usage": "gg config init",
-      "summary": "write a file seeded from what is in force",
+      "summary": "write a settings file from the values in use now",
       "options": []
     },
     {
@@ -367,37 +367,37 @@
     },
     {
       "usage": "gg config offered",
-      "summary": "what your control plane offers this machine",
+      "summary": "show what the control plane offers this machine",
       "options": []
     },
     {
       "usage": "gg config accept \u003Cversion\u003E",
-      "summary": "take the offer you just read, by version",
+      "summary": "accept an offer, by its version",
       "options": []
     },
     {
       "usage": "gg allowance",
-      "summary": "what the allowance this machine spends from has left",
+      "summary": "show what is left of the allowance this machine spends from",
       "options": []
     },
     {
       "usage": "gg allowances",
-      "summary": "what every allowance in the fleet has left",
+      "summary": "show what is left of every allowance in the fleet",
       "options": []
     },
     {
       "usage": "gg allowances report",
-      "summary": "tell the fleet what this machine\u0027s meter says",
+      "summary": "report this machine\u0027s usage meter to the fleet",
       "options": []
     },
     {
       "usage": "gg allowances floor \u003Cname\u003E [--session \u003Cpct\u003E] [--week \u003Cpct\u003E] | --clear",
-      "summary": "keep a share back",
+      "summary": "reserve a share of an allowance",
       "options": []
     },
     {
       "usage": "gg allowances override \u003Cname\u003E --minutes \u003Cn\u003E --reason \u003Cwhy\u003E",
-      "summary": "spend somebody\u0027s floor",
+      "summary": "spend from a share another person reserved",
       "options": []
     },
     {
@@ -407,17 +407,17 @@
     },
     {
       "usage": "gg update",
-      "summary": "whether this gg is behind, and what would move it",
+      "summary": "check whether a newer gg exists, and how to install it",
       "options": []
     },
     {
       "usage": "gg bundle",
-      "summary": "a redacted diagnostics bundle to send us",
+      "summary": "create a redacted diagnostics bundle for the Good Grief team",
       "options": []
     },
     {
       "usage": "gg reference --json",
-      "summary": "every command and console key, as the docs site reads them",
+      "summary": "print every command and console key as JSON, for the docs site",
       "options": []
     },
     {
@@ -427,37 +427,37 @@
     },
     {
       "usage": "gg logout",
-      "summary": "forget the session here",
+      "summary": "sign out on this machine",
       "options": []
     },
     {
       "usage": "gg whoami",
-      "summary": "who this machine is signed in as",
+      "summary": "show who this machine is signed in as",
       "options": []
     },
     {
       "usage": "gg admin grant \u003Cprincipal\u003E",
-      "summary": "make somebody an administrator of this tenant",
+      "summary": "make a person an administrator of this organisation",
       "options": []
     },
     {
       "usage": "gg admin revoke \u003Cprincipal\u003E",
-      "summary": "take it back",
+      "summary": "remove a person\u0027s administrator role",
       "options": []
     },
     {
       "usage": "gg runner up",
-      "summary": "take work on this machine",
+      "summary": "start a runner so this machine takes work",
       "options": []
     },
     {
       "usage": "gg runner maintain \u003Cpool\u003E",
-      "summary": "keep a managed pool warm, reset and attested",
+      "summary": "keep a managed pool ready: warm, reset and checked",
       "options": []
     },
     {
       "usage": "gg service install --control-plane \u003Curl\u003E [--enroll] [--user \u003Cname\u003E] [--agent-binary \u003Cpath\u003E]",
-      "summary": "make this machine\u0027s runner a service",
+      "summary": "install this machine\u0027s runner as a system service",
       "options": []
     },
     {
@@ -467,7 +467,7 @@
     },
     {
       "usage": "gg version",
-      "summary": "binary, protocol and fact vocabulary",
+      "summary": "show the binary, protocol and fact vocabulary versions",
       "options": []
     }
   ],
@@ -736,14 +736,14 @@
       "heading": "",
       "key": "t",
       "does": "take over",
-      "when": "when the flight has a tree somebody is holding"
+      "when": "when this machine has the flight\u0027s working tree"
     },
     {
       "mode": "Normal",
       "heading": "",
       "key": "h",
       "does": "hand back",
-      "when": "after you have taken it"
+      "when": "after taking it over"
     },
     {
       "mode": "Normal",
@@ -862,7 +862,7 @@
       "heading": "",
       "key": "o",
       "does": "keep a share back",
-      "when": "on your own machine\u0027s allowance, on the runners tab"
+      "when": "on this machine\u0027s allowance, on the runners tab"
     },
     {
       "mode": "Normal",
@@ -1159,15 +1159,15 @@
       "mode": "Runner",
       "heading": "",
       "key": "o",
-      "does": "hold it back for the tenant",
+      "does": "keep it for organisation work",
       "when": "over a machine whose control plane says whose it is"
     },
     {
       "mode": "Runner",
       "heading": "",
       "key": "h",
-      "does": "hold it to your own flights",
-      "when": "over a machine somebody has claimed"
+      "does": "reserve it for its owner\u0027s flights",
+      "when": "over a claimed machine"
     },
     {
       "mode": "Runner",
@@ -1431,7 +1431,7 @@
       "mode": "CredentialActions",
       "heading": "while the credential actions are open",
       "key": "m",
-      "does": "mint your key"
+      "does": "create a personal key"
     },
     {
       "mode": "CredentialActions",
@@ -1498,13 +1498,13 @@
     },
     {
       "mode": "FleetTokens",
-      "heading": "while reading the tenant\u0027s enrollment tokens",
+      "heading": "while reading enrollment tokens",
       "key": "x",
       "does": "revoke this one"
     },
     {
       "mode": "FleetTokens",
-      "heading": "while reading the tenant\u0027s enrollment tokens",
+      "heading": "while reading enrollment tokens",
       "key": "esc",
       "does": "close"
     },
@@ -1633,7 +1633,7 @@
       "mode": "ComposeChoice",
       "heading": "",
       "key": "w",
-      "does": "write it in your editor"
+      "does": "write it in the editor"
     },
     {
       "mode": "ComposeChoice",

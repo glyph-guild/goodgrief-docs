@@ -91,9 +91,8 @@ In the console, `t` on the runners tab lists the tokens, and `x` revokes the sel
 To type it at a prompt, add `--enroll`. The token is not echoed:
 
 ```sh
-v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
-  | sudo sh -s -- --version $v \
+curl -fsSL https://goodgrief.dev/install.sh \
+  | sudo sh -s -- \
       --control-plane <url> \
       --agent-binary /usr/local/bin/claude \
       --enroll
@@ -104,8 +103,8 @@ For a machine with no terminal, put the token in a file only the installing acco
 ```sh
 umask 077
 printf '%s' '<token>' > /tmp/enroll
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
-  | sudo sh -s -- --version $v \
+curl -fsSL https://goodgrief.dev/install.sh \
+  | sudo sh -s -- \
       --control-plane <url> \
       --agent-binary /usr/local/bin/claude \
       --enroll-file /tmp/enroll
