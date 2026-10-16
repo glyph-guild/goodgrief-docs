@@ -57,7 +57,7 @@ irm https://goodgrief.dev/install.ps1 | iex
 
 The Windows installer installs for the current user only and needs no administrator rights. To pass options such as `-ControlPlane <url>` or `-Version <version>`, run it as a script block instead: `& ([scriptblock]::Create((irm https://goodgrief.dev/install.ps1))) -ControlPlane <url>`.
 
-On Windows, gg is a command-line tool only. Every command works, but running `gg` with no arguments does not open the console, because the terminal features the console needs are not yet available there.
+On Windows, running `gg` with no arguments opens the console, as on macOS and Linux, in Windows Terminal or the Windows console window. This needs release 0.88.45 or later; an older release on Windows is a command-line tool only, and `gg update` moves it to the newest release.
 
 ## When another program is called gg
 

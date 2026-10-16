@@ -126,7 +126,7 @@ What gg does with those bytes:
 - **Nothing is written to disk.** A test fails if the hosting code contains any file-writing call.
 - **Nothing is sent anywhere.** The hosting code makes no network calls and opens no credentials. It starts the editor, reads its output, draws it, and restores the terminal.
 
-When the editor exits, however it exits, gg restores the terminal's settings as it found them. On a machine where gg cannot host the editor, such as Windows or when its output is piped, gg hands the terminal to the editor directly and says so.
+When the editor exits, however it exits, gg restores the terminal's settings as it found them. Where gg cannot host the editor, such as when its output is piped, gg hands the terminal to the editor directly and says so.
 
 ## What a person can audit
 

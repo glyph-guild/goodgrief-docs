@@ -7,7 +7,7 @@ sidebar:
 
 The [console](/reference/glossary/#console) is the terminal application that opens when `gg` is run with no arguments. It shows what is waiting on a person, every [flight](/reference/glossary/#flight), the organisation's machines and more, and every action in it has a key. It also holds AI agent sessions beside gg itself, so a person can work with several agents and switch between them and gg without leaving the terminal. This page covers the keys needed to find the way around. [Console keys](/reference/console-keys/) lists all of them.
 
-The console needs a signed-in machine; [Sign in](/start-here/sign-in/) covers that. If nobody is signed in when the console opens, it offers to sign in. The console is not available on Windows, where gg is a command-line tool only.
+The console needs a signed-in machine; [Sign in](/start-here/sign-in/) covers that. If nobody is signed in when the console opens, it offers to sign in. The console runs on macOS, Linux and Windows.
 
 To open it, run:
 
@@ -148,7 +148,7 @@ Some actions hand the terminal to the editor named by `$EDITOR`, such as writing
  gg · editing — save and quit to come back
 ```
 
-This means everything typed into the editor, and everything it draws, passes through gg. gg stores none of it, writes none of it to disk, puts none of it in a diagnostics bundle, and sends none of it off the machine. When the editor exits, gg restores the terminal exactly as it was. Where gg cannot host the editor this way, such as behind a pipe or on Windows, it opens the editor directly and says so.
+This means everything typed into the editor, and everything it draws, passes through gg. gg stores none of it, writes none of it to disk, puts none of it in a diagnostics bundle, and sends none of it off the machine. When the editor exits, gg restores the terminal exactly as it was. Where gg cannot host the editor this way, such as behind a pipe, it opens the editor directly and says so.
 
 ## Next steps
 

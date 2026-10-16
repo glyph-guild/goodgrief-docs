@@ -116,7 +116,7 @@ Sessions on another machine behave differently. Leaving one lets go of it withou
 - gg holds at most nine agents. Every way of starting another says so instead.
 - One agent is on screen at a time. There are no split panes.
 - gg has no scrollback or copy mode of its own.
-- The multiplexer needs a Unix terminal: it runs on macOS and Linux. On Windows, gg is a command-line tool only.
+- The multiplexer needs a terminal gg can take over. It runs on macOS, Linux and Windows (release 0.88.45 or later), and not when gg's output is piped.
 - Every repaint draws the whole screen.
 - The terminal libraries gg uses ship beside the gg binary. [Install gg](/start-here/install/) covers installing them.
 
