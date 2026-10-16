@@ -32,10 +32,10 @@ To see the plan without running it, run `gg update --json`, which prints the ins
 
 ### Installed with the installer (macOS and Linux)
 
-Run the installer again with the newer version:
+Run the installer again; the first line looks up the newest release:
 
 ```sh
-v=<new-version>
+v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
 curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
   | sudo sh -s -- --version $v
 ```
@@ -59,17 +59,17 @@ Repeat the steps in [Install gg: by hand](/start-here/install/#by-hand) with the
 `gg update` clears the local package cache, so that a newly published release is not reported as missing, then runs:
 
 ```sh
-sudo dotnet tool update GlyphGuild.Gg.Cli --version <new-version> --tool-path /usr/local/lib/gg
+sudo dotnet tool update GlyphGuild.Gg.Cli --version <version> --tool-path /usr/local/lib/gg
 ```
 
-The same command can be run by hand. Always give `--version`: without it, `dotnet` takes whatever reached nuget.org last.
+To update by hand to the newest release, run the same command without `--version`.
 
 ### Windows
 
 Run the installer again in PowerShell with the newer version:
 
 ```powershell
-$v='<new-version>'
+$v=(irm https://api.github.com/repos/glyph-guild/gg/releases/latest).tag_name.TrimStart('v')
 & ([scriptblock]::Create((irm https://github.com/glyph-guild/gg/releases/download/v$v/install.ps1))) -Version $v
 ```
 
