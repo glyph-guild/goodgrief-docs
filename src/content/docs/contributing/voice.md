@@ -28,9 +28,9 @@ Every error or refusal ends with a next step: a command, a setting, or a person 
 
 The model is `gg doctor`. Each check gives a **detail** that states what is true, followed by a **fix** that states exactly what to do:
 
-> no agent binary is configured, so this machine will claim flights and never invoke an agent
+> **detail:** no agent binary is configured, so this machine will take flights and never start an agent
 >
-> Fix: Set GG_EXECUTOR_BINARY to the agent binary this machine should run.
+> **fix:** Run `gg config set executor-binary <path>`, or set GG_EXECUTOR_BINARY for this shell only.
 
 ### 2. Give reasons only when they change what the reader does
 
@@ -53,41 +53,42 @@ On these pages, link each term to the [glossary](/reference/glossary/) the first
 
 Do not show class or type names, exception text, internal rule names or design-document numbers. If a message has nothing for the reader to act on, it should say what was not changed and how to get help.
 
-### 5. Write as a colleague, not a court
+### 5. State facts without judgement
 
-State facts plainly, without judgement. Do not presume why the reader did something, and do not lecture. "A reason is required" is enough; there is no need to explain what a poor reason looks like.
+State facts plainly. Do not presume why the reader did something, and do not lecture. "A reason is required" is enough; there is no need to explain what a poor reason looks like.
 
 ### 6. Mechanics
 
 - Messages are full sentences that start with a capital letter and end with a full stop.
+- Labels, table cells, help summaries and `gg doctor` details are fragments: they start in lower case and have no full stop, such as "list this organisation's runners".
 - Name the exact argument, file or setting that was wrong.
 - Commands are shown in backticks on these pages and plain in the terminal.
 - Say what was **not** changed when a command fails part-way: "Nothing was changed."
 
-### 7. Keep what already works
+### 7. Be honest, and never ahead of the product
 
-- Be honest about what did and did not happen.
+- Say plainly what did and did not happen.
 - Never blame the reader.
-- Give each command its own line in help, so it can be found with a search.
-- Never mention a command before it exists.
+- Give each command its own line in help, so a search for its name finds it.
+- Never mention a command, option or behaviour before it exists.
 
 ## Before and after
 
-These are real messages from gg and the control plane, with rewrites that follow this guide.
+These are real messages from gg and the control plane: what each one said before, and what it says today, following this guide.
 
 | Before | After |
 |---|---|
 | gg fly takes one of some text, --uri, --ticket or --file, and this has more than one. An intent that says two things says nothing. | gg fly takes only one of: some text, --uri, --ticket or --file. More than one was given. Run it again with one. |
-| unrecognised arguments. | gg does not recognise `--repos`. Run `gg --help` to list every command and its options. |
-| No repositories are registered. Nothing can be flown against a repository until one is - see gg airspace register. | No repositories are registered yet. To register one, run `gg airspace repositories add`. |
-| not signed in — run \`gg login\` first. Registering a runner is a person's action. | This machine is not signed in. Run `gg login`, then try again. |
-| GG-42 is held by somebody this control plane would not name. It is refused rather than granted: a hold nobody can be attributed to is still a hold. | GG-42 has already been taken over, and the control plane cannot say by whom. Nothing was changed. Run `gg show GG-42` to see its current state. |
+| unrecognised arguments. | gg runners does not recognise `--repos`. The list below shows every command and its options. |
+| No repositories are registered. Nothing can be flown against a repository until one is - see gg airspace register. | No repositories are registered yet. To register one, run gg airspace repositories add. |
+| not signed in — run \`gg login\` first. Registering a runner is a person's action. | This machine is not signed in. Run gg login, then try again. |
+| GG-42 is held by somebody this control plane would not name. It is refused rather than granted: a hold nobody can be attributed to is still a hold. | GG-42 has already been taken over, and the control plane cannot say by whom. Nothing was changed. Run gg show GG-42 to see its current state. |
 | this member's nonce buys nothing: it was never minted, it has expired, or it has already been redeemed. A nonce is spent exactly once, and a member cannot mint itself another - the pool has to warm a new one. | This pool machine cannot sign in: its one-time code has expired or has already been used, and a machine cannot request another. Start a new machine from the pool. |
-| Control plane acknowledged nothing. | The control plane did not confirm the request, so it may not have been recorded. Run the command again; if this keeps happening, run `gg bundle` and send the result to the Good Grief team. |
-| This tenant has nothing registered to fly against. The control plane answered, and the answer was nothing registered - so a flight here resolves its repository from the envelope or from nothing at all. | No repositories are registered for this organisation yet. A flight can still run without one. To register a repository, run `gg airspace repositories add`. |
+| Control plane acknowledged nothing. | The control plane did not confirm the request, so it may not have been recorded. Run the command again; if this keeps happening, run gg bundle and send the result to the Good Grief team. |
+| This tenant has nothing registered to fly against. The control plane answered, and the answer was nothing registered - so a flight here resolves its repository from the envelope or from nothing at all. | No repositories are registered for this organisation yet. A flight can still run without one. To register a repository, run gg airspace repositories add. |
 | A withdrawal states why. 'The question ceased to apply' is the easiest sentence in this vocabulary to reach for, and one that does not say which question or what stopped applying is a flight quietly disposed of. | A withdrawal needs a reason that says which question stopped mattering and why. |
 | That is not somewhere on this control plane. A signup can only return to a local path - anything naming another host would send a browser off this site immediately after it signed in here, which is the shape of a phish. | That link points to another website, so sign-up cannot return to it. Start again from the sign-up link the organisation provided. |
 
 ## Code comments
 
-The same register applies to new code comments. Comments are read by contributors, not customers, so they can explain design reasoning at length, but they should still be plain and free of sarcasm. Existing comments are not being rewritten.
+The same register applies to code comments. Contributors read comments, not customers, so a comment may explain design reasoning at length, but it stays plain and free of sarcasm.

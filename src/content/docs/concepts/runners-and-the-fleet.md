@@ -143,7 +143,7 @@ Every runner is in one of three states:
 
 A claimed machine can also be **reserved**, which keeps it to its owner's flights: the control plane offers it no flight that anyone else opened. A reserved machine that could have taken a flight is reported as kept back, not as missing, so nobody is sent to bring up a machine that already exists.
 
-An enrolment token decides the state a machine starts in, and `gg runner claim`, `unclaim`, `reserve`, `release` and `ownership` change it later. [Add machines to the fleet: whose a machine is](/guides/enrol-machines/#whose-a-machine-is) lists who may run each one.
+[Runners in a team](/concepts/runners-in-a-team/) explains, for each state, which work a machine is offered and who started each flight. An enrolment token decides the state a machine starts in, and `gg runner claim`, `unclaim`, `reserve`, `release` and `ownership` change it later. [Add machines to the fleet: whose a machine is](/guides/enrol-machines/#whose-a-machine-is) lists who may run each one.
 
 Ownership also decides who may reach a machine directly, for example to [drive an agent on it](/concepts/driving-an-agent/#who-may-drive-a-machine).
 
