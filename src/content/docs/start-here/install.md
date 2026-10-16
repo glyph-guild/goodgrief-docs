@@ -7,26 +7,33 @@ sidebar:
 
 gg is a single command-line program. The same program opens the [console](/reference/glossary/#console) and, on a machine set up for it, works as a [runner](/reference/glossary/#runner). This page installs it on a laptop: the program and nothing running. Making a machine a runner is a different install, described in [Run a runner](/guides/run-a-runner/).
 
-The commands on this page install the newest release of gg. The installers always install one exact version, so each command first looks up which release is the newest and then installs that one.
+The commands on this page install the newest release of gg. The installers are served from goodgrief.dev, and each one is a byte-for-byte copy of the newest release's installer: before goodgrief.dev publishes a script, it checks that gg's own release workflow built it.
 
 ## Installing a particular release
 
-To install a particular release instead, such as the one the rest of the organisation runs, replace the first line with that version: `v=<version>` on macOS and Linux, or `$v='<version>'` on Windows. The [releases page](https://github.com/glyph-guild/gg/releases) lists every release.
+To install a particular release, such as the one the rest of the organisation runs, pass its version: `sh -s -- --version <version>` on macOS and Linux, or `-Version <version>` on Windows. The [releases page](https://github.com/glyph-guild/gg/releases) lists every release.
 
 ## macOS or Linux
 
 Run:
 
 ```sh
-v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
-  | sudo sh -s -- --version $v
+curl -fsSL https://goodgrief.dev/install.sh | sudo sh
 ```
 
-The first line asks GitHub which release is the newest; the second downloads that release's installer and runs it.
+To check the installer before running it, download it, confirm that gg's release workflow built it, then run it:
+
+```sh
+curl -fsSLO https://goodgrief.dev/install.sh
+gh attestation verify install.sh --repo glyph-guild/gg
+sudo sh install.sh
+```
+
+`gh attestation verify` needs the [GitHub CLI](https://cli.github.com). It fails if the file differs in any way from what the release published.
 
 The installer:
 
+- runs only once the whole script has arrived, so a download cut off part-way does nothing;
 - picks the build for the machine it runs on;
 - checks the downloaded bytes against the release's build attestation before unpacking them, and installs nothing if they do not match;
 - installs gg under `/usr/local/lib/gg/<version>/`, with its two native libraries beside it, and links `/usr/local/bin/gg` to it;
@@ -45,11 +52,10 @@ gg login
 In PowerShell, run:
 
 ```powershell
-$v=(irm https://api.github.com/repos/glyph-guild/gg/releases/latest).tag_name.TrimStart('v')
-& ([scriptblock]::Create((irm https://github.com/glyph-guild/gg/releases/download/v$v/install.ps1))) -Version $v
+irm https://goodgrief.dev/install.ps1 | iex
 ```
 
-The Windows installer installs for the current user only and needs no administrator rights. To write the control-plane address at the same time, add `-ControlPlane <url>`.
+The Windows installer installs for the current user only and needs no administrator rights. To pass options such as `-ControlPlane <url>` or `-Version <version>`, run it as a script block instead: `& ([scriptblock]::Create((irm https://goodgrief.dev/install.ps1))) -ControlPlane <url>`.
 
 On Windows, gg is a command-line tool only. Every command works, but running `gg` with no arguments does not open the console, because the terminal features the console needs are not yet available there.
 
@@ -58,9 +64,7 @@ On Windows, gg is a command-line tool only. Every command works, but running `gg
 At least one other program, a Git interface, is also called `gg`. If a different program already sits where the installer would put its link, the installer stops rather than replace it, and asks for another name. To answer in advance, for example on a machine with nobody at the keyboard, pass `--as`:
 
 ```sh
-v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
-  | sudo sh -s -- --version $v --as goodgrief
+curl -fsSL https://goodgrief.dev/install.sh | sudo sh -s -- --as goodgrief
 ```
 
 On Windows, pass `-Alias goodgrief` instead.

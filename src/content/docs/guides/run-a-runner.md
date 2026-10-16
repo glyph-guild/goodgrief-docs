@@ -47,9 +47,8 @@ On Linux (systemd) and macOS (launchd), gg writes the platform's own service def
 The usual route is the installer from [Install gg](/start-here/install/), with `--control-plane` added. That option is what makes an install a runner install:
 
 ```sh
-v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
-  | sudo sh -s -- --version $v \
+curl -fsSL https://goodgrief.dev/install.sh \
+  | sudo sh -s -- \
       --control-plane <url> \
       --agent-binary /usr/local/bin/claude
 ```

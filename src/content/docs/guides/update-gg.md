@@ -32,12 +32,10 @@ To see the plan without running it, run `gg update --json`, which prints the ins
 
 ### Installed with the installer (macOS and Linux)
 
-Run the installer again; the first line looks up the newest release:
+Run the installer again. With no version given, it installs the newest release:
 
 ```sh
-v=$(curl -fsSLo /dev/null -w '%{url_effective}' https://github.com/glyph-guild/gg/releases/latest); v=${v##*/v}
-curl -fsSL https://github.com/glyph-guild/gg/releases/download/v$v/install.sh \
-  | sudo sh -s -- --version $v
+curl -fsSL https://goodgrief.dev/install.sh | sudo sh
 ```
 
 The new release goes in beside the old one under `/usr/local/lib/gg/`, the `/usr/local/bin/gg` link moves to it, and, on a runner, the service restarts onto it. A name chosen with `--as` is remembered, so no flag is needed. The installer keeps the three newest releases, plus the one the link pointed at before, so going back is one more run with the older version. `--keep <n>` changes how many are kept; `0` keeps all of them.
@@ -69,8 +67,7 @@ To update by hand to the newest release, run the same command without `--version
 Run the installer again in PowerShell with the newer version:
 
 ```powershell
-$v=(irm https://api.github.com/repos/glyph-guild/gg/releases/latest).tag_name.TrimStart('v')
-& ([scriptblock]::Create((irm https://github.com/glyph-guild/gg/releases/download/v$v/install.ps1))) -Version $v
+irm https://goodgrief.dev/install.ps1 | iex
 ```
 
 A name chosen with `-Alias` is remembered.
