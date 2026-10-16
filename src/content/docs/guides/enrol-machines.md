@@ -128,7 +128,7 @@ gg agent login --runner <id|name>
 
 ## Whose a machine is
 
-Every runner is in one of three states:
+[Runners in a team](/concepts/runners-in-a-team/) explains which work each kind of machine is offered, and how to keep a machine to its owner's flights. In short, every runner is in one of three states:
 
 - **The organisation's**: nobody may claim it.
 - **Open**: anyone in the organisation may claim it.
