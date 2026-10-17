@@ -5,7 +5,7 @@ sidebar:
   order: 9
 ---
 
-An [allowance](/reference/glossary/#allowance) is a metered budget of agent time, such as one person's agent subscription, that a machine spends from when it runs flights. Allowances are measured over two windows: a **session** window, the short one a provider resets most often, and a **week** window, which is the last seven days. Use this guide to see what an allowance has left, to keep part of one back for its owner (a [floor](/reference/glossary/#floor)), and, as an administrator, to spend that part when the need is urgent.
+An [allowance](/reference/glossary/#allowance) is a metered budget of agent time, such as one person's agent subscription, that a machine spends from when it runs flights. gg measures allowances over two windows: a **session** window, the short one a provider resets most often, and a **week** window, which is the last seven days. Use this guide to see what an allowance has left, to keep part of one back for its owner (a [floor](/reference/glossary/#floor)), and, as an administrator, to spend that part when the need is urgent.
 
 When a person lends a machine to the fleet, the machine's flights spend that person's allowance. A floor is how they lend it without lending all of it.
 
@@ -23,7 +23,7 @@ When a person lends a machine to the fleet, the machine's flights spend that per
   gg config set allowance-limits session=88000,week=2400000
   ```
 
-  Nothing on a machine can discover a subscription's limits, so they are typed by a person. Without them, gg shows the tokens spent and says that no ceiling is set.
+  Nothing on a machine can discover a subscription's limits, so a person types them. Without them, gg shows the tokens spent and says that no ceiling is set.
 
 ## 1. See what this machine has spent
 
@@ -40,7 +40,7 @@ allowance ada-subscription, measured 2026-10-14 15:10:02Z
   week           1,108,400 of 2,400,000      46%
 ```
 
-Each window gives the tokens spent and, when it can, how much of the window that is. The share comes from the best source available: the provider's own figure when the agent has reported one, otherwise the configured ceiling. When the provider's window has reset since its figure was reported, gg says so instead of showing a share for a window that has ended.
+Each window gives the tokens spent and, when it can, how much of the window that is. The share comes from the best source available: the provider's own figure when the agent has reported one, otherwise the configured ceiling. When the provider's window has reset since the agent reported its figure, gg says so instead of showing a share for a window that has ended.
 
 The week window counts the last seven days, which is probably not the provider's own week. It may therefore show less headroom than there really is, never more.
 
@@ -64,7 +64,7 @@ ada-subscription  measured 2026-10-14 15:10:02Z  2 machines
   week           1,108,400 of 2,400,000      46%
 ```
 
-The allowance is listed with the machines under it, not the other way round, because two machines can share one allowance and their spending should not be added twice. When no machine has reported an allowance, gg says so.
+gg lists each allowance with the machines under it, not the other way round, because two machines can share one allowance and gg should not add their spending twice. When no machine has reported an allowance, gg says so.
 
 ## 4. Keep a share back
 
@@ -83,9 +83,9 @@ To remove a floor:
 gg allowances floor ada-subscription --clear
 ```
 
-`--clear` is required to remove one, and cannot be combined with a share. The command with no share at all is refused, so that a forgotten number never clears a floor by accident.
+`--clear` is required to remove one, and cannot be combined with a share. gg refuses the command with no share at all, so that a forgotten number never clears a floor by accident.
 
-A floor is measured against the window ceilings, so set `allowance-limits` on the machines that report the allowance.
+gg measures a floor against the window ceilings, so set `allowance-limits` on the machines that report the allowance.
 
 Both commands print every allowance in the fleet afterwards.
 
@@ -100,7 +100,7 @@ gg allowances override ada-subscription --minutes 60 --reason "Release fix needs
 - `--minutes` is required, from 1 to 1,440 (one day). An override always ends.
 - `--reason` is required, up to 280 characters. The allowance's owner reads it.
 
-The override is visible to the allowance's owners, together with who made it and until when. gg prints every allowance in the fleet afterwards.
+The allowance's owners can see the override, together with who made it and until when. gg prints every allowance in the fleet afterwards.
 
 ## The same steps in the console
 

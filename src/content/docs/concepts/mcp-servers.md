@@ -15,9 +15,9 @@ The [control plane](/reference/glossary/#control-plane) holds the definitions an
 
 ## Root names the servers
 
-Servers are defined under `mcp-servers:` in [root](/reference/glossary/#root), the organisation's base rules in the [airspace](/reference/glossary/#airspace). Only root may define them. A work kind, a narrowing or any other airspace document that declares `mcp-servers:` is rejected, with a message saying that only root may.
+The organisation defines servers under `mcp-servers:` in [root](/reference/glossary/#root), the organisation's base rules in the [airspace](/reference/glossary/#airspace). Only root may define them. Good Grief rejects a work kind, a narrowing or any other airspace document that declares `mcp-servers:`, with a message saying that only root may.
 
-Each entry is a **key**, which names the server, and the server's definition. A server is reached in one of two ways.
+Each entry is a **key**, which names the server, and the server's definition. The runner reaches a server in one of two ways.
 
 **At an address**, for a server that runs as a service:
 
@@ -51,20 +51,20 @@ mcp-servers:
 | `args` | Arguments for the program. |
 | `env` | Environment variables for the program. |
 
-No other field is accepted.
+Good Grief accepts no other field.
 
 ### The rules a definition must follow
 
 - **A key is letters, digits, `-` and `_`**, because it becomes the prefix of every tool name the server offers. Two servers may not share a key.
 - **The key `gg` is reserved.** gg serves its own tools under that name, and a server with the same key would hide them.
 - **A server has exactly one of `command` or `url`.** A server started from a command takes `env`, not `headers`. A server at an address takes `headers`, not `env` or `args`.
-- **A credential is named, never written.** A value may include `${credential:<name>}`, where the name is the one [`gg credential list`](/guides/credentials/#checking-and-removing-credentials) shows, such as `local:analysis/example`. No other `${…}` form is substituted.
+- **A definition names a credential, never writes it.** A value may include `${credential:<name>}`, where the name is the one [`gg credential list`](/guides/credentials/#checking-and-removing-credentials) shows, such as `local:analysis/example`. The runner substitutes no other `${…}` form.
 - **A credential may not appear in `args`.** Arguments are visible on the command line to every user on the machine. Put it in `env` instead.
-- **A setting whose name suggests a secret must use a reference.** A setting whose name contains `authorization`, `token`, `secret`, `password`, `passwd` or `apikey` (also `api_key` or `api-key`), and whose value contains no `${credential:…}` reference, is rejected. This catches a secret pasted into the document by mistake.
+- **A setting whose name suggests a secret must use a reference.** Good Grief rejects a setting whose name contains `authorization`, `token`, `secret`, `password`, `passwd` or `apikey` (also `api_key` or `api-key`), and whose value contains no `${credential:…}` reference. This catches a secret pasted into the document by mistake.
 
 ### Changing the servers needs approval
 
-Defining a new server, or changing an existing one in any way, gives agents something they could not reach before. Applying either change opens a [gate](/reference/glossary/#gate) on root, so a person approves it before it takes effect. Removing a server applies at once. Airspace documents are changed with `gg airspace pull`, `gg airspace diff` and `gg airspace apply`; [Change the airspace](/guides/change-the-airspace/) covers the steps.
+Defining a new server, or changing an existing one in any way, gives agents something they could not reach before. Applying either change opens a [gate](/reference/glossary/#gate) on root, so a person approves it before it takes effect. Removing a server applies at once. A person changes airspace documents with `gg airspace pull`, `gg airspace diff` and `gg airspace apply`; [Change the airspace](/guides/change-the-airspace/) covers the steps.
 
 ## A loop allows tools
 
@@ -86,7 +86,7 @@ loops:
 - Otherwise, list tool names as the server gives them, such as `search_issues`. A name contains letters, digits, `-`, `_` and `.`.
 - `allow:` is required and may not be empty. A server may appear only once in a loop.
 
-**A loop that names a server root does not define is rejected** when its work kind is combined with root, with a message naming the loop and the server. Correct the name, or define the server in root.
+**Good Grief rejects a loop that names a server root does not define** when it combines the loop's work kind with root, with a message naming the loop and the server. Correct the name, or define the server in root.
 
 Allowing more is also a widening that opens a gate: naming another server, adding a tool, or changing a list of tools to `"*"`.
 
@@ -104,7 +104,7 @@ Before it starts the agent, the runner:
 
 1. **Resolves each credential reference on its own machine**, from gg's credential store. [Credentials](/concepts/credentials/) explains how a machine comes to hold one.
 2. **Writes the server configuration to a file only the runner's user can read.** The resolved values go into that file, never onto the agent's command line, where other users on the machine could see them. The runner deletes the file as soon as the agent reports that its servers have started, and again when the run ends.
-3. **Starts the agent with only these servers.** Any MCP servers configured for the machine's own user are not loaded, so a flight never runs with tools the envelope did not name.
+3. **Starts the agent with only these servers.** The runner does not load any MCP servers configured for the machine's own user, so a flight never runs with tools the envelope did not name.
 4. **Lists the allowed tools.** Each allowed tool becomes an entry on the agent's allowed-tool list, as `mcp__<key>__<tool>`, or `mcp__<key>` for `"*"`.
 
 The same steps apply when a person flies a flight by hand.
@@ -113,20 +113,20 @@ The same steps apply when a person flies a flight by hand.
 
 | Situation | What happens |
 |---|---|
-| The runner cannot resolve a credential a server needs. | The flight is refused before the agent starts, and nothing is spent. The message names the server and the credential, and says to register it on the machine with `gg credential add` or to send it there. |
+| The runner cannot resolve a credential a server needs. | The runner refuses the flight before the agent starts, and the flight spends nothing. The message names the server and the credential, and says to register it on the machine with `gg credential add` or to send it there. |
 | A server does not start or cannot be reached. | The runner reads the agent's own report of which servers connected, and refuses the flight if any did not. |
 | A server's key is the same as one gg already uses on that flight. | The runner refuses the flight rather than start two servers under one name. |
 | A loop names a server root does not define. | The work kind cannot be combined with root, so no flight runs under it. |
 
-In each case the flight is not run with fewer tools than the envelope says. A missing server stops the flight, so the agent never works without a tool it was meant to have.
+In each case no flight runs with fewer tools than the envelope says. A missing server stops the flight, so the agent never works without a tool it was meant to have.
 
 ## What is not supported
 
 - **Servers defined anywhere but root.** A work kind, a repository narrowing or a single flight cannot add a server.
-- **A machine's own servers.** MCP servers configured for the user on a runner's machine are never loaded for a flight.
-- **Moves for external tools.** Access to an organisation's server is controlled by `allow:` alone.
-- **Watches.** The agent that runs a [watch](/reference/glossary/#watch)'s sweep is not given the organisation's MCP servers.
+- **A machine's own servers.** The runner never loads, for a flight, MCP servers configured for the user on its machine.
+- **Moves for external tools.** `allow:` alone controls access to an organisation's server.
+- **Watches.** gg does not give the organisation's MCP servers to the agent that runs a [watch](/reference/glossary/#watch)'s sweep.
 - **Substitution other than credentials.** `${credential:<name>}` is the only reference a value may contain.
-- **Managing servers from the command line.** No gg command edits `mcp-servers:`; it is changed like any other part of root.
+- **Managing servers from the command line.** No gg command edits `mcp-servers:`; a person changes it like any other part of root.
 
-gg's own tool servers, such as the one that answers an agent's questions about its flight, are separate from these. They are not declared in the airspace, and moves still govern them.
+gg's own tool servers, such as the one that answers an agent's questions about its flight, are separate from these. The airspace does not declare them, and moves still govern them.

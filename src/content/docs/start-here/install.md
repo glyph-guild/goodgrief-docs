@@ -5,9 +5,9 @@ sidebar:
   order: 3
 ---
 
-gg is a single command-line program. The same program opens the [console](/reference/glossary/#console) and, on a machine set up for it, works as a [runner](/reference/glossary/#runner). This page installs it on a laptop: the program and nothing running. Making a machine a runner is a different install, described in [Run a runner](/guides/run-a-runner/).
+gg is a single command-line program. The same program opens the [console](/reference/glossary/#console) and, on a machine set up for it, works as a [runner](/reference/glossary/#runner). This page installs it on a laptop: the program and nothing running. Making a machine a runner is a different install, which [Run a runner](/guides/run-a-runner/) describes.
 
-The commands on this page install the newest release of gg. The installers are served from goodgrief.dev, and each one is a byte-for-byte copy of the newest release's installer: before goodgrief.dev publishes a script, it checks that gg's own release workflow built it.
+The commands on this page install the newest release of gg. goodgrief.dev serves the installers, and each one is a byte-for-byte copy of the newest release's installer: before goodgrief.dev publishes a script, it checks that gg's own release workflow built it.
 
 ## Installing a particular release
 
@@ -37,10 +37,10 @@ The installer:
 - picks the build for the machine it runs on;
 - checks the downloaded bytes against the release's build attestation before unpacking them, and installs nothing if they do not match;
 - installs gg under `/usr/local/lib/gg/<version>/`, with its two native libraries beside it, and links `/usr/local/bin/gg` to it;
-- makes sure `/usr/local/bin` is on the PATH of the shell it was run from, adding a line to that shell's startup file if it is missing and naming the file;
-- **starts nothing.** No service is installed and no user is created.
+- makes sure `/usr/local/bin` is on the PATH of the shell it runs from, adding a line to that shell's startup file if it is missing and naming the file;
+- **starts nothing.** It installs no service and creates no user.
 
-It ends by printing the two remaining steps, which are covered in [Sign in](/start-here/sign-in/):
+It ends by printing the two remaining steps, which [Sign in](/start-here/sign-in/) covers:
 
 ```sh
 gg config set control-plane <url>
@@ -69,7 +69,7 @@ curl -fsSL https://goodgrief.dev/install.sh | sudo sh -s -- --as goodgrief
 
 On Windows, pass `-Alias goodgrief` instead.
 
-If another `gg` is merely earlier on the PATH, it is not at risk and the install continues; the installer says that the other program will keep the name, and `--as` gives this one its own. Every hint the installer prints then uses the chosen name, and the name is remembered, so a later update needs no flag. These pages always write `gg`.
+If another `gg` is merely earlier on the PATH, it is not at risk and the install continues; the installer says that the other program will keep the name, and `--as` gives this one its own. Every hint the installer prints then uses the chosen name, and the installer remembers the name, so a later update needs no flag. These pages always write `gg`.
 
 A runner is always installed as `gg`, because its service runs `/usr/local/bin/gg`.
 
@@ -86,13 +86,13 @@ gg --version
 
 To download a particular release instead, replace `latest/download` with `download/v<version>`. A release carries archives for `linux-x64`, `linux-arm64`, `osx-arm64`, `osx-x64` and `win-x64`. Choose the archive for the machine, and on macOS use `.dylib` in place of `.so`.
 
-**Both `install` lines are required.** gg loads its two native libraries from its own directory, which is why they go beside the binary. It loads them the first time they are needed, not at startup. Without them, gg starts and runs normally, then opens the editor without the gg bar along the top. At that point it names the missing file.
+**Both `install` lines are required.** gg loads its two native libraries from its own directory, which is why they go beside the binary. It loads them the first time it needs them, not at startup. Without them, gg starts and runs normally, then opens the editor without the gg bar along the top. At that point it names the missing file.
 
 Unlike the installer, this route does not check the release's build attestation. To check an archive before unpacking it, run `gh attestation verify gg-linux-x64.tar.gz --repo glyph-guild/gg`.
 
 ## As a .NET tool
 
-On a machine that already has the .NET SDK, gg can be installed from nuget.org:
+On a machine that already has the .NET SDK, install gg from nuget.org:
 
 ```sh
 sudo dotnet tool install GlyphGuild.Gg.Cli --tool-path /usr/local/lib/gg
@@ -102,7 +102,7 @@ sudo ln -sf /usr/local/lib/gg/gg /usr/local/bin/gg
 The package is called `GlyphGuild.Gg.Cli` because the name `gg` is taken on nuget.org. The command it installs is still `gg`.
 
 - **`--tool-path`, not `-g`.** A global install lands in the home directory of whoever ran it. On a runner, that is the account the runner runs as, which could then rewrite its own program.
-- **`--version <version>`** installs a particular release. Without it, the newest release on nuget.org is installed.
+- **`--version <version>`** installs a particular release. Without it, dotnet installs the newest release on nuget.org.
 
 ## Check the install
 

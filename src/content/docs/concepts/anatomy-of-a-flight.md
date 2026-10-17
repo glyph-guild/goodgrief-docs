@@ -1,11 +1,11 @@
 ---
 title: Anatomy of a flight
-description: The stages a flight moves through, the ways it can leave early, how it ends, and when each rule is checked.
+description: The stages a flight moves through, the ways it can leave early, how it ends, and when Good Grief checks each rule.
 sidebar:
   order: 1
 ---
 
-A [flight](/reference/glossary/#flight) is one piece of requested work. This page follows a flight from the moment it opens to the moment it ends. Along the way it covers where the organisation's rules are checked, and what each status means.
+A [flight](/reference/glossary/#flight) is one piece of requested work. This page follows a flight from the moment it opens to the moment it ends. Along the way it covers where Good Grief checks the organisation's rules, and what each status means.
 
 ## Which rules apply
 
@@ -27,7 +27,7 @@ Created → Ready → Leased → Worked → Evaluated → Ended
 
 | Stage | What happens |
 |---|---|
-| **Created** | The flight has been opened and its rules determined. |
+| **Created** | Someone has opened the flight, and Good Grief has determined its rules. |
 | **Ready** | Everything the flight needs before it can start is in place. It is waiting for a machine. |
 | **Leased** | A [runner](/reference/glossary/#runner) has claimed the flight, and no other machine can take it. |
 | **Worked** | The agent has run. |
@@ -40,19 +40,19 @@ These are **stages, not statuses**. A flight can remain in a stage for some time
 
 Not every flight passes through all six stages:
 
-- **Rejected when opened.** The request to open the flight fails, and no flight is created. This happens when a request names an environment that does not exist or a repository that was never registered, or when the rules contradict each other. gg states which.
-- **Halted.** Good Grief found a rule it cannot evaluate as yes or no, so it stops and reports the rule rather than guessing. **The flight is still open**: once the rule is fixed, it can continue.
-- **Sent back.** The work is attempted again, because a reviewer rejected it or it ran out of time. Each retry is a new attempt. When retries happen automatically after the time runs out, the envelope's attempt limit decides when to stop and wait for a person.
+- **Rejected when opened.** The request to open the flight fails, and Good Grief creates no flight. This happens when a request names an environment that does not exist or a repository that no one registered, or when the rules contradict each other. gg states which.
+- **Halted.** Good Grief found a rule it cannot evaluate as yes or no, so it stops and reports the rule rather than guessing. **The flight is still open**: once someone fixes the rule, it can continue.
+- **Sent back.** The work gets another attempt, because a reviewer rejected it or it ran out of time. Each retry is a new attempt. When retries happen automatically after the time runs out, the envelope's attempt limit decides when to stop and wait for a person.
 
 ## Waiting is not the same as finished
 
-A flight can stop because no machine is free, because a person has not answered yet, because time ran out, or because a rule could not be checked. **None of these ends the flight.** Until something ends it, the flight is `open`, which is what allows it to be picked up again later.
+A flight can stop because no machine is free, because a person has not answered yet, because time ran out, or because Good Grief could not check a rule. **None of these ends the flight.** Until something ends it, the flight is `open`, which is what allows a runner to pick it up again later.
 
 A flight ends in exactly one of four ways:
 
 | Ending | Meaning |
 |---|---|
-| `landed` | The work was accepted somewhere. |
+| `landed` | Somewhere accepted the work. |
 | `grounded` | A person stopped it. |
 | `withdrawn` | The question stopped mattering. |
 | `failed` | The work finished, but nowhere accepted it. |
@@ -68,11 +68,11 @@ A runner never decides how a flight ended. It reports only what happened to **it
 
 | Runner reports | Meaning | The flight | Offered to another machine? |
 |---|---|---|---|
-| `completed` | The runner finished, and the work was accepted somewhere. | **landed** | No. It is done. |
+| `completed` | The runner finished, and somewhere accepted the work. | **landed** | No. It is done. |
 | `failed` | The runner finished, and nowhere accepted the work. | **failed** | No. It is done. |
-| `outstanding` | The runner has stopped for now. Nothing was accepted, and a person needs to answer something. | stays open | No. It is waiting on a person. |
+| `outstanding` | The runner has stopped for now. Nowhere accepted the work, and a person needs to answer something. | stays open | No. It is waiting on a person. |
 | `abandoned` | The runner gave up, but the work remains available. | stays open | Yes. |
-| `expired` | Reported by Good Grief, not the runner: the machine stopped checking in while it held the flight. | stays open | Yes. |
+| `expired` | Good Grief reports it, not the runner: the machine stopped checking in while it held the flight. | stays open | Yes. |
 
 Only two of these end the flight. The other three leave it open, and one question separates them: **should another machine pick it up?**
 
@@ -92,7 +92,7 @@ Consider an agent that stops to ask a question. Without `outstanding`, the runne
 `completed` means different things at two levels:
 
 - When the **agent's run** ends `completed`, the agent stopped of its own accord.
-- When the **runner** reports `completed`, the work was accepted somewhere.
+- When the **runner** reports `completed`, somewhere accepted the work.
 
 An agent's run can therefore finish while the flight is still waiting on a person:
 
@@ -105,7 +105,7 @@ the agent's run ended  blocked
 
 ## When each rule is checked
 
-The envelope is not checked all at once at the end. Each field is checked at a particular stage, so when a flight stops or is rejected, the stage points to the field responsible.
+Good Grief does not check the envelope all at once at the end. It checks each field at a particular stage, so when a flight stops or Good Grief rejects it, the stage points to the field responsible.
 
 | Field | Checked at | Set by | In short |
 |---|---|---|---|
@@ -121,4 +121,4 @@ The envelope is not checked all at once at the end. Each field is checked at a p
 
 ### A gate does not stop everything
 
-While a flight waits at a [gate](/reference/glossary/#gate), the runner still pushes the branch, so there is real code to review. It does not open the pull request until the gate is answered. For example, a work kind that requires a person to approve a running preview before its pull request opens lists that approval in the destination's `requires:`. The branch exists for review, and the pull request follows the approval.
+While a flight waits at a [gate](/reference/glossary/#gate), the runner still pushes the branch, so there is real code to review. It does not open the pull request until a person answers the gate. For example, a work kind that requires a person to approve a running preview before its pull request opens lists that approval in the destination's `requires:`. The branch exists for review, and the pull request follows the approval.

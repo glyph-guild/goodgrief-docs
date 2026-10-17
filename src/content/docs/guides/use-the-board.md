@@ -1,11 +1,11 @@
 ---
 title: Use the board
-description: Read the work that has been proposed but not started, and open it as a flight or decline it, with a reason either way.
+description: Read the work someone has proposed but no one has started, and open it as a flight or decline it, with a reason either way.
 sidebar:
   order: 4
 ---
 
-The [board](/reference/glossary/#board) lists work that has been proposed but has not become a flight yet. Each entry is a [nomination](/reference/glossary/#nomination): a proposal that some work should become a flight, together with the kind of work it needs and why. Use this guide to see what has been proposed, to decide which proposals become flights, and to find out why a proposal never became one.
+The [board](/reference/glossary/#board) lists work that someone has proposed but that has not become a flight yet. Each entry is a [nomination](/reference/glossary/#nomination): a proposal that some work should become a flight, together with the kind of work it needs and why. Use this guide to see what someone has proposed, to decide which proposals become flights, and to find out why a proposal never became one.
 
 A gate is a flight that has stopped and is waiting on a person. A nomination is one step earlier: work that has not started.
 
@@ -14,13 +14,13 @@ A gate is a flight that has stopped and is waiting on a person. A nomination is 
 Nominations arrive from several places:
 
 - **[Watches](/reference/glossary/#watch).** A watch looks at something on a schedule, such as a work-item query, and nominates work from what it finds. [Set up a watch](/guides/set-up-a-watch/) covers them.
-- **Plans.** A planning flight, or a plan a person proposes, nominates each of its legs. Legs are listed with their plan by `gg itineraries` rather than on the board. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
+- **Plans.** A planning flight, or a plan a person proposes, nominates each of its legs. `gg itineraries` lists legs with their plan; the board does not. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
 - **Pull requests.** A pull request opened or updated in a registered repository can nominate a flight, such as a review.
 - **Flights opened directly.** A flight opened with `gg fly` also passes through the board, as a nomination that opens at once. It never waits there.
 
 ## Auto or gated
 
-Every nominator is bounded by a `flight` [destination](/concepts/envelope/#destinations), and its `opens-as` setting decides how a nomination opens:
+A `flight` [destination](/concepts/envelope/#destinations) bounds every nominator, and its `opens-as` setting decides how a nomination opens:
 
 - **`auto`** (the default): the nomination opens as a flight straight away, if the rules allow it. No one needs to answer it.
 - **`gated`**: the nomination waits on the board until a person opens or declines it.
@@ -71,7 +71,7 @@ Each nomination shows:
 | `about` | The piece of work, such as a work item's address. Free-text work says so. |
 | `standing` | `gated` when it is waiting for a person to answer it, or `auto` when no one needs to. |
 | `because` | Why a gated nomination is gated, when the gate came from a spent budget. |
-| `nominated` | When it was proposed. |
+| `nominated` | When the nominator proposed it. |
 
 `gg board --all` includes nominations that have ended, each with an `ended` line, a `because` line and, when it opened, the `flight` it became. A nomination ends in one of six ways:
 
@@ -95,7 +95,7 @@ gg board open 01a0792a-5c4e-4b1f-9d3e-2f6a8c1b7e44 "This item blocks the release
 gg board decline 01a0792a-5c4e-4b1f-9d3e-2f6a8c1b7e44 "Already fixed in the current sprint."
 ```
 
-Opening a nomination asks the board to open it. The board still applies the rules, and may refuse. gg therefore reports what the board recorded, not what was asked for:
+Opening a nomination asks the board to open it. The board still applies the rules, and may refuse. gg therefore reports what the board recorded, not what the person asked for:
 
 ```
 01a0792a-5c4e-4b1f-9d3e-2f6a8c1b7e44 - review
@@ -107,7 +107,7 @@ Opening a nomination asks the board to open it. The board still applies the rule
   looked:   2 time(s) over 0.6s of a 30s bound
 ```
 
-If the board has not settled when gg stops watching, gg says the decision was recorded and the outcome is not known yet. Run `gg board --all` to see it. An opened nomination can briefly show `opened, and its number is not minted yet` before its flight number appears.
+If the board has not settled when gg stops watching, gg says the board recorded the decision and the outcome is not known yet. Run `gg board --all` to see it. An opened nomination can briefly show `opened, and its number is not minted yet` before its flight number appears.
 
 The flight a nomination opens belongs to whoever the work is for, not to the person who opened it.
 

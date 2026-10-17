@@ -7,7 +7,7 @@ sidebar:
 
 A [runner](/reference/glossary/#runner) is a machine that takes flights and carries them out. It clones the repository, holds the credentials, runs the agent, and reports what happened to the [control plane](/reference/glossary/#control-plane). Any machine with gg installed can be a runner. There are two ways to run one:
 
-- **From a terminal**, with `gg runner up`. This suits a laptop: the runner works while the command runs and stops when it is stopped.
+- **From a terminal**, with `gg runner up`. This suits a laptop: the runner works while the command runs and stops when a person stops it.
 - **As a service**, which the operating system starts at boot and restarts if it exits. This suits a machine whose job is to take work.
 
 All of an organisation's runners together are its [fleet](/reference/glossary/#fleet).
@@ -20,7 +20,7 @@ A runner runs the [agent](/reference/glossary/#agent) installed on its machine. 
 gg config set executor-binary claude=/usr/local/bin/claude
 ```
 
-A bare path is also accepted and is read as `claude`.
+gg also accepts a bare path and reads it as `claude`.
 
 Without this setting, a runner still registers and still takes flights, but never invokes an agent. `gg doctor` reports this under `executor`, with the fix.
 
@@ -92,7 +92,7 @@ To list the organisation's runners, run:
 gg runners
 ```
 
-Each runner is listed with whose it is, whether it is reserved, and the fleet profile it enrolled under, if any. To see what each runner advertises, which decides the flights it can be offered, run:
+gg lists each runner with whose it is, whether it is reserved, and the fleet profile it enrolled under, if any. To see what each runner advertises, which decides the flights the control plane can offer it, run:
 
 ```sh
 gg runner labels

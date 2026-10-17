@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-Good Grief is an orchestration framework for AI agents. An organisation defines the kinds of work its agents do, and each kind can run on a regular schedule or be started by hand. All work follows a formal, managed set of rules: what an agent may do, how long it may take, what a person must approve, and where the result may go.
+Good Grief is an orchestration framework for AI agents. An organisation defines the kinds of work its agents do, and each kind can run on a regular schedule or a person can start it by hand. All work follows a formal, managed set of rules: what an agent may do, how long it may take, what a person must approve, and where the result may go.
 
 Its first use is software development, such as investigating a bug or building a feature in an organisation's repositories. The same framework can orchestrate other kinds of work.
 
@@ -16,7 +16,7 @@ All of it happens through **gg**, a single command-line tool. gg has two roles:
 
 ## Code stays where it is
 
-gg talks to a service called the **control plane**. The control plane keeps the record of the work: what was asked for, who approved what, and how each piece ended. It **never sees the code or the credentials**. The runner clones repositories, holds credentials and runs agents, all on machines the organisation controls. What it sends to the control plane are facts about the work, never the work itself.
+gg talks to a service called the **control plane**. The control plane keeps the record of the work: what someone asked for, who approved what, and how each piece ended. It **never sees the code or the credentials**. The runner clones repositories, holds credentials and runs agents, all on machines the organisation controls. What it sends to the control plane are facts about the work, never the work itself.
 
 ## Terms that appear first
 
@@ -28,9 +28,9 @@ Good Grief borrows a few terms from aviation. These are the ones that appear fir
 - A **[gate](/reference/glossary/#gate)** is a point where a flight waits for a person to approve or reject something. Nothing behind a gate proceeds until someone answers.
 - The **[airspace](/reference/glossary/#airspace)** is where the organisation keeps its rules and names: the repositories it works on, the kinds of work it does, and the machines it has.
 - A **[watch](/reference/glossary/#watch)** is a standing instruction to look at something on a schedule, such as a queue of work items. Each run of a watch is a **sweep**.
-- A **[nomination](/reference/glossary/#nomination)** is a proposal that some work should become a flight, usually made by a sweep.
+- A **[nomination](/reference/glossary/#nomination)** is a proposal that some work should become a flight, which a sweep usually makes.
 - The **[board](/reference/glossary/#board)** is where nominations wait until a person opens one as a flight or declines it.
-- An **[itinerary](/reference/glossary/#itinerary)** is a plan made of several flights, called legs, that pursue one goal. A person, or a planning flight, proposes it, and its legs open as flights once the plan is approved.
+- An **[itinerary](/reference/glossary/#itinerary)** is a plan made of several flights, called legs, that pursue one goal. A person, or a planning flight, proposes it, and its legs open as flights once a person approves the plan.
 
 The [glossary](/reference/glossary/) covers the rest. This is how the terms fit together:
 
@@ -44,6 +44,6 @@ The [glossary](/reference/glossary/) covers the rest. This is how the terms fit 
 2. The control plane checks the organisation's rules, and the flight waits for a runner that is allowed to take it.
 3. A runner takes the flight, runs the agent, and reports what it found or changed.
 4. If the rules require a person to approve something, such as a pull request, the flight stops at a gate until someone does.
-5. The flight ends. It **lands** when the work was accepted somewhere. Otherwise it ends in one of a few other ways, and it always records which one.
+5. The flight ends. It **lands** when somewhere accepted the work. Otherwise it ends in one of a few other ways, and it always records which one.
 
 [First flight](/start-here/first-flight/) walks through these steps with real commands. [Anatomy of a flight](/concepts/anatomy-of-a-flight/) describes each step in detail.

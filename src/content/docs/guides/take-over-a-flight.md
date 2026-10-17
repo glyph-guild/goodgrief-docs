@@ -9,7 +9,7 @@ Use this guide when a flight needs a person rather than another attempt by the a
 
 ## Prerequisites
 
-- gg is signed in to the organisation's control plane. A takeover is recorded against the signed-in person, so it cannot be done from a machine's own credentials.
+- gg is signed in to the organisation's control plane. The control plane records a takeover against the signed-in person, so no one can take over a flight with a machine's own credentials.
 - The flight's number, such as `GG-42`. `gg flights` and `gg gates` list them.
 
 ## 1. Take the flight
@@ -23,10 +23,10 @@ gg take GG-42
 gg first claims the flight for the signed-in person, then prints what the flight tried and ruled out so far, so the work can continue from where it stopped. After that, gg adds three notes:
 
 - the time the hold lasts until, in UTC;
-- how soon before that it must be renewed, or the flight is released and someone else may take it;
+- how soon before that the person must renew it, or the control plane releases the flight and someone else may take it;
 - the exact command for handing it back, with the list of outcomes.
 
-Exactly one person holds a flight at a time, which stops two people working on the same thing. If someone else already holds it, gg refuses and names who holds it, since when and until when. Ask that person, or try again after the hold ends. Nothing is changed by a refused takeover.
+Exactly one person holds a flight at a time, which stops two people working on the same thing. If someone else already holds it, gg refuses and names who holds it, since when and until when. Ask that person, or try again after the hold ends. A refused takeover changes nothing.
 
 `gg take` fetches no code. It grants the hold and prints the record of the flight so far.
 
@@ -54,7 +54,7 @@ gg take GG-42 --return completed --note "Fixed the expiry check and added a test
 
 gg records the outcome and prints the flight's log, where the handback appears as an entry naming the person. The entry can take a moment to appear; run `gg log GG-42` again if it is not there yet.
 
-If the hold moved on to someone else before the handback, gg refuses and records nothing, because a decision recorded against another person's hold would attribute their work to the wrong person. An outcome other than the three above is refused by name.
+If the hold moved on to someone else before the handback, gg refuses and records nothing, because a decision recorded against another person's hold would attribute their work to the wrong person. gg refuses an outcome other than the three above, and names it.
 
 ## Stop a flight instead
 
@@ -66,13 +66,13 @@ gg ground GG-42 "The fleet cannot serve this environment yet."
 
 The reason is required, because it is what tells a later reader why work that could have been done was not. gg prints the flight in its ending.
 
-Grounding is not withdrawing. A flight is [withdrawn](/reference/glossary/#withdrawn) when the question it was answering stopped mattering, such as a work item that was closed. gg has no command that withdraws a flight; when a flight will not move and the question is still real, grounding is the accurate record.
+Grounding is not withdrawing. A flight is [withdrawn](/reference/glossary/#withdrawn) when the question it was answering stopped mattering, such as a work item someone closed. gg has no command that withdraws a flight; when a flight will not move and the question is still real, grounding is the accurate record.
 
 ## The same steps in the console
 
 Run `gg` with no arguments, then:
 
-- Taking over and handing back are not yet offered in the console. Use `gg take` in a terminal.
+- The console does not yet offer taking over or handing back. Use `gg take` in a terminal.
 - On an open flight, `x` grounds it. The console asks first: `y` grounds it, and `esc` leaves it flying.
 - `y` on the main screen flies a new flight by hand: the person does the work themselves, on their own machine, under the same rules as any other flight.
 

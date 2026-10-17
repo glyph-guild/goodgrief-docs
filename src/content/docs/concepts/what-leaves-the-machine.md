@@ -11,7 +11,7 @@ In short:
 
 - **The organisation's code and credentials stay on machines the organisation controls.** The [control plane](/reference/glossary/#control-plane) never receives either.
 - **The [runner](/reference/glossary/#runner) sends facts about the work**, drawn from a fixed, published list of fact types. The control plane checks every fact again when it arrives and refuses any that do not fit.
-- **The definitions of everything that crosses** are published as a package that can be inspected.
+- **Good Grief publishes the definitions of everything that crosses** as a package that anyone can inspect.
 
 ## Two parts, two processes
 
@@ -20,7 +20,7 @@ gg is a single program with two roles, and they run as separate operating-system
 - **The console** acts for the person at the keyboard. It uses that person's sign-in.
 - **The runner** takes flights and does the work. When the console starts a runner, it starts a separate child process. Installed as a service, the runner runs as a dedicated user with no login shell and no group but its own.
 
-A person's sign-in is used only to register a runner. After that, the runner works with a credential of its own, issued to that machine, and never with the person's sign-in. A pool member, which no one signs in on, exchanges a one-time code for a short-lived credential of its own.
+gg uses a person's sign-in only to register a runner. After that, the runner works with a credential of its own, issued to that machine, and never with the person's sign-in. A pool member, which no one signs in on, exchanges a one-time code for a short-lived credential of its own.
 
 The two roles see different things, and the rest of the design treats the runner as the less trusted of the two. The runner decides nothing about whether work is acceptable: it gathers facts and reports them, and the control plane evaluates the organisation's rules. A modified runner could report false facts, but it cannot approve its own work. [Anatomy of a flight](/concepts/anatomy-of-a-flight/#what-a-runner-reports-and-what-it-means-for-the-flight) explains how the control plane, not the runner, decides how a flight ended.
 
@@ -30,14 +30,14 @@ The two roles see different things, and the rest of the design treats the runner
 |---|---|
 | The repository | The runner clones it into a working copy for the flight, on its own machine. |
 | Credential values | Held in gg's credential store, sealed to their holders. See [Credentials](/concepts/credentials/). |
-| The agent's transcript | The full record of what the agent said and did. It is written outside the flight's working copy, so it survives the flight, and nothing deletes it automatically. Facts carry only a reference to it: where it is, its size and a hash of its contents. |
-| The agent's live output | Shown to a person watching over a direct channel between the two machines. It is not stored by the control plane. |
+| The agent's transcript | The full record of what the agent said and did. It lives outside the flight's working copy, so it survives the flight, and nothing deletes it automatically. Facts carry only a reference to it: where it is, its size and a hash of its contents. |
+| The agent's live output | Shown to a person watching over a direct channel between the two machines. The control plane does not store it. |
 
 Work does leave the machine for places the organisation chose, never for the control plane:
 
 - **The runner pushes branches** to the organisation's own repository host, and opens pull requests there, only where the envelope allows and the credential has write access. The control plane does not push.
 - **The agent talks to its own model provider**, under whatever account the agent is signed in with. gg starts the agent on the machine; it does not route or see that traffic.
-- **Trackers and MCP servers** are called directly from the machine, with credentials opened there.
+- **Trackers and MCP servers** take their calls directly from the machine, with credentials opened there.
 
 ## What the runner sends
 
@@ -67,7 +67,7 @@ Most facts are measurements:
 | `loop.digest` | What the agent did, extracted mechanically from its run rather than summarised by a model: the files it read and left alone, the files it edited, the searches it made, and the errors it hit. |
 | `loop.outcome` | How the agent's run ended, how long it took, which moves it used, and a reason. |
 | `loop.transcript` | Where the transcript is on the machine, never the transcript itself. |
-| `intent.read` | Which file a flight was opened about: its repository, path, commit, hash and size. **Never its text.** |
+| `intent.read` | Which file someone opened a flight about: its repository, path, commit, hash and size. **Never its text.** |
 | `destination.pushed`, `destination.landed` | Where the work was pushed or landed. |
 
 Some facts carry words the agent wrote, because a person needs to read them:
@@ -83,26 +83,26 @@ The search terms and error messages in `loop.digest`, and the reason in `loop.ou
 
 On the runner, every fact passes through the same three steps, in an order the code's types enforce:
 
-1. **Cleaned.** Every text value is stripped of control characters, so nothing in a fact can drive a terminal that later displays it.
-2. **Hashed.** A hash of the fact as observed is computed and kept with it.
-3. **Filtered.** File paths that the organisation's sensitivity rules place above its permitted level are removed from the change list, and the list records how many were withheld. The hash is not recomputed, so it still describes what was observed.
+1. **Cleaned.** The runner strips control characters from every text value, so nothing in a fact can drive a terminal that later displays it.
+2. **Hashed.** The runner computes a hash of the fact as observed and keeps it with the fact.
+3. **Filtered.** The runner removes from the change list any file paths that the organisation's sensitivity rules place above its permitted level, and the list records how many it withheld. The runner does not recompute the hash, so it still describes what the runner observed.
 
-Only the result of the third step can be sent. When the facts arrive, the control plane checks each one again, independently of the runner:
+The runner can send only the result of the third step. When the facts arrive, the control plane checks each one again, independently of the runner:
 
-- a fact whose type is not on the list is refused, not ignored;
-- a fact containing control characters is refused, not cleaned;
-- a fact larger than its size limit is refused, not cut short;
+- it refuses a fact whose type is not on the list, rather than ignoring it;
+- it refuses a fact containing control characters, rather than cleaning it;
+- it refuses a fact larger than its size limit, rather than cutting it short;
 - the control plane works out each path's sensitivity again from its own copy of the organisation's rules, ignoring the level the runner claimed, and refuses a fact containing a path above the permitted level.
 
-Each refusal is recorded on the flight's log, with the reason and without the refused content, so that a misconfigured or modified runner is visible to the organisation.
+The control plane records each refusal on the flight's log, with the reason and without the refused content, so that a misconfigured or modified runner is visible to the organisation.
 
 ## What the control plane never receives
 
 **Code.** No fact type has a field for file contents. The change list carries paths and line counts, and a fact about a file names it and its hash, never its text.
 
-**Credential values.** Every message type that carries a credential reference, in either direction, is checked by tests to have no field that could hold a value. The single message that carries a credential at all, used when a person sends one to a machine, carries it sealed to the receiving machine's key and travels over a direct channel, not through the control plane. A further test plants a credential value and searches every place the control plane writes, including its tables, flight log, log lines and traces, and fails if the value appears in any of them. On the runner, credentials go only to the process that needs them, through its environment or a request header, never on a command line or in a request body.
+**Credential values.** Tests check that every message type that carries a credential reference, in either direction, has no field that could hold a value. The single message that carries a credential at all, used when a person sends one to a machine, carries it sealed to the receiving machine's key and travels over a direct channel, not through the control plane. A further test plants a credential value and searches every place the control plane writes, including its tables, flight log, log lines and traces, and fails if the value appears in any of them. On the runner, credentials go only to the process that needs them, through its environment or a request header, never on a command line or in a request body.
 
-**What crosses a channel.** When a console reaches a runner, to watch it, drive an agent or send a credential, the control plane introduces the two machines. The connection details it passes along are sealed so that it cannot read or alter them, and the connection itself is encrypted end to end. If the connection goes through a relay, the relay forwards encrypted traffic it cannot read. [Driving an agent](/concepts/driving-an-agent/#how-the-console-reaches-a-machine) explains how a channel is set up.
+**What crosses a channel.** When a console reaches a runner, to watch it, drive an agent or send a credential, the control plane introduces the two machines. The connection details it passes along arrive sealed, so it cannot read or alter them, and the connection itself is encrypted end to end. If the connection goes through a relay, the relay forwards encrypted traffic it cannot read. [Driving an agent](/concepts/driving-an-agent/#how-the-console-reaches-a-machine) explains how a channel is set up.
 
 ## Diagnostics bundles
 
@@ -111,10 +111,10 @@ When something goes wrong, `gg bundle` produces a diagnostics bundle for the Goo
 A bundle contains:
 
 - the gg version, protocol version and fact vocabulary version;
-- the machine's fingerprint, in the same form a flight records, so the two can be matched;
+- the machine's fingerprint, in the same form a flight records, so a person can match the two;
 - every check `gg doctor` ran, passing or not, and a line for each problem it found.
 
-A bundle has no field that could hold anything a runner or agent printed. Tests send a token-shaped string through the real live-output path, and separately place one in a work item's title, then check that neither appears in a bundle or its printed form. The console's own state, which is also used for diagnostics, cannot hold a passphrase typed into the console: tests check that no part of that state could carry one.
+A bundle has no field that could hold anything a runner or agent printed. Tests send a token-shaped string through the real live-output path, and separately place one in a work item's title, then check that neither appears in a bundle or its printed form. The console's own state, which gg also uses for diagnostics, cannot hold a passphrase typed into the console: tests check that no part of that state could carry one.
 
 ## While gg hosts an editor
 
@@ -122,20 +122,20 @@ Some console actions open the editor named by `$EDITOR`. gg runs the editor insi
 
 What gg does with those bytes:
 
-- **Nothing is kept.** The part of gg that hosts the editor holds no state between sessions; a test checks that it has none.
-- **Nothing is written to disk.** A test fails if the hosting code contains any file-writing call.
-- **Nothing is sent anywhere.** The hosting code makes no network calls and opens no credentials. It starts the editor, reads its output, draws it, and restores the terminal.
+- **gg keeps nothing.** The part of gg that hosts the editor holds no state between sessions; a test checks that it has none.
+- **gg writes nothing to disk.** A test fails if the hosting code contains any file-writing call.
+- **gg sends nothing anywhere.** The hosting code makes no network calls and opens no credentials. It starts the editor, reads its output, draws it, and restores the terminal.
 
 When the editor exits, however it exits, gg restores the terminal's settings as it found them. Where gg cannot host the editor, such as when its output is piped, gg hands the terminal to the editor directly and says so.
 
 ## What a person can audit
 
-**The wire contract.** Every message that crosses between an organisation's machines and the control plane is defined in one package, `GlyphGuild.Gg.Contracts`, published with each gg release. Tests hold it to three rules:
+**The wire contract.** One package, `GlyphGuild.Gg.Contracts`, published with each gg release, defines every message that crosses between an organisation's machines and the control plane. Tests hold it to three rules:
 
 - **One outside dependency, named.** The package depends on exactly one third-party library, a YAML parser, and a test fails if that changes in any way.
 - **Every message is listed.** Every type that crosses the wire carries a fixed identifier and appears in the package's own list of messages. A test fails if a type is missing from the list, or the list names one that no longer exists.
-- **The version means something.** A fingerprint of everything that crosses the wire is recorded against each version of the package, and changing the wire without changing the version fails the build. The fact vocabulary is versioned the same way, on its own.
+- **The version means something.** The package records a fingerprint of everything that crosses the wire against each of its versions, and changing the wire without changing the version fails the build. The fact vocabulary carries its own version, recorded the same way.
 
 **The flight log.** Every flight's log records what happened to it, including every fact the control plane refused and why. `gg log <flight>` and `gg facts <flight>` show it.
 
-**The machine itself.** The transcript of every flight stays on the machine that ran it, and each transcript fact carries a hash of it, so what an agent did can be checked against what was reported.
+**The machine itself.** The transcript of every flight stays on the machine that ran it, and each transcript fact carries a hash of it, so a person can check what an agent did against what the runner reported.

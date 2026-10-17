@@ -5,14 +5,14 @@ sidebar:
   order: 6
 ---
 
-The [airspace](/reference/glossary/#airspace) is where an organisation keeps its rules and names: [root](/reference/glossary/#root), its [work kinds](/reference/glossary/#work-kind), its registered repositories, its [watches](/reference/glossary/#watch), its [strategies](/reference/glossary/#strategy) and its fleet profiles. The control plane holds what is in force. Use this guide to change any of it: the airspace is edited like a working copy, by pulling it into files, changing them, checking the difference, and applying it.
+The [airspace](/reference/glossary/#airspace) is where an organisation keeps its rules and names: [root](/reference/glossary/#root), its [work kinds](/reference/glossary/#work-kind), its registered repositories, its [watches](/reference/glossary/#watch), its [strategies](/reference/glossary/#strategy) and its fleet profiles. The control plane holds what is in force. Use this guide to change any of it: a person edits the airspace like a working copy, by pulling it into files, changing them, checking the difference, and applying it.
 
-Every change is compared with what is in force. A change that tightens the rules applies directly. A change that loosens them waits for approval, as [The envelope: changing the rules](/concepts/envelope/#changing-the-rules) explains.
+The control plane compares every change with what is in force. A change that tightens the rules applies directly. A change that loosens them waits for approval, as [The envelope: changing the rules](/concepts/envelope/#changing-the-rules) explains.
 
 ## Prerequisites
 
 - gg is signed in to the organisation's control plane.
-- A directory for the working copy, ideally a git repository, so that every change is reviewed and recorded. gg reads the working copy from the `airspace` setting, or from the current directory when that setting is empty:
+- A directory for the working copy, ideally a git repository, so that the organisation reviews and records every change. gg reads the working copy from the `airspace` setting, or from the current directory when that setting is empty:
 
   ```sh
   gg config set airspace ~/src/example-org-airspace
@@ -41,7 +41,7 @@ triage  role=watch  under=root  declared by Ada Lovelace
 gg airspace pull
 ```
 
-gg writes one file per document, under folders such as `work-kinds/`, `watches/` and `strategies/`, with root as `root.yaml`. It lists the files it wrote and any it removed, or says `the working copy already matches the airspace`. Each file begins with a `based-on:` line naming the version it was pulled from, such as `based-on: investigate@v7`.
+gg writes one file per document, under folders such as `work-kinds/`, `watches/` and `strategies/`, with root as `root.yaml`. It lists the files it wrote and any it removed, or says `the working copy already matches the airspace`. Each file begins with a `based-on:` line naming the version gg pulled it from, such as `based-on: investigate@v7`.
 
 A pull refuses to overwrite uncommitted changes in the working copy. Commit or discard them first.
 
@@ -59,7 +59,7 @@ work-kinds/investigate.yaml: widening - loops cannot be shown to tighten
 watches/old-queue: missing from the tree - an intent to retire
 ```
 
-Each line names a file and whether the change tightens or loosens the rules (`tightening` or `widening`). For a loosening change, gg names the field that makes it one. A file that is missing from the working copy is shown as an intent to retire its name, and a file that does not read as a document is shown with the reason.
+Each line names a file and whether the change tightens or loosens the rules (`tightening` or `widening`). For a loosening change, gg names the field that makes it one. gg shows a file that is missing from the working copy as an intent to retire its name, and shows a file that does not read as a document with the reason.
 
 ## 4. Apply it
 
@@ -71,15 +71,15 @@ gg applies the changed documents in a safe order, tightening changes first. For 
 
 - `<name>: applied as v8`: the change is in force.
 - `<name>: nothing changed, still v7`.
-- `<name>: widens <what> - flight GG-90 awaits <approver>`: the change loosens the rules, so it opened a flight that waits for approval. The document stays at its old version until that gate is answered.
+- `<name>: widens <what> - flight GG-90 awaits <approver>`: the change loosens the rules, so it opened a flight that waits for approval. The document stays at its old version until someone answers that gate.
 
-The working copy is treated as one changeset. If a file does not read as a document, nothing is applied. If the control plane refuses one document, gg stops there, says why, and lists the documents it did not try.
+gg treats the working copy as one changeset. If a file does not read as a document, gg applies nothing. If the control plane refuses one document, gg stops there, says why, and lists the documents it did not try.
 
 After an apply, commit the working copy, then pull again so the `based-on:` lines name the new versions.
 
 ## Declare a new name first
 
-A document can be applied only to a name the airspace has already declared. A new work kind, watch, narrowing, strategy or fleet profile therefore needs its name declared before its file can be applied. There are two ways:
+A document applies only to a name the airspace has already declared. A new work kind, watch, narrowing, strategy or fleet profile therefore needs its name declared before its file can apply. There are two ways:
 
 - **Let apply declare it.** `gg airspace apply --declare-names` declares every missing name first, under root, or under the work kind a file extends, and then applies the documents. Without the flag, apply lists the missing names, with the command for each, and applies nothing.
 - **Declare it explicitly**, with its role and name:
@@ -89,9 +89,9 @@ A document can be applied only to a name the airspace has already declared. A ne
   gg airspace name work-kind investigate-instructions --under investigate
   ```
 
-  The role is one of `work-kind`, `narrowing`, `strategy`, `watch` or `fleet-profile`. `--under` names the parent when it is not root, such as the work kind a new work kind extends. A parent is fixed when the name is declared.
+  The role is one of `work-kind`, `narrowing`, `strategy`, `watch` or `fleet-profile`. `--under` names the parent when it is not root, such as the work kind a new work kind extends. Declaring the name fixes its parent.
 
-Declaring a name loosens the rules, so it may open a flight that waits for approval. gg then says which flight and who it awaits, and that the name cannot be used until that gate opens; a document applied to it before then is refused. Declaring cannot be undone quietly: removing a name takes a retirement, which is itself approved. That is why `--declare-names` must be asked for.
+Declaring a name loosens the rules, so it may open a flight that waits for approval. gg then says which flight and who it awaits, and that no one can use the name until that gate opens; the control plane refuses a document applied to it before then. No one can undo a declaration quietly: removing a name takes a retirement, which itself needs approval. That is why a person must ask for `--declare-names`.
 
 ## Retire a name
 
@@ -99,11 +99,11 @@ Declaring a name loosens the rules, so it may open a flight that waits for appro
 gg airspace retire old-queue
 ```
 
-Retiring a name removes every rule in its document at once, so it always opens a flight that waits for approval. The name still governs until that gate opens, and flights that start before then are governed by it.
+Retiring a name removes every rule in its document at once, so it always opens a flight that waits for approval. The name still governs until that gate opens, and it governs flights that start before then.
 
 ## Register a repository
 
-A repository must be registered before a flight can name it:
+Someone must register a repository before a flight can name it:
 
 ```sh
 gg airspace repositories add --name web-app --provider forge --id R_123 --ref refs/heads/main --path example-org/web-app
@@ -112,18 +112,18 @@ gg airspace repositories add --name web-app --provider forge --id R_123 --ref re
 | Option | Meaning |
 |---|---|
 | `--name` | What envelopes and flights call it. Required. |
-| `--provider` | The key a runner resolves to a host of its own. It is never read from the path. Required. |
+| `--provider` | The key a runner resolves to a host of its own. Good Grief never reads it from the path. Required. |
 | `--id` | The forge's own identifier for the repository. Required. |
 | `--path` | The display path an intent is matched against, such as `example-org/web-app`. Required. |
 | `--ref` | The fully qualified ref, such as `refs/heads/main`, that work starts from when a flight names no ref of its own. Without it, a flight about a work item has no checkout of this repository to work in. A bare `main` is refused. |
 | `--credential` | `required` (the default) or `none`. Use `none` only for a repository a runner reaches with nothing to authenticate to, such as a local mirror. |
 | `--narrowings` | A directory in the repository under which every document is a [narrowing](/reference/glossary/#narrowing). Leaving it out turns narrowings off for this repository. |
 
-Registering a new repository loosens the rules, so it rides a gate. Until that gate opens, the name is not in the registry, and a flight naming it is refused. When the registration needs no approval, gg says who registered it and that nothing rode a flight.
+Registering a new repository loosens the rules, so it rides a gate. Until that gate opens, the name is not in the registry, and the control plane refuses a flight naming it. When the registration needs no approval, gg says who registered it and that nothing rode a flight.
 
 ## Change root directly
 
-Root can also be changed on its own, without the rest of the working copy:
+A person can also change root on its own, without the rest of the working copy:
 
 ```sh
 gg envelope validate root.yaml
@@ -132,12 +132,12 @@ gg envelope apply root.yaml
 
 Both read the file named, or standard input when the file is `-`.
 
-- **`gg envelope validate`** checks the file without sending it anywhere. It prints `This is a valid envelope.` and the form it will be stored in, or `This is not an envelope.` with the reason, and exits with an error when the file is invalid, so it can run in a pipeline.
+- **`gg envelope validate`** checks the file without sending it anywhere. It prints `This is a valid envelope.` and the form the control plane will store it in, or `This is not an envelope.` with the reason, and exits with an error when the file is invalid, so it can run in a pipeline.
 - **`gg envelope apply`** sends it. gg prints `Applied. This envelope is now v21.`, `Nothing changed.`, or, for a loosening change, `Waiting.` with the flight it rides and who it waits on. Applying the same loosening change again opens a second gate, so wait for the first.
 
 ## Chart an environment
 
-An [environment](/reference/glossary/#environment) must be charted before root can list it:
+Someone must chart an [environment](/reference/glossary/#environment) before root can list it:
 
 ```sh
 gg environment chart ui --means "<predicate>"

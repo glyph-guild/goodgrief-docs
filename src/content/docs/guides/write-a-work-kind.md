@@ -5,9 +5,9 @@ sidebar:
   order: 7
 ---
 
-A [work kind](/reference/glossary/#work-kind) is the rules for one kind of work, such as an investigation, a review or a change. It supplies how the agent works, what the work produces and where it lands, and it is chosen for a flight with `gg fly --work-kind`. A flight opened without one runs under the organisation's `implement` work kind, or under root alone when there is none. Use this guide to write a new work kind, or to make a variant of an existing one.
+A [work kind](/reference/glossary/#work-kind) is the rules for one kind of work, such as an investigation, a review or a change. It supplies how the agent works, what the work produces and where it lands, and a person chooses it for a flight with `gg fly --work-kind`. A flight opened without one runs under the organisation's `implement` work kind, or under root alone when there is none. Use this guide to write a new work kind, or to make a variant of an existing one.
 
-Each field is described in full in [The envelope](/concepts/envelope/). This page shows how the fields fit together in one file.
+[The envelope](/concepts/envelope/) describes each field in full. This page shows how the fields fit together in one file.
 
 ## Prerequisites
 
@@ -98,7 +98,7 @@ What each field does, with a link to its full description:
 | [`loops`](/concepts/envelope/#loops) | Yes | Who does the work, on which model, with which moves, for how long, and who takes over when time runs out. |
 | [`destinations`](/concepts/envelope/#destinations) | Yes | Where finished work lands, and which obligations it requires. |
 
-A work kind may also set `hosts` (the environment the work's running application needs, when that differs from where the agent runs) and `variables` (environment variables for what the flight runs; never a secret). Repositories, environments, the models a person may choose and the organisation's tool servers belong to root, and a work kind that sets a different value is refused.
+A work kind may also set `hosts` (the environment the work's running application needs, when that differs from where the agent runs) and `variables` (environment variables for what the flight runs; never a secret). Repositories, environments, the models a person may choose and the organisation's tool servers belong to root, and the control plane refuses a work kind that sets a different value.
 
 ## 2. Check it
 
@@ -108,7 +108,7 @@ Check the file's shape before sending it anywhere:
 gg envelope validate work-kinds/investigate.yaml
 ```
 
-gg prints `This is a valid envelope.` and the form it will be stored in, or `This is not an envelope.` with the reason. It contacts nothing.
+gg prints `This is a valid envelope.` and the form the control plane will store it in, or `This is not an envelope.` with the reason. It contacts nothing.
 
 Then see what applying it would do:
 
@@ -116,23 +116,23 @@ Then see what applying it would do:
 gg airspace diff
 ```
 
-A new work kind shows as `widening`. A file that does not read as a document is listed with the reason.
+A new work kind shows as `widening`. gg lists a file that does not read as a document with the reason.
 
 ## 3. Declare and apply it
 
-A new work kind needs its name declared before its file can be applied:
+Declare a new work kind's name before applying its file:
 
 ```sh
 gg airspace apply --declare-names
 ```
 
-Both the declaration and the new document loosen the rules, so gg reports the flights they opened and who each one awaits. Once those gates are answered, the work kind is in force, and `gg fly --work-kind investigate` uses it.
+Both the declaration and the new document loosen the rules, so gg reports the flights they opened and who each one awaits. Once someone answers those gates, the work kind is in force, and `gg fly --work-kind investigate` uses it.
 
-To read the rules a flight of this kind would run under, run `gg envelope show investigate`. It prints root combined with the work kind, with each rule marked by the document it came from.
+To read the rules a flight of this kind would run under, run `gg envelope show investigate`. It prints root combined with the work kind, and marks each rule with the document it came from.
 
 ## Make a variant without copying
 
-A work kind can extend another and state only what it changes. The parent is named with `extends:`, and everything the child leaves out is inherited:
+A work kind can extend another and state only what it changes. The child names its parent with `extends:`, and inherits everything it leaves out:
 
 ```yaml
 # work-kinds/investigate-instructions.yaml (an example)
@@ -157,21 +157,21 @@ destinations:
       - Custom.Instructions
 ```
 
-The child is applied over its parent with these rules:
+Good Grief applies the child over its parent with these rules:
 
 - **Single values**, such as `description`, `brief` or a loop's `model`, take the child's value when it gives one.
-- **Lists**, such as `accepts`, `produces` and `hosts`, are replaced whole by the child's list. No list is merged item by item.
-- **Loops, destinations and obligations** are matched by name. A child entry replaces the parent's entry of the same name whole, and a new name is added.
-- **Instructions** are added after the parent's.
-- **`remove:`** takes things away from the parent: `loops`, `destinations` and `obligations` by name, and `instructions` by their exact text. A removal that matches nothing is refused, naming it, so a parent reworded under its child fails loudly at the child's next apply. Removing an obligation or a destination loosens the rules and is approved like any other loosening change.
+- **Lists**, such as `accepts`, `produces` and `hosts`, take the child's list whole. Good Grief merges no list item by item.
+- **Loops, destinations and obligations** match by name. A child entry replaces the parent's entry of the same name whole, and a new name adds an entry.
+- **Instructions** from the child follow the parent's.
+- **`remove:`** takes things away from the parent: `loops`, `destinations` and `obligations` by name, and `instructions` by their exact text. Good Grief refuses a removal that matches nothing, and names it, so a parent reworded under its child fails loudly at the child's next apply. Removing an obligation or a destination loosens the rules and needs approval like any other loosening change.
 
 In the example, the child removes the parent's `none` destination and adds its own, because a work kind has one destination.
 
 A chain holds at most three work kinds, counting the top one. A child cannot set root's fields or `context`; it inherits them.
 
-A base that exists only to be extended is marked `abstract: true`. It is never flown itself, it need not declare a destination, and it is checked through each work kind that extends it. Being abstract is not inherited.
+Mark a base that exists only to be extended with `abstract: true`. No one ever flies it itself, it need not declare a destination, and Good Grief checks it through each work kind that extends it. A child does not inherit being abstract.
 
-A child's name is declared under its parent. `gg airspace apply --declare-names` does this from the `extends:` line, and the parent cannot be changed once the name is declared. `gg airspace show investigate-instructions` prints the child as written and then the result of applying it over its parent.
+Declare a child's name under its parent. `gg airspace apply --declare-names` does this from the `extends:` line, and no one can change the parent once the name is declared. `gg airspace show investigate-instructions` prints the child as written and then the result of applying it over its parent.
 
 ## Related
 

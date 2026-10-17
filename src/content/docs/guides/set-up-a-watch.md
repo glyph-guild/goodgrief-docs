@@ -5,7 +5,7 @@ sidebar:
   order: 8
 ---
 
-A [watch](/reference/glossary/#watch) is a standing instruction to look at something on a schedule, such as a work-item query, and to nominate work from what it finds. Each run of a watch is a **sweep**. A sweep is performed by an agent that follows a written procedure (a skill kept in a repository), and what it nominates goes to the [board](/guides/use-the-board/), where the organisation's rules decide whether it opens as a flight.
+A [watch](/reference/glossary/#watch) is a standing instruction to look at something on a schedule, such as a work-item query, and to nominate work from what it finds. Each run of a watch is a **sweep**. An agent that follows a written procedure (a skill kept in a repository) performs each sweep, and what it nominates goes to the [board](/guides/use-the-board/), where the organisation's rules decide whether it opens as a flight.
 
 Use this guide to have Good Grief pick up work by itself: for example, to triage every work item carrying a particular tag, once an hour.
 
@@ -59,12 +59,12 @@ Every field except `bounds` and `for` is required:
 | `trigger.every` | How often it sweeps, as a duration such as `15m` or `1h`. |
 | `host` | Which tracker, by address. |
 | `credential` | Where the credential to reach the tracker is, never the secret itself. The runner resolves it. |
-| `filter` | What to ask the tracker for. A blank filter is refused, never read as everything. |
+| `filter` | What to ask the tracker for. Good Grief refuses a blank filter and never reads it as everything. |
 | `repository` | The registered repository the skill is in. |
 | `skill` | The path of the procedure the sweep's agent follows, inside that repository. |
 | `ref` | The ref the skill is read at, so what runs is what was reviewed. |
 | `mapping.subject` | Which field identifies each item the query returns. |
-| `mapping.version` | Which field says the item changed. A nomination is made once per subject and version, so a changed item can be nominated again and an unchanged one is not. |
+| `mapping.version` | Which field says the item changed. The watch nominates once per subject and version, so it can nominate a changed item again and does not nominate an unchanged one. |
 | `mapping.intent-key` | Which field names the item outside Good Grief. The budget counts by it. |
 | `pull-point` | Who performs the sweep: `resident-runner` (a runner), `control-plane` or `forge-scheduler`. |
 | `nominates` | The `flight` destination the nominations stand under: which work kinds they may open (`opens`), and whether they open at once or wait for a person (`opens-as`). [Use the board](/guides/use-the-board/#auto-or-gated) explains `auto` and `gated`. |
@@ -73,17 +73,17 @@ Every field except `bounds` and `for` is required:
 | `bounds.budget` | How many flights its nominations may open (`flights`) within a window (`window`, such as `24h`). |
 | `for` | Whose watch it is: the organisation, or one person. Leave it out for the organisation. |
 
-Every bound is optional, and a bound that is left out is unlimited.
+Every bound is optional, and leaving a bound out makes it unlimited.
 
 ## 2. Declare the name
 
-A watch's name must be declared before its file can be applied:
+Declare a watch's name before applying its file:
 
 ```sh
 gg airspace name watch triage
 ```
 
-Declaring a name loosens the rules, so gg may report a flight that waits for approval, and the name cannot be used until that gate opens. `gg airspace apply --declare-names` can declare it instead, as part of applying.
+Declaring a name loosens the rules, so gg may report a flight that waits for approval, and no one can use the name until that gate opens. `gg airspace apply --declare-names` can declare it instead, as part of applying.
 
 ### A watch of one's own
 
@@ -138,7 +138,7 @@ When no watch is in force, gg says so and suggests `gg airspace show` to list th
 
 ## The same steps in the console
 
-Run `gg` with no arguments, then `;` to open the board, and `v` to switch from nominations to sweeps. When a watch's failure appears in the queue (`,`), `*` marks every failure so they can be declined together.
+Run `gg` with no arguments, then `;` to open the board, and `v` to switch from nominations to sweeps. When a watch's failure appears in the queue (`,`), `*` marks every failure so a person can decline them together.
 
 ## Related
 
