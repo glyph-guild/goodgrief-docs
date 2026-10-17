@@ -22,7 +22,7 @@ Nominations arrive from several places:
 
 Every nominator is bounded by a `flight` [destination](/concepts/envelope/#destinations), and its `opens-as` setting decides how a nomination opens:
 
-- **`auto`** (the default): the nomination opens as a flight straight away, if the rules allow it. Nobody needs to answer it.
+- **`auto`** (the default): the nomination opens as a flight straight away, if the rules allow it. No one needs to answer it.
 - **`gated`**: the nomination waits on the board until a person opens or declines it.
 
 An `auto` nomination can still wait. When a nominator has spent its budget, such as five flights in a day, its nominations become gated, and the board says why.
@@ -57,7 +57,7 @@ gg board
 01a0792a-5c4e-4b1f-9d3e-2f6a8c1b7e44 - review
   nominated by: watch:triage
   about:        https://dev.azure.com/example-org/example-project/_workitems/edit/1234
-  standing:     gated - it is waiting for somebody
+  standing:     gated - waiting for a person to answer it
   nominated:    2026-10-14 15:02:41Z
 ```
 
@@ -69,7 +69,7 @@ Each nomination shows:
 | `nominated by` | What proposed it, such as a watch or a plan. |
 | `for` | The person it belongs to, when it came from a person's own watch. Only that person may answer it. |
 | `about` | The piece of work, such as a work item's address. Free-text work says so. |
-| `standing` | `gated` when it is waiting for someone, or `auto` when nobody needs to answer it. |
+| `standing` | `gated` when it is waiting for a person to answer it, or `auto` when no one needs to. |
 | `because` | Why a gated nomination is gated, when the gate came from a spent budget. |
 | `nominated` | When it was proposed. |
 
@@ -81,14 +81,14 @@ Each nomination shows:
 | `declined` | A person said no. |
 | `refused` | The rules said no, and the reason names the rule. |
 | `superseded` | A newer version of the same work arrived. |
-| `lapsed` | Nobody opened it in time. |
+| `lapsed` | No one opened it in time. |
 | `dropped` | The plan that named it no longer does. |
 
 Only `opened` and `declined` are a person's decision; the others belong to the board, the clock and the rules.
 
 ## 2. Open or decline a nomination
 
-Use the full id that `gg board` prints, and a reason. The reason is required either way, because it is the only record of why a person opened work nobody asked for, or declined work somebody did:
+Use the full id that `gg board` prints, and a reason. The reason is required either way, because it is the only record of why a person opened work no one asked for, or declined work someone did:
 
 ```sh
 gg board open 01a0792a-5c4e-4b1f-9d3e-2f6a8c1b7e44 "This item blocks the release."
@@ -115,7 +115,7 @@ The flight a nomination opens belongs to whoever the work is for, not to the per
 
 Run `gg` with no arguments, then:
 
-- `;` opens the board. `*` shows everybody's rows, `v` switches between nominations and the sweeps of watches, and `enter` opens the selected row.
+- `;` opens the board. `*` shows everyone's rows, `v` switches between nominations and the sweeps of watches, and `enter` opens the selected row.
 - In an open row, `o` opens the nomination, `d` declines it, and `f` goes to the flight it became.
 - Nominations waiting on a person also appear in the queue (`,`). There, `enter` opens or declines one, `space` marks it, `o` opens it, and `d` declines every marked row.
 

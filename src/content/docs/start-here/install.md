@@ -61,7 +61,7 @@ On Windows, running `gg` with no arguments opens the console, as on macOS and Li
 
 ## When another program is called gg
 
-At least one other program, a Git interface, is also called `gg`. If a different program already sits where the installer would put its link, the installer stops rather than replace it, and asks for another name. To answer in advance, for example on a machine with nobody at the keyboard, pass `--as`:
+At least one other program, a Git interface, is also called `gg`. If a different program already sits where the installer would put its link, the installer stops rather than replace it, and asks for another name. To answer in advance, for example on a machine with no one at the keyboard, pass `--as`:
 
 ```sh
 curl -fsSL https://goodgrief.dev/install.sh | sudo sh -s -- --as goodgrief

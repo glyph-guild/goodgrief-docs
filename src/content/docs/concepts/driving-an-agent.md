@@ -5,7 +5,7 @@ sidebar:
   order: 12
 ---
 
-Most [flights](/reference/glossary/#flight) run with nobody watching: a [runner](/reference/glossary/#runner) takes the flight, runs the [agent](/reference/glossary/#agent) on its own, and reports what happened. Sometimes a person wants to be closer to the work. gg offers several ways to do that, which differ in two respects: whether there is a flight, and whether the person can type to the agent or only watch.
+Most [flights](/reference/glossary/#flight) run with no one watching: a [runner](/reference/glossary/#runner) takes the flight, runs the [agent](/reference/glossary/#agent) on its own, and reports what happened. Sometimes a person wants to be closer to the work. gg offers several ways to do that, which differ in two respects: whether there is a flight, and whether the person can type to the agent or only watch.
 
 | Way | A flight? | Where the agent runs | The person can |
 |---|---|---|---|

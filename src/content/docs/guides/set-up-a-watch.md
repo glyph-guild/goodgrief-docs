@@ -93,7 +93,7 @@ To make a watch that belongs to one person, declare it with `--personal`:
 gg airspace name watch my-queue --personal
 ```
 
-gg declares the name bound to the signed-in person and writes their identity into the watch file's `for:` line, so nobody has to type it. A personal watch differs from the organisation's in these ways:
+gg declares the name bound to the signed-in person and writes their identity into the watch file's `for:` line, so no one has to type it. A personal watch differs from the organisation's in these ways:
 
 - Only its person can apply, change or retire it, and only its person answers its gates, including a loosening change to it.
 - Its sweeps and the flights it opens run only on runners its person has claimed, so its `pull-point` must be `resident-runner`. If none of them is running, `gg why` says so.

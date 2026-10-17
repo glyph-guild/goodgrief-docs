@@ -1,11 +1,11 @@
 ---
 title: Add machines to the fleet
-description: Enrol machines with a token so that nobody signs in on them, describe them with a fleet profile, and decide whose each machine is.
+description: Enrol machines with a token so that no one signs in on them, describe them with a fleet profile, and decide whose each machine is.
 sidebar:
   order: 11
 ---
 
-A machine joins the organisation's [fleet](/reference/glossary/#fleet) by **enrolment**. A person creates an enrolment token, the machine is installed with that token, and the machine registers itself as a [runner](/reference/glossary/#runner). Nobody signs in on it. It takes its configuration from the **fleet profile** the token names, so it is not configured by hand.
+A machine joins the organisation's [fleet](/reference/glossary/#fleet) by **enrolment**. A person creates an enrolment token, the machine is installed with that token, and the machine registers itself as a [runner](/reference/glossary/#runner). No one signs in on it. It takes its configuration from the **fleet profile** the token names, so it is not configured by hand.
 
 This page assumes the steps in [Run a runner](/guides/run-a-runner/) are familiar.
 
@@ -66,7 +66,7 @@ A token also decides whose each machine starts as:
 | (none) | **Open**: anyone in the organisation may claim it. |
 | `--claim` | **Claimed** by the person who created the token. |
 | `--claim --reserve` | Claimed by that person, and **reserved**: it takes only that person's flights. |
-| `--tenant` | **The organisation's**: nobody may claim it. Only an administrator can create this kind of token. |
+| `--tenant` | **The organisation's**: no one may claim it. Only an administrator can create this kind of token. |
 
 Ownership is covered in more detail [below](#whose-a-machine-is).
 
@@ -130,7 +130,7 @@ gg agent login --runner <id|name>
 
 [Runners in a team](/concepts/runners-in-a-team/) explains which work each kind of machine is offered, and how to keep a machine to its owner's flights. In short, every runner is in one of three states:
 
-- **The organisation's**: nobody may claim it.
+- **The organisation's**: no one may claim it.
 - **Open**: anyone in the organisation may claim it.
 - **Claimed** by one person.
 
@@ -144,7 +144,7 @@ A claimed machine can also be **reserved**, which means it takes only its owner'
 | `gg runner release <id>` | Lets a reserved machine take anyone's flights again. | Its owner. |
 | `gg runner ownership <id> tenant\|open` | Turns an organisation machine into an open one, or the reverse. | An administrator. |
 
-A machine somebody else has claimed cannot be claimed until they unclaim it. An organisation machine can never be claimed. `gg runner ownership` refuses a claimed machine: it must be unclaimed first, so an owner never loses a machine without that being recorded. An administrator unclaiming a machine is how to free one whose owner has left.
+A machine someone else has claimed cannot be claimed until they unclaim it. An organisation machine can never be claimed. `gg runner ownership` refuses a claimed machine: it must be unclaimed first, so an owner never loses a machine without that being recorded. An administrator unclaiming a machine is how to free one whose owner has left.
 
 In the console, the window for a runner offers `m` to claim it, `o` to hold it back for the organisation, and `h` to keep it to its owner's flights.
 

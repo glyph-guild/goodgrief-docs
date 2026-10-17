@@ -1,5 +1,5 @@
 {
-  "version": "0.88.45\u002B25662b306e41c54d666aef8a13711d5e6165993a",
+  "version": "0.88.46\u002B1d3ee9aa3ae0645ee08c5067ce1f7f6e96f6acfb",
   "commands": [
     {
       "usage": "gg",
@@ -262,7 +262,7 @@
     },
     {
       "usage": "gg credential trust-this-machine \u003Clocator\u003E",
-      "summary": "let this machine open a credential sealed to the signed-in person, so flights here can use it with nobody present",
+      "summary": "let this machine open a credential sealed to the signed-in person, so flights here can use it with no one present",
       "options": []
     },
     {
@@ -436,12 +436,12 @@
       "options": []
     },
     {
-      "usage": "gg admin grant \u003Cprincipal\u003E",
+      "usage": "gg admin grant \u003Cperson\u003E",
       "summary": "make a person an administrator of this organisation",
       "options": []
     },
     {
-      "usage": "gg admin revoke \u003Cprincipal\u003E",
+      "usage": "gg admin revoke \u003Cperson\u003E",
       "summary": "remove a person\u0027s administrator role",
       "options": []
     },
@@ -477,21 +477,21 @@
       "heading": "",
       "key": "esc",
       "does": "back to the console (so does any key)",
-      "when": "while the mark is up"
+      "when": "while the screensaver is showing"
     },
     {
       "mode": "Normal",
       "heading": "",
       "key": "space",
       "does": "back to the console (so does any key)",
-      "when": "while the mark is up"
+      "when": "while the screensaver is showing"
     },
     {
       "mode": "Normal",
       "heading": "",
       "key": "enter",
       "does": "back to the console (so does any key)",
-      "when": "while the mark is up"
+      "when": "while the screensaver is showing"
     },
     {
       "mode": "Normal",
@@ -581,7 +581,7 @@
       "mode": "Normal",
       "heading": "",
       "key": "ctrl\u002Bg",
-      "does": "show the mark",
+      "does": "show the screensaver",
       "when": "after ctrl-g"
     },
     {
@@ -680,19 +680,19 @@
       "mode": "Normal",
       "heading": "",
       "key": "ctrl\u002Bg",
-      "does": "switch: then 0 gg, 1-9 an agent, \u002B new, H history"
+      "does": "switch: then 0 gg, 1-9 an agent, \u002B new, h history"
     },
     {
       "mode": "Normal",
       "heading": "",
       "key": "r",
-      "does": "repositories"
+      "does": "credentials"
     },
     {
       "mode": "Normal",
       "heading": "",
       "key": "e",
-      "does": "envelope"
+      "does": "airspace"
     },
     {
       "mode": "Normal",
@@ -750,7 +750,7 @@
       "heading": "",
       "key": "v",
       "does": "the fleet\u0027s allowances",
-      "when": "for an administrator whose file asked for the pane"
+      "when": "for an administrator, when the configuration sets fleet-allowances"
     },
     {
       "mode": "Normal",
@@ -819,7 +819,7 @@
       "mode": "Normal",
       "heading": "",
       "key": "*",
-      "does": "everybody\u0027s rows",
+      "does": "everyone\u0027s rows",
       "when": "while the board is showing"
     },
     {
@@ -962,7 +962,7 @@
       "mode": "Help",
       "heading": "while this page is open",
       "key": "tab",
-      "does": "keys / environment"
+      "does": "next page"
     },
     {
       "mode": "Help",
@@ -1043,177 +1043,177 @@
       "heading": "while the actions list is open",
       "key": "s",
       "does": "log the agent in",
-      "when": "when this flight\u0027s gate is a runner\u0027s agent-login ask"
+      "when": "when the gate asks for an agent login"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "x",
       "does": "ground it"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "m",
       "does": "move it to another model"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "f",
       "does": "fly it again"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "v",
       "does": "gate"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "w",
       "does": "watch it"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "t",
       "does": "the ticket",
-      "when": "when the flight names a ticket a reader here can read"
+      "when": "when the flight names a ticket this machine can read"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "a",
       "does": "approve",
       "when": "when a gate is waiting on this flight"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "r",
       "does": "reject",
       "when": "when a gate is waiting on this flight"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "t",
       "does": "the link",
-      "when": "when the flight names a link and no ticket a reader here can read"
+      "when": "when the flight names a link and no ticket this machine can read"
     },
     {
       "mode": "FlightDetail",
-      "heading": "",
+      "heading": "while a flight is open",
       "key": "s",
       "does": "log the agent in",
-      "when": "when this flight\u0027s gate is a runner\u0027s agent-login ask"
+      "when": "when the gate asks for an agent login"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "v",
       "does": "next view"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "r",
       "does": "restart it",
       "when": "over the runner on this machine"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "x",
       "does": "shut it down",
       "when": "over the runner on this machine"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "m",
-      "does": "claim it for yourself",
-      "when": "over a machine whose control plane says whose it is"
+      "does": "claim it for the person signed in",
+      "when": "when the control plane says who owns the machine"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "o",
       "does": "keep it for organisation work",
-      "when": "over a machine whose control plane says whose it is"
+      "when": "when the control plane says who owns the machine"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "h",
       "does": "reserve it for its owner\u0027s flights",
       "when": "over a claimed machine"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "w",
       "does": "watch this runner",
-      "when": "while it is beating"
+      "when": "while it is online"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "c",
       "does": "give it a credential",
-      "when": "while it is beating"
+      "when": "while it is online"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "n",
       "does": "start a session here",
       "when": "on the sessions of a machine that takes them"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "D",
       "does": "forget every ended session",
       "when": "on the sessions of a machine that takes them"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "enter",
       "does": "attach to it",
       "when": "over a session that is running"
     },
     {
       "mode": "Runner",
-      "heading": "",
+      "heading": "while a runner is open",
       "key": "d",
       "does": "forget it",
       "when": "over a session that ended"
     },
     {
       "mode": "HandFlight",
-      "heading": "",
+      "heading": "after flying by hand",
       "key": "esc",
       "does": "close"
     },
@@ -1243,145 +1243,145 @@
     },
     {
       "mode": "ConfirmApply",
-      "heading": "",
+      "heading": "when asked whether to apply the airspace",
       "key": "y",
       "does": "apply them"
     },
     {
       "mode": "ConfirmApply",
-      "heading": "",
+      "heading": "when asked whether to apply the airspace",
       "key": "esc",
       "does": "leave the airspace as it is"
     },
     {
       "mode": "BrowseFind",
-      "heading": "",
+      "heading": "while going to or finding a work item",
       "key": "enter",
       "does": "go there or find it"
     },
     {
       "mode": "BrowseFind",
-      "heading": "",
+      "heading": "while going to or finding a work item",
       "key": "esc",
       "does": "back to the list"
     },
     {
       "mode": "AirspacePath",
-      "heading": "",
+      "heading": "when asked where the airspace is",
       "key": "enter",
       "does": "set it"
     },
     {
       "mode": "AirspacePath",
-      "heading": "",
+      "heading": "when asked where the airspace is",
       "key": "ctrl\u002Bd",
       "does": "use the directory gg was launched from"
     },
     {
       "mode": "AirspacePath",
-      "heading": "",
+      "heading": "when asked where the airspace is",
       "key": "ctrl\u002Bv",
       "does": "paste the clipboard"
     },
     {
       "mode": "AirspacePath",
-      "heading": "",
+      "heading": "when asked where the airspace is",
       "key": "ctrl\u002Bo",
       "does": "browse for a directory"
     },
     {
       "mode": "AirspacePath",
-      "heading": "",
+      "heading": "when asked where the airspace is",
       "key": "esc",
       "does": "leave it as it is"
     },
     {
       "mode": "ReadingEnvelope",
-      "heading": "",
+      "heading": "while reading the rules in force",
       "key": "d",
       "does": "what would change"
     },
     {
       "mode": "ReadingEnvelope",
-      "heading": "",
+      "heading": "while reading the rules in force",
       "key": "o",
       "does": "the last apply"
     },
     {
       "mode": "ReadingEnvelope",
-      "heading": "",
+      "heading": "while reading the rules in force",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "ReadingEnvelope",
-      "heading": "",
+      "heading": "while reading the rules in force",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "ReadingChangeset",
-      "heading": "",
+      "heading": "while reading what would change",
       "key": "e",
       "does": "the rules in force"
     },
     {
       "mode": "ReadingChangeset",
-      "heading": "",
+      "heading": "while reading what would change",
       "key": "o",
       "does": "the last apply"
     },
     {
       "mode": "ReadingChangeset",
-      "heading": "",
+      "heading": "while reading what would change",
       "key": "x",
       "does": "retire what is missing"
     },
     {
       "mode": "ReadingChangeset",
-      "heading": "",
+      "heading": "while reading what would change",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "ReadingChangeset",
-      "heading": "",
+      "heading": "while reading what would change",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "ReadingOutcome",
-      "heading": "",
+      "heading": "while reading what the apply came to",
       "key": "d",
       "does": "what would change"
     },
     {
       "mode": "ReadingOutcome",
-      "heading": "",
+      "heading": "while reading what the apply came to",
       "key": "e",
       "does": "the rules in force"
     },
     {
       "mode": "ReadingOutcome",
-      "heading": "",
+      "heading": "while reading what the apply came to",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "ReadingOutcome",
-      "heading": "",
+      "heading": "while reading what the apply came to",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "ReadingSaid",
-      "heading": "",
+      "heading": "while reading the whole message",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "ReadingSaid",
-      "heading": "",
+      "heading": "while reading the whole message",
       "key": "esc",
       "does": "close"
     },
@@ -1453,46 +1453,46 @@
     },
     {
       "mode": "CredentialAudience",
-      "heading": "while a broadcast is being reviewed",
+      "heading": "while choosing which machines get a credential",
       "key": "space",
       "does": "pick this machine, or leave it out",
       "when": "while the list is being read"
     },
     {
       "mode": "CredentialAudience",
-      "heading": "while a broadcast is being reviewed",
+      "heading": "while choosing which machines get a credential",
       "key": "enter",
-      "does": "go on",
+      "does": "continue",
       "when": "while the list is being read"
     },
     {
       "mode": "CredentialAudience",
-      "heading": "while a broadcast is being reviewed",
+      "heading": "while choosing which machines get a credential",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "CredentialAudience",
-      "heading": "while a broadcast is being reviewed",
+      "heading": "while choosing which machines get a credential",
       "key": "enter",
       "does": "send it",
       "when": "once the list has been read"
     },
     {
       "mode": "CredentialWhereabouts",
-      "heading": "",
+      "heading": "while reading where a credential is",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "ConfirmRetire",
-      "heading": "",
+      "heading": "when asked whether to retire names",
       "key": "y",
       "does": "retire them"
     },
     {
       "mode": "ConfirmRetire",
-      "heading": "",
+      "heading": "when asked whether to retire names",
       "key": "esc",
       "does": "leave the names as they are"
     },
@@ -1510,13 +1510,13 @@
     },
     {
       "mode": "ConfirmRevoke",
-      "heading": "when asked whether to revoke one",
+      "heading": "when asked whether to revoke a token",
       "key": "y",
       "does": "revoke it"
     },
     {
       "mode": "ConfirmRevoke",
-      "heading": "when asked whether to revoke one",
+      "heading": "when asked whether to revoke a token",
       "key": "esc",
       "does": "leave it live"
     },
@@ -1524,7 +1524,7 @@
       "mode": "ConfirmOwnership",
       "heading": "when asked who may claim a machine",
       "key": "y",
-      "does": "say so"
+      "does": "confirm"
     },
     {
       "mode": "ConfirmOwnership",
@@ -1534,13 +1534,13 @@
     },
     {
       "mode": "ConfirmFlyAgain",
-      "heading": "when asked whether to fly one again",
+      "heading": "when asked whether to fly a flight again",
       "key": "y",
       "does": "open one on this intent"
     },
     {
       "mode": "ConfirmFlyAgain",
-      "heading": "when asked whether to fly one again",
+      "heading": "when asked whether to fly a flight again",
       "key": "esc",
       "does": "leave it alone"
     },
@@ -1567,7 +1567,7 @@
       "heading": "while answering a gate",
       "key": "s",
       "does": "log the agent in",
-      "when": "when this gate is a runner\u0027s agent-login ask"
+      "when": "when the gate asks for an agent login"
     },
     {
       "mode": "BoardDetail",
@@ -1598,113 +1598,113 @@
     },
     {
       "mode": "SignIn",
-      "heading": "",
+      "heading": "while signing in",
       "key": "y",
       "does": "sign in"
     },
     {
       "mode": "SignIn",
-      "heading": "",
+      "heading": "while signing in",
       "key": "esc",
-      "does": "carry on signed out"
+      "does": "continue signed out"
     },
     {
       "mode": "SignIn",
-      "heading": "",
+      "heading": "while signing in",
       "key": "o",
       "does": "open in browser",
       "when": "once a code is showing"
     },
     {
       "mode": "SignIn",
-      "heading": "",
+      "heading": "while signing in",
       "key": "l",
       "does": "copy the link",
       "when": "once a code is showing"
     },
     {
       "mode": "SignIn",
-      "heading": "",
+      "heading": "while signing in",
       "key": "c",
       "does": "copy the code",
       "when": "once a code is showing"
     },
     {
       "mode": "ComposeChoice",
-      "heading": "",
+      "heading": "when asked how to write a flight",
       "key": "w",
       "does": "write it in the editor"
     },
     {
       "mode": "ComposeChoice",
-      "heading": "",
+      "heading": "when asked how to write a flight",
       "key": "m",
       "does": "compose it with an agent"
     },
     {
       "mode": "ComposeChoice",
-      "heading": "",
+      "heading": "when asked how to write a flight",
       "key": "l",
       "does": "plan its legs with an agent"
     },
     {
       "mode": "ComposeChoice",
-      "heading": "",
+      "heading": "when asked how to write a flight",
       "key": "s",
       "does": "start a Claude Code agent"
     },
     {
       "mode": "ComposeChoice",
-      "heading": "",
+      "heading": "when asked how to write a flight",
       "key": "esc",
       "does": "open nothing"
     },
     {
       "mode": "WorkKindChoice",
-      "heading": "",
+      "heading": "when asked what a flight is for",
       "key": "enter",
       "does": "fly it for this"
     },
     {
       "mode": "WorkKindChoice",
-      "heading": "",
+      "heading": "when asked what a flight is for",
       "key": "l",
       "does": "plan several flights with an agent"
     },
     {
       "mode": "WorkKindChoice",
-      "heading": "",
+      "heading": "when asked what a flight is for",
       "key": "s",
       "does": "start a Claude Code agent"
     },
     {
       "mode": "WorkKindChoice",
-      "heading": "",
+      "heading": "when asked what a flight is for",
       "key": "tab",
       "does": "kind / repositories"
     },
     {
       "mode": "WorkKindChoice",
-      "heading": "",
+      "heading": "when asked what a flight is for",
       "key": "esc",
       "does": "open nothing"
     },
     {
       "mode": "WorkKindChoice",
-      "heading": "",
+      "heading": "when asked what a flight is for",
       "key": "space",
       "does": "name it, or stop",
       "when": "on the repositories tab"
     },
     {
       "mode": "CredentialRepositoryChoice",
-      "heading": "",
+      "heading": "when asked which credential to send",
       "key": "enter",
       "does": "send one for this"
     },
     {
       "mode": "CredentialRepositoryChoice",
-      "heading": "",
+      "heading": "when asked which credential to send",
       "key": "esc",
       "does": "send nothing"
     },
@@ -1722,142 +1722,142 @@
     },
     {
       "mode": "BrowseFilter",
-      "heading": "",
+      "heading": "while narrowing the work list",
       "key": "enter",
       "does": "pick this"
     },
     {
       "mode": "BrowseFilter",
-      "heading": "",
+      "heading": "while narrowing the work list",
       "key": "v",
       "does": "next criterion"
     },
     {
       "mode": "BrowseFilter",
-      "heading": "",
+      "heading": "while narrowing the work list",
       "key": "b",
       "does": "list the work again"
     },
     {
       "mode": "BrowseFilter",
-      "heading": "",
+      "heading": "while narrowing the work list",
       "key": "x",
       "does": "take the filter off"
     },
     {
       "mode": "BrowseFilter",
-      "heading": "",
+      "heading": "while narrowing the work list",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "WorkItemDetail",
-      "heading": "",
+      "heading": "while a work item is open",
       "key": "v",
       "does": "history, fields, flights, then actions"
     },
     {
       "mode": "WorkItemDetail",
-      "heading": "",
+      "heading": "while a work item is open",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "WorkItemDetail",
-      "heading": "",
+      "heading": "while a work item is open",
       "key": "o",
       "does": "open it in a browser"
     },
     {
       "mode": "WorkItemDetail",
-      "heading": "",
+      "heading": "while a work item is open",
       "key": "l",
       "does": "plan from it with an agent"
     },
     {
       "mode": "WorkItemDetail",
-      "heading": "",
+      "heading": "while a work item is open",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "WorkItemDetail",
-      "heading": "",
+      "heading": "while a work item is open",
       "key": "f",
       "does": "go to the flight",
       "when": "on the flights tab, on a flight loaded here"
     },
     {
       "mode": "FloorChoice",
-      "heading": "",
+      "heading": "when asked how much to keep back",
       "key": "1",
       "does": "keep a tenth back"
     },
     {
       "mode": "FloorChoice",
-      "heading": "",
+      "heading": "when asked how much to keep back",
       "key": "2",
       "does": "keep a quarter back"
     },
     {
       "mode": "FloorChoice",
-      "heading": "",
+      "heading": "when asked how much to keep back",
       "key": "3",
       "does": "keep half back"
     },
     {
       "mode": "FloorChoice",
-      "heading": "",
+      "heading": "when asked how much to keep back",
       "key": "0",
       "does": "keep nothing back"
     },
     {
       "mode": "FloorChoice",
-      "heading": "",
+      "heading": "when asked how much to keep back",
       "key": "esc",
-      "does": "leave the floor as it is"
+      "does": "leave it as it is"
     },
     {
       "mode": "Notifications",
-      "heading": "",
+      "heading": "while reading notifications",
       "key": "\u003E",
       "does": "go to it"
     },
     {
       "mode": "Notifications",
-      "heading": "",
+      "heading": "while reading notifications",
       "key": "x",
       "does": "dismiss it"
     },
     {
       "mode": "Notifications",
-      "heading": "",
+      "heading": "while reading notifications",
       "key": "esc",
-      "does": "put them down"
+      "does": "close"
     },
     {
       "mode": "Notifications",
-      "heading": "",
+      "heading": "while reading notifications",
       "key": "left",
       "does": "previous",
       "when": "with more than one notification"
     },
     {
       "mode": "Notifications",
-      "heading": "",
+      "heading": "while reading notifications",
       "key": "right",
       "does": "next",
       "when": "with more than one notification"
     },
     {
       "mode": "Watching",
-      "heading": "",
+      "heading": "while watching",
       "key": "c",
       "does": "copy"
     },
     {
       "mode": "Watching",
-      "heading": "",
+      "heading": "while watching",
       "key": "esc",
       "does": "back"
     },
@@ -1878,7 +1878,7 @@
       "heading": "while a plan is open",
       "key": "t",
       "does": "open the ticket",
-      "when": "on a plan about a ticket a reader here can read"
+      "when": "on a plan about a ticket this machine can read"
     },
     {
       "mode": "ItineraryDetail",
@@ -1889,27 +1889,27 @@
     },
     {
       "mode": "CredentialWizard",
-      "heading": "",
+      "heading": "while adding a credential",
       "key": "esc",
       "does": "close"
     },
     {
       "mode": "CredentialWizard",
-      "heading": "",
+      "heading": "while adding a credential",
       "key": "enter",
       "does": "next",
       "when": "when there is a list to pick from"
     },
     {
       "mode": "CredentialWizard",
-      "heading": "",
+      "heading": "while adding a credential",
       "key": "left",
       "does": "back",
       "when": "after the first step"
     },
     {
       "mode": "CredentialWizard",
-      "heading": "",
+      "heading": "while adding a credential",
       "key": "enter",
       "does": "save",
       "when": "on the review"

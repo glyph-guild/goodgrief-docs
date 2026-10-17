@@ -1,6 +1,6 @@
 ---
 title: Credentials
-description: What a credential is to the control plane and to a machine, how its value is sealed and moved, and how a flight opens one with nobody present.
+description: What a credential is to the control plane and to a machine, how its value is sealed and moved, and how a flight opens one with no one present.
 sidebar:
   order: 10
 ---
@@ -34,7 +34,7 @@ Each credential is registered for exactly one purpose, with one option to `gg cr
 | Purpose | Option | Used for |
 |---|---|---|
 | A repository | `--repo <slug>` | Cloning, and with write access, pushing and opening pull requests. |
-| An agent | `--agent <name>` | The agent's own sign-in, so it can run with nobody present. |
+| An agent | `--agent <name>` | The agent's own sign-in, so it can run with no one present. |
 | A tracker | `--tracker <key>` | Reading work items, and writing them where the rules allow. |
 | An analysis service | `--analysis <key>` | A service that scans code and reports findings about a repository. |
 
@@ -64,7 +64,7 @@ A credential can have several holders. Who holds it depends on how it arrived:
 
 | How it arrived | Its holders |
 |---|---|
-| Registered with `gg credential add` | The person who registered it, and nobody else. Registering costs no passphrase, because sealing needs only the public half of the person's key. |
+| Registered with `gg credential add` | The person who registered it, and no one else. Registering costs no passphrase, because sealing needs only the public half of the person's key. |
 | `gg credential trust-this-machine <name>` was run | The person, and now this machine. The person's passphrase unlocks their key for this one step. |
 | Sent to a machine with `gg credential send` | The receiving machine. |
 
@@ -100,9 +100,9 @@ Nothing is ever left for a machine to collect later. A machine that cannot be re
 
 An agent's sign-in can also be created on the runner itself, with `gg agent login --runner <id|name>`. The runner starts the agent's sign-in, the person completes it in a browser and types back the code, and the resulting token is created on the runner and sealed to it. The token never passes through the person's machine. The runner's configuration file must say `"accept-agent-login": true`, which is a separate setting from `accept-configured`.
 
-## How a flight opens a credential with nobody present
+## How a flight opens a credential with no one present
 
-When a runner takes a flight, nobody is there to type a passphrase. The flight works because the machine is already a holder.
+When a runner takes a flight, no one is there to type a passphrase. The flight works because the machine is already a holder.
 
 1. **The control plane names the credentials.** When it gives the runner a [lease](/reference/glossary/#lease), it includes references for the repositories that flight works in and that require a credential, and nothing more. It never tells a runner which other credentials the organisation has. For each repository it chooses the current reference, ignoring any that were replaced or removed. On a machine someone has claimed, it chooses that person's reference.
 2. **The runner opens each one on its own machine**, with its machine key, before it fetches anything.

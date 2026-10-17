@@ -78,7 +78,7 @@ gg inside a pool container cannot update itself, and `gg update` says so. To mov
 
 ## Offered configuration
 
-Beyond the release, the control plane can offer settings to the machines that talk to it, so that nobody has to type them on each machine. To see what the control plane is offering this machine, run:
+Beyond the release, the control plane can offer settings to the machines that talk to it, so that no one has to type them on each machine. To see what the control plane is offering this machine, run:
 
 ```sh
 gg config offered
@@ -106,7 +106,7 @@ Only these settings can be offered:
 | `tracker-apis` | Which trackers work items may be written to. |
 | `control-plane` | The control plane itself. |
 
-The first two may be applied with nobody watching: a wrong value degrades a connection or offers less work, and grants nothing. The rest change where something is fetched from or sent to, so **a person accepts them**, and sees exactly what is being changed.
+The first two may be applied with no one watching: a wrong value degrades a connection or offers less work, and grants nothing. The rest change where something is fetched from or sent to, so **a person accepts them**, and sees exactly what is being changed.
 
 Some settings are never offered, because no review makes them safe to take from elsewhere: the agent's location (`executor-binary`), the `installer`, and the switches that decide whether a machine accepts offers or credentials at all. Those are always set on the machine itself.
 

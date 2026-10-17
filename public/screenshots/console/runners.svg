@@ -9,7 +9,7 @@
 <rect x="266.0" y="44" width="739.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="739.2" lengthAdjust="spacingAndGlyphs">╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄</text>
 <rect x="1005.2" y="44" width="176.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.39 </text>
+<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.46 </text>
 <rect x="1181.6" y="44" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1181.6" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">╮</text>
 <rect x="14.0" y="62" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
@@ -39,7 +39,7 @@
 <text x="299.6" y="129.5" fill="#ffffff" xml:space="preserve" textLength="142.8" lengthAdjust="spacingAndGlyphs">runner           </text>
 <rect x="442.4" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <rect x="450.8" y="116" width="117.6" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="450.8" y="129.5" fill="#ffffff" xml:space="preserve" textLength="117.6" lengthAdjust="spacingAndGlyphs">whose         </text>
+<text x="450.8" y="129.5" fill="#ffffff" xml:space="preserve" textLength="117.6" lengthAdjust="spacingAndGlyphs">owner         </text>
 <rect x="568.4" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <rect x="576.8" y="116" width="58.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="576.8" y="129.5" fill="#ffffff" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">profile</text>
@@ -56,36 +56,33 @@
 <rect x="837.2" y="116" width="50.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="837.2" y="129.5" fill="#ffffff" xml:space="preserve" textLength="50.4" lengthAdjust="spacingAndGlyphs">memory</text>
 <rect x="887.6" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<rect x="896.0" y="116" width="42.0" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="896.0" y="129.5" fill="#ffffff" xml:space="preserve" textLength="42.0" lengthAdjust="spacingAndGlyphs">lacks</text>
-<rect x="938.0" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<rect x="946.4" y="116" width="201.6" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="946.4" y="129.5" fill="#ffffff" xml:space="preserve" textLength="201.6" lengthAdjust="spacingAndGlyphs">advertises              </text>
-<rect x="1148.0" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<rect x="1156.4" y="116" width="16.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="1156.4" y="129.5" fill="#ffffff" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">la</text>
-<rect x="1173.2" y="116" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="1173.2" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┃┊</text>
+<rect x="896.0" y="116" width="58.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="896.0" y="129.5" fill="#ffffff" xml:space="preserve" textLength="58.8" lengthAdjust="spacingAndGlyphs">missing</text>
+<rect x="954.8" y="116" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<rect x="963.2" y="116" width="201.6" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
+<text x="963.2" y="129.5" fill="#ffffff" xml:space="preserve" textLength="201.6" lengthAdjust="spacingAndGlyphs">offers                  </text>
+<rect x="1164.8" y="116" width="25.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
+<text x="1164.8" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="25.2" lengthAdjust="spacingAndGlyphs"> ┃┊</text>
 <rect x="14.0" y="134" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="134" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┊┃</text>
 <rect x="282.8" y="134" width="890.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="282.8" y="147.5" fill="#ffffff" xml:space="preserve" textLength="890.4" lengthAdjust="spacingAndGlyphs">  r-dev-1  dev-1    organisation&#x27;s         idle               -   -            environment=dev (stated) 20</text>
+<text x="282.8" y="147.5" fill="#ffffff" xml:space="preserve" textLength="890.4" lengthAdjust="spacingAndGlyphs">  r-dev-1  dev-1    organisation&#x27;s         idle               -   -              environment=dev (stated) </text>
 <rect x="1173.2" y="134" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1173.2" y="147.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┃┊</text>
 <rect x="14.0" y="152" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="152" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="266.0" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃  r-dev-2  dev-2    organisation&#x27;s         busy    GG-47      -   -            environment=dev (stated) 20┃┊</text>
+<text x="266.0" y="165.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃  r-dev-2  dev-2    organisation&#x27;s         busy    GG-47      -   -              environment=dev (stated) ┃┊</text>
 <rect x="14.0" y="170" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="170" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="266.0" y="183.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃  r-ui-1  ui-1      organisation&#x27;s         idle               -   -            environment=ui (stated)  20┃┊</text>
+<text x="266.0" y="183.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃  r-ui-1  ui-1      organisation&#x27;s         idle               -   -              environment=ui (stated)  ┃┊</text>
 <rect x="14.0" y="188" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="188" width="378.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="378.0" lengthAdjust="spacingAndGlyphs">┊┃  r-ada  ada-laptop Ada Lovelace&#x27;s         </text>
 <rect x="644.0" y="188" width="67.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="644.0" y="201.5" fill="#767676" xml:space="preserve" textLength="67.2" lengthAdjust="spacingAndGlyphs">offline </text>
 <rect x="711.2" y="188" width="478.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="711.2" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="478.8" lengthAdjust="spacingAndGlyphs">           -   -                                     20┃┊</text>
+<text x="711.2" y="201.5" fill="#d3d3d3" xml:space="preserve" textLength="478.8" lengthAdjust="spacingAndGlyphs">           -   -                                       ┃┊</text>
 <rect x="14.0" y="206" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <rect x="266.0" y="206" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="219.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃                                                                                                          ┃┊</text>

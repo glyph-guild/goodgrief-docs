@@ -9,7 +9,7 @@
 <rect x="266.0" y="44" width="739.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="739.2" lengthAdjust="spacingAndGlyphs">╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄</text>
 <rect x="1005.2" y="44" width="176.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.39 </text>
+<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.46 </text>
 <rect x="1181.6" y="44" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1181.6" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">╮</text>
 <rect x="14.0" y="62" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
@@ -160,7 +160,7 @@
 <rect x="492.8" y="386" width="8.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="492.8" y="399.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">┃</text>
 <rect x="501.2" y="386" width="268.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
-<text x="501.2" y="399.5" fill="#ffffff" xml:space="preserve" textLength="268.8" lengthAdjust="spacingAndGlyphs">  since:    2026-10-15 07:07:00Z</text>
+<text x="501.2" y="399.5" fill="#ffffff" xml:space="preserve" textLength="268.8" lengthAdjust="spacingAndGlyphs">  since:    2026-10-17 04:23:00Z</text>
 <rect x="770.0" y="386" width="168.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <rect x="938.0" y="386" width="8.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="938.0" y="399.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">┃</text>
