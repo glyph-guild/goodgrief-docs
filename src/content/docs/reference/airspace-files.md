@@ -38,7 +38,7 @@ Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds
 | `context` | Both | `scope`: the files the agent may change (the flight gets the overlap of root's and the work kind's). `constitution`: the version of the rules in force, set by root. See [`context.scope`](/concepts/envelope/#contextscope). |
 | `repositories` | Root | The repositories flights may concern. See [`repositories:`](/concepts/envelope/#repositories). `repository` is accepted as a single-name spelling. |
 | `environments` | Root | The environments flights may run in. See [`environments:`](/concepts/envelope/#environments). `environment` is accepted as a single-name spelling. |
-| `models` | Root | The models a person may move one flight to. Left out, nobody may; an empty list is refused. |
+| `models` | Root | The models a person may move one flight to. Left out, no one may; an empty list is refused. |
 | `mcp-servers` | Root | The external tool servers loops may use, each defined once. See [MCP servers](/concepts/mcp-servers/). |
 | `offers` | Root | Settings offered to every machine in the organisation, from the keys that can be offered. See [Offered configuration](/reference/configuration/#offered-configuration). |
 | `obligations` | Both, added up | Machine checks and human checks. See [`obligations:`](/concepts/envelope/#obligations). |

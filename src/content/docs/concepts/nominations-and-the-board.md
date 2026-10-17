@@ -48,7 +48,7 @@ For nominations made by a flight or a plan, a newer nomination of the same subje
 
 The destination's `opens-as` decides how a nomination opens:
 
-- **`auto`** (the default): the nomination opens as a flight straight away, if the rules allow it. Nobody needs to answer it.
+- **`auto`** (the default): the nomination opens as a flight straight away, if the rules allow it. No one needs to answer it.
 - **`gated`**: the nomination waits on the board until a person opens or declines it.
 
 Even an `auto` nomination waits for what its destination requires:
@@ -83,7 +83,7 @@ A person answers a standing nomination in one of two ways:
 - **Open it** with `gg board open <id> <why>`. The board does not simply open the flight: it applies the rules again, as they stand now. The work kind must still be on the menu, the rules must still combine, and anything else the nominator's destination requires must still hold. If they do not, the nomination ends `refused`, with the reason.
 - **Decline it** with `gg board decline <id> <why>`. It ends `declined` at once, with the person's sentence.
 
-A reason is required either way. It is the only record of why a person opened work nobody explicitly asked for, or turned down work that something proposed.
+A reason is required either way. It is the only record of why a person opened work no one explicitly asked for, or turned down work that something proposed.
 
 The first answer stands. Once one person has answered a nomination, a second answer is refused.
 
@@ -110,18 +110,18 @@ Every nomination ends exactly once, and the first ending stands.
 | `refused` | The rules said no, and the reason names the rule. This happens when a nomination names a work kind not on the menu, when a plan exceeds its cap or its legs cannot be ordered, or when the rules no longer allow it at the moment it is opened. |
 | `superseded` | A newer nomination of the same subject from the same flight or plan replaced it. |
 | `dropped` | A planning flight revised its plan, and the new version no longer names this leg. Only legs still standing are dropped; a leg that already opened is untouched. |
-| `lapsed` | Nobody opened it in time. See below. |
+| `lapsed` | No one opened it in time. See below. |
 
 Only `opened` and `declined` record a person's decision. The others belong to the rules, the nominator and the clock.
 
-### A nomination nobody answers
+### A nomination no one answers
 
-What happens to a nomination nobody answers depends on how it stands:
+What happens to a nomination no one answers depends on how it stands:
 
 - **An `auto` nomination lapses** if it has not opened an hour after it was made, as long as no gate is open on the flight or plan that nominated it. An `auto` nomination is meant to open at once, so one that has not opened within the hour ends `lapsed` rather than standing indefinitely. While a gate on the nominating flight or plan is open, its nominations are kept.
 - **A `gated` nomination never lapses.** It stands on the board until a person opens or declines it.
 
-Gated nominations therefore accumulate when nobody reads the board. In the console, the queue (`,`) lists them alongside the gates waiting on a person.
+Gated nominations therefore accumulate when no one reads the board. In the console, the queue (`,`) lists them alongside the gates waiting on a person.
 
 ## Related
 

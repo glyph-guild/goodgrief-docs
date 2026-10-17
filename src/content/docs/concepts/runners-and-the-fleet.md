@@ -21,7 +21,7 @@ A runner is gg running on a machine the organisation controls, as `gg runner up`
 
 The control plane decides; the runner does. The control plane never sees the repository or the credentials. [What leaves the machine](/concepts/what-leaves-the-machine/) describes exactly what the runner sends.
 
-A runner has a credential of its own, issued when it registers. It lasts thirty days, and the runner renews it before it expires, so a machine that has registered once keeps working with nobody signed in on it. A person's sign-in is used only to register the runner; after that, the runner works with its own credential.
+A runner has a credential of its own, issued when it registers. It lasts thirty days, and the runner renews it before it expires, so a machine that has registered once keeps working with no one signed in on it. A person's sign-in is used only to register the runner; after that, the runner works with its own credential.
 
 ## Leases
 
@@ -121,7 +121,7 @@ An attended flight, opened with `--attended` for one named machine, is the excep
 A machine joins the fleet in one of two ways:
 
 - **Registration.** A person signs in on the machine and runs `gg runner up`. The machine's labels come from its own settings.
-- **Enrolment.** A person creates an enrolment token with `gg fleet enroll`, and the machine is installed with it. Nobody signs in on the machine. On its first start it exchanges the token for a runner credential of its own, and the token's use is spent.
+- **Enrolment.** A person creates an enrolment token with `gg fleet enroll`, and the machine is installed with it. No one signs in on the machine. On its first start it exchanges the token for a runner credential of its own, and the token's use is spent.
 
 An enrolment token names a **fleet profile**: a document in the [airspace](/reference/glossary/#airspace), at `airspace/fleet/<name>.yaml`, that describes one kind of machine. The profile says what the machine is for, which environment it provides, which agent it runs (by name, never by path), which repository hosts and destinations it uses, which trackers it reads, and which credentials it needs, as references. The machine takes its configuration from its profile rather than being configured by hand. [Add machines to the fleet: fleet profiles](/guides/enrol-machines/#fleet-profiles) lists every field.
 
@@ -137,11 +137,11 @@ Every runner is in one of three states:
 
 | State | Meaning |
 |---|---|
-| The organisation's | Nobody may claim it. |
+| The organisation's | No one may claim it. |
 | Open | Anyone in the organisation may claim it. |
 | Claimed | It belongs to one person. |
 
-A claimed machine can also be **reserved**, which keeps it to its owner's flights: the control plane offers it no flight that anyone else opened. A reserved machine that could have taken a flight is reported as kept back, not as missing, so nobody is sent to bring up a machine that already exists.
+A claimed machine can also be **reserved**, which keeps it to its owner's flights: the control plane offers it no flight that anyone else opened. A reserved machine that could have taken a flight is reported as kept back, not as missing, so no one is sent to bring up a machine that already exists.
 
 [Runners in a team](/concepts/runners-in-a-team/) explains, for each state, which work a machine is offered and who started each flight. An enrolment token decides the state a machine starts in, and `gg runner claim`, `unclaim`, `reserve`, `release` and `ownership` change it later. [Add machines to the fleet: whose a machine is](/guides/enrol-machines/#whose-a-machine-is) lists who may run each one.
 

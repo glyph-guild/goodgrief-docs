@@ -9,7 +9,7 @@
 <rect x="266.0" y="44" width="739.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="739.2" lengthAdjust="spacingAndGlyphs">╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄</text>
 <rect x="1005.2" y="44" width="176.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.39 </text>
+<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.46 </text>
 <rect x="1181.6" y="44" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1181.6" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">╮</text>
 <rect x="14.0" y="62" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
@@ -28,11 +28,11 @@
 <rect x="1173.2" y="80" width="16.8" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1173.2" y="93.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┃┊</text>
 <rect x="14.0" y="98" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
-<text x="14.0" y="111.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> 2 » Find why the nigh… 19s   </text>
+<text x="14.0" y="111.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> 2 » Find why the nigh… 18s   </text>
 <rect x="266.0" y="98" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="111.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃e27a9d05  nominated · open it? investigate                                                                ┃┊</text>
 <rect x="14.0" y="116" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
-<text x="14.0" y="129.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> 3 ? Apply the session-… 9s   </text>
+<text x="14.0" y="129.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> 3 ? Apply the session-… 8s   </text>
 <rect x="266.0" y="116" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="129.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">┊┃GG-48     awaiting a decision Add retry with backoff to the webhook sender                                ┃┊</text>
 <rect x="14.0" y="134" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
@@ -123,5 +123,5 @@
 <rect x="14.0" y="638" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <text x="14.0" y="651.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> history                      </text>
 <rect x="266.0" y="638" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="266.0" y="651.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">0 gg · 1 agent 1 · 2 agent 2 · 3 agent 3 · + a new agent · h history · ctrl+g show the mark · esc stay in gg  </text>
+<text x="266.0" y="651.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">0 gg · 1 agent 1 · 2 agent 2 · 3 agent 3 · + a new agent · h history · ctrl+g show the screensaver · esc stay </text>
 </svg>

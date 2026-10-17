@@ -15,7 +15,7 @@ Every runner is in one of three states:
 
 | State | Meaning | Who may change it |
 |---|---|---|
-| **The organisation's** | A shared machine. Nobody may claim it. | An administrator may make it open. |
+| **The organisation's** | A shared machine. No one may claim it. | An administrator may make it open. |
 | **Open** | A shared machine that anyone in the organisation may claim. | Anyone may claim it. An administrator may make it the organisation's. |
 | **Claimed** | One person's machine. | Its owner may unclaim it. So may an administrator, which is how to free a machine whose owner has left. |
 
@@ -44,9 +44,9 @@ A claimed machine can also be **reserved**. A reserved machine takes only flight
 | `gg runner release <id>` | Lets a reserved machine take anyone's flights again. | Its owner only. An administrator cannot release a reservation, but can unclaim the machine. |
 | `gg runner ownership <id> tenant\|open` | Makes a machine the organisation's, or open. | An administrator, once the owner or an administrator has unclaimed the machine. |
 
-Nobody can claim a machine someone else has claimed until they unclaim it, and nobody can ever claim the organisation's machines. A reservation has no expiry: it lasts until its owner releases it or someone unclaims the machine.
+No one can claim a machine someone else has claimed until they unclaim it, and no one can ever claim the organisation's machines. A reservation has no expiry: it lasts until its owner releases it or someone unclaims the machine.
 
-`gg runners` shows whose each machine is, for example `organisation's`, `open` or `Ada Lovelace's, reserved`. The console's runners tab shows the same in its **whose** column.
+`gg runners` shows whose each machine is, for example `organisation's`, `open` or `Ada Lovelace's, reserved`. The console's runners tab shows the same in its **owner** column.
 
 ## Which work a machine receives
 
@@ -60,12 +60,12 @@ When a runner asks for work, the control plane offers it the oldest flight that 
 **Checks on each flight:**
 
 3. **The machine has the flight's environment.** A flight that requires an environment, such as `dev`, goes only to a machine that advertises it.
-4. **Nobody opened the flight for a different machine.** A flight opened with `gg fly --runner <id>` goes only to that machine.
+4. **No one opened the flight for a different machine.** A flight opened with `gg fly --runner <id>` goes only to that machine.
 5. **The machine can host the work, when the work kind needs it.** A work kind that declares `hosts:` needs a machine with a free environment instance of that kind. Pool members never take such work.
 6. **Plan order allows it.** A [leg](/reference/glossary/#leg) of a plan that follows another leg waits until that leg has landed.
 7. **The reservation allows it.** A reserved machine takes a flight only if its owner started it. A flight with no recorded author, such as one opened by a repository event, never goes to a reserved machine.
 8. **The flight is not someone else's personal work.** Work from a person's own [watch](/reference/glossary/#watch) goes only to a machine that person has claimed. Open and organisation machines never take it.
-9. **Nobody else holds it.** The control plane does not offer a flight another runner already holds.
+9. **No one else holds it.** The control plane does not offer a flight another runner already holds.
 10. **Targeting allows it.** When the envelope sets `targeting: least-spent`, the control plane holds a flight for the runner whose allowance has spent the smallest share, unless the flight has waited more than a minute; then any runner may take it. With `targeting: any`, or no setting, the first runner to ask takes it.
 
 Among the flights that pass, the control plane offers the oldest first.
@@ -91,7 +91,7 @@ A reservation turns on who started each flight. That depends on where the flight
 | A plan's leg, which opens when a person approves the plan | The person who opened the plan |
 | A personal watch | That watch's person |
 | An organisation watch | The person who wrote the watch's current version |
-| A repository event, a change to the rules, a registration or maintenance | Nobody. These never run on a reserved machine. |
+| A repository event, a change to the rules, a registration or maintenance | No one. These never run on a reserved machine. |
 
 ### Credentials on a claimed machine
 
@@ -147,7 +147,7 @@ When the control plane cannot offer a flight to any machine, the flight says why
 | The flight is a person's own work, and none of their machines is asking for work. | Personal work runs only on a machine that person has claimed. | Start, or claim, one of that person's machines. |
 | The machine someone opened the flight for is not asking for work. | Someone opened the flight with `--runner` for a machine that is offline or busy. | Start that machine, or open the flight without `--runner`. |
 | The machine is parked. | A parked machine takes nothing. | Ask whoever parked it. |
-| Nobody has registered a credential for a repository. | The machine the control plane offered the flight to lacks a credential. | Register the credential, or send it to the machine. |
+| No one has registered a credential for a repository. | The machine the control plane offered the flight to lacks a credential. | Register the credential, or send it to the machine. |
 
 ## Related
 

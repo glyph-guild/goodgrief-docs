@@ -141,7 +141,7 @@ A watch belongs either to the organisation or to one person, and never to anythi
 `gg airspace name watch <name> --personal` declares a watch for the signed-in person and writes `for:` into the file. A personal watch differs from the organisation's in these ways:
 
 - **Only its person may apply it.** Anyone else is refused, including the platform owner.
-- **Only its person answers its gates and its nominations.** A loosening change to a personal watch waits for its person, and a nomination it makes stands on the organisation's board marked as theirs. Nobody else can open or decline it.
+- **Only its person answers its gates and its nominations.** A loosening change to a personal watch waits for its person, and a nomination it makes stands on the organisation's board marked as theirs. No one else can open or decline it.
 - **Its work runs only on its person's machines.** Its sweeps, and the flights its nominations open, are offered only to runners the person has claimed. For that reason, a personal watch must use `pull-point: resident-runner`.
 - **Its flights are its person's.** A flight opened from a personal watch belongs to that person. A flight opened from the organisation's watch belongs to the person who wrote the version of the watch in force.
 - **It never changes owner.** Changing `for` is refused. To move a watch, retire it and declare it again.

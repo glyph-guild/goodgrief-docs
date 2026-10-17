@@ -20,7 +20,7 @@ gg is a single program with two roles, and they run as separate operating-system
 - **The console** acts for the person at the keyboard. It uses that person's sign-in.
 - **The runner** takes flights and does the work. When the console starts a runner, it starts a separate child process. Installed as a service, the runner runs as a dedicated user with no login shell and no group but its own.
 
-A person's sign-in is used only to register a runner. After that, the runner works with a credential of its own, issued to that machine, and never with the person's sign-in. A pool member, which nobody signs in on, exchanges a one-time code for a short-lived credential of its own.
+A person's sign-in is used only to register a runner. After that, the runner works with a credential of its own, issued to that machine, and never with the person's sign-in. A pool member, which no one signs in on, exchanges a one-time code for a short-lived credential of its own.
 
 The two roles see different things, and the rest of the design treats the runner as the less trusted of the two. The runner decides nothing about whether work is acceptable: it gathers facts and reports them, and the control plane evaluates the organisation's rules. A modified runner could report false facts, but it cannot approve its own work. [Anatomy of a flight](/concepts/anatomy-of-a-flight/#what-a-runner-reports-and-what-it-means-for-the-flight) explains how the control plane, not the runner, decides how a flight ended.
 

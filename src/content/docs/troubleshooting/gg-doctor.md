@@ -69,7 +69,7 @@ A STUN server is a server a machine asks how its address appears from outside it
 | Check | What a failure means | Fix it prints |
 |---|---|---|
 | `credential store` | Never fails. States how credentials stored on this machine are protected. | None. |
-| `credentials` | A credential registered with the control plane is not stored on this machine. The detail lists each one by its reference, what it is for, and the identity it acts as. Only credentials that belong to the signed-in person, or to nobody in particular, are counted. **Stops gg.** | "Run gg credential add --repo <slug> on this machine for each one listed." |
+| `credentials` | A credential registered with the control plane is not stored on this machine. The detail lists each one by its reference, what it is for, and the identity it acts as. Only credentials that belong to the signed-in person, or to no one in particular, are counted. **Stops gg.** | "Run gg credential add --repo <slug> on this machine for each one listed." |
 
 [Add and send credentials](/guides/credentials/) covers registering a credential and sending it to another machine.
 

@@ -14,7 +14,7 @@ The [control plane](/reference/glossary/#control-plane) holds a **reference** to
 Two rules follow from that:
 
 - **The value is always typed at a prompt**, without being echoed. No gg command takes a secret as an argument, because arguments are kept in shell history and are visible to anyone on the machine who lists running processes.
-- **A person authorises moving a credential, not using it.** Sending a credential to another machine costs the sender's passphrase. A machine that has been given a credential opens it by itself, with nobody present, for as long as it holds it.
+- **A person authorises moving a credential, not using it.** Sending a credential to another machine costs the sender's passphrase. A machine that has been given a credential opens it by itself, with no one present, for as long as it holds it.
 
 ## 1. Create a personal key
 
@@ -64,7 +64,7 @@ A flight that lands as a pull request needs a credential with write access. The 
 
 ## 3. Let this machine use it
 
-A registered credential is sealed to its person, not to the machine. For gg on this machine to open it with nobody present, for example for a runner here or for the console reading work items from a tracker, make this machine one of its holders:
+A registered credential is sealed to its person, not to the machine. For gg on this machine to open it with no one present, for example for a runner here or for the console reading work items from a tracker, make this machine one of its holders:
 
 ```sh
 gg credential trust-this-machine local:example-org/web-app

@@ -9,7 +9,7 @@
 <rect x="266.0" y="44" width="739.2" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="266.0" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="739.2" lengthAdjust="spacingAndGlyphs">╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄</text>
 <rect x="1005.2" y="44" width="176.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.39 </text>
+<text x="1005.2" y="57.5" fill="#7cb0cc" xml:space="preserve" textLength="176.4" lengthAdjust="spacingAndGlyphs">┄┄┄┄┄┄┄┄┄ gg 0.88.46 </text>
 <rect x="1181.6" y="44" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
 <text x="1181.6" y="57.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">╮</text>
 <rect x="14.0" y="62" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
@@ -49,7 +49,7 @@
 <rect x="459.2" y="242" width="16.8" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="459.2" y="255.5" fill="#d3d3d3" xml:space="preserve" textLength="16.8" lengthAdjust="spacingAndGlyphs">┏┥</text>
 <rect x="476.0" y="242" width="159.6" height="18.5" fill="#708090" shape-rendering="crispEdges"/>
-<text x="476.0" y="255.5" fill="#ffffff" xml:space="preserve" textLength="159.6" lengthAdjust="spacingAndGlyphs">nobody is signed in</text>
+<text x="476.0" y="255.5" fill="#ffffff" xml:space="preserve" textLength="159.6" lengthAdjust="spacingAndGlyphs">no one is signed in</text>
 <rect x="635.6" y="242" width="344.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="635.6" y="255.5" fill="#d3d3d3" xml:space="preserve" textLength="344.4" lengthAdjust="spacingAndGlyphs">┝━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓</text>
 <rect x="980.0" y="242" width="210.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
@@ -60,7 +60,7 @@
 <rect x="459.2" y="260" width="8.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="459.2" y="273.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">┃</text>
 <rect x="467.6" y="260" width="504.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="467.6" y="273.5" fill="#848586" xml:space="preserve" textLength="504.0" lengthAdjust="spacingAndGlyphs">Nobody is signed in on this machine, so there is nothing to </text>
+<text x="467.6" y="273.5" fill="#848586" xml:space="preserve" textLength="504.0" lengthAdjust="spacingAndGlyphs">No one is signed in on this machine, so there is nothing to </text>
 <rect x="971.6" y="260" width="8.4" height="18.5" fill="#36454f" shape-rendering="crispEdges"/>
 <text x="971.6" y="273.5" fill="#d3d3d3" xml:space="preserve" textLength="8.4" lengthAdjust="spacingAndGlyphs">┃</text>
 <rect x="980.0" y="260" width="8.4" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
@@ -215,5 +215,5 @@
 <rect x="14.0" y="638" width="252.0" height="18.5" fill="#384f5c" shape-rendering="crispEdges"/>
 <text x="14.0" y="651.5" fill="#e6edf3" xml:space="preserve" textLength="252.0" lengthAdjust="spacingAndGlyphs"> history                      </text>
 <rect x="266.0" y="638" width="924.0" height="18.5" fill="#353839" shape-rendering="crispEdges"/>
-<text x="266.0" y="651.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">y sign in · esc carry on signed out                                                                           </text>
+<text x="266.0" y="651.5" fill="#d3d3d3" xml:space="preserve" textLength="924.0" lengthAdjust="spacingAndGlyphs">y sign in · esc continue signed out                                                                           </text>
 </svg>

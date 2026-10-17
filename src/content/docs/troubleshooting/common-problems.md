@@ -21,7 +21,7 @@ This machine is not signed in. Run gg login, then try again.
 The sign-in on this machine has expired or been revoked. Run gg login, then try again.
 ```
 
-**Cause.** Nobody has signed in on this machine, or the session has ended. A session ends when it expires, when it is revoked, or when the control plane no longer accepts it.
+**Cause.** No one has signed in on this machine, or the session has ended. A session ends when it expires, when it is revoked, or when the control plane no longer accepts it.
 
 **Fix.** Run `gg login` and approve the sign-in in a browser, as described in [Sign in](/start-here/sign-in/). Then run `gg whoami` to check who the machine is signed in as.
 
@@ -58,7 +58,7 @@ The control plane at <address> answered with an error (HTTP <code>). Run the com
 **What appears.** `gg fly` fails, nothing is created, and the control plane says:
 
 ```
-'<repository>' is not a registered repository for this tenant. Registration is what makes a repository nameable at all - register it, POST /v1/airspace/repositories, and open the flight again.
+'<repository>' is not a registered repository in this organisation, so no flight was opened. Register it with gg airspace repositories add, then open the flight again.
 ```
 
 **Cause.** A flight may concern only a repository the organisation has registered. Registering gives the repository the name flights and rules use.
@@ -188,7 +188,7 @@ Install Good Grief's command under a different name [goodgrief]:
 When the other `gg` is only earlier on the PATH, the install continues and ends with:
 
 ```
-install.sh: another program called gg is at <path>, earlier on your PATH, so `gg` still runs that one. Install this one under a name of its own with --as <name>, e.g. --as goodgrief, or put /usr/local/bin first.
+install.sh: Another program called gg is at <path>, earlier on PATH, so `gg` still runs that one. Install this one under a name of its own with --as <name>, for example --as goodgrief, or put /usr/local/bin first on PATH.
 ```
 
 A runner is always installed as `gg`, so on a runner the installer refuses rather than asking:

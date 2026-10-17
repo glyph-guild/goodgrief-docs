@@ -26,7 +26,7 @@ Without this setting, a runner still registers and still takes flights, but neve
 
 ## On a laptop: `gg runner up`
 
-1. [Sign in](/start-here/sign-in/). Registering a runner is a person's act, so `gg runner up` refuses on a machine where nobody has signed in.
+1. [Sign in](/start-here/sign-in/). Registering a runner is a person's act, so `gg runner up` refuses on a machine where no one has signed in.
 2. Set `executor-binary`, as above.
 3. Run:
 
@@ -65,14 +65,14 @@ sudo gg service install --control-plane <url> --agent-binary /usr/local/bin/clau
 
 A service cannot sign in by itself. There are two ways to register it:
 
-- **With an enrolment token**, so that nobody signs in on the machine at all. Add `--enroll` to either command above. [Add machines to the fleet](/guides/enrol-machines/) covers tokens.
+- **With an enrolment token**, so that no one signs in on the machine at all. Add `--enroll` to either command above. [Add machines to the fleet](/guides/enrol-machines/) covers tokens.
 - **By signing in once as the service user.** Without a token, a person signs in on the machine as that user before the runner can register. On Linux, for example:
 
   ```sh
   sudo -u gg gg login
   ```
 
-After that first registration, the runner restarts with the machine and needs nobody.
+After that first registration, the runner restarts with the machine and needs no one.
 
 ### Removing the service
 
@@ -104,7 +104,7 @@ On the machine itself, `gg doctor` checks what the runner needs, including wheth
 
 In the console, the runners tab (`u`) lists the fleet with this machine's runner first. `enter` opens a runner.
 
-![The runners tab: four runners with whose they are, their state, the flight each is working on and the environment each advertises. Above them, a notice says no runner is registered on this machine and offers to start one.](/screenshots/console/runners.svg)
+![The runners tab: four runners with their owner, their state, the flight each is working on and the environment each advertises. Above them, a notice says no runner is registered on this machine and offers to start one.](/screenshots/console/runners.svg)
 
 ## Taking a runner out of the fleet
 

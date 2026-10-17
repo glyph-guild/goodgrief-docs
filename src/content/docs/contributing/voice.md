@@ -46,6 +46,7 @@ Prefer the plain word, and introduce a Good Grief term in brackets when the read
 | tenant | organisation (or the organisation's name) |
 | nonce, mint, redeem | describe what the reader can do, such as "request a new one" |
 | hold | the specific thing: "the takeover", "the lease" |
+| somebody, nobody | someone, no one |
 
 On these pages, link each term to the [glossary](/reference/glossary/) the first time it appears.
 

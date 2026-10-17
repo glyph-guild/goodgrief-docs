@@ -15,7 +15,7 @@ A person can sign in only to an organisation they belong to. Someone who already
 gg invite
 ```
 
-The link names nobody. Whoever opens it joins the organisation, so the person who created it sends it to the newcomer by whatever means they already trust. The control plane does not deliver it. In the console, `i` creates the same link.
+The link names no one. Whoever opens it joins the organisation, so the person who created it sends it to the newcomer by whatever means they already trust. The control plane does not deliver it. In the console, `i` creates the same link.
 
 ## 1. Point gg at the control plane
 
@@ -50,9 +50,9 @@ gg notices the approval and prints `Signed in as <name>.` The session is stored 
 
 If the code expires before it is approved, or the request is declined, gg says so. Run `gg login` again.
 
-In the console, the same sign-in is offered when nobody is signed in: `y` starts it, `o` opens the address in a browser, `l` copies the address and `c` copies the code.
+In the console, the same sign-in is offered when no one is signed in: `y` starts it, `o` opens the address in a browser, `l` copies the address and `c` copies the code.
 
-![The gg console when nobody is signed in: a window says there is nothing to show yet and offers a Sign in button, and the last line offers y to sign in or esc to carry on signed out.](/screenshots/console/sign-in.svg)
+![The gg console when no one is signed in: a window says there is nothing to show yet and offers a Sign in button, and the last line offers y to sign in or esc to carry on signed out.](/screenshots/console/sign-in.svg)
 
 ## 3. Check
 
@@ -63,9 +63,9 @@ gg whoami
 ```
 
 ```
-  Principal:  Ada Lovelace (3c1f…)
-  Tenant:     Example Org (8a2e…)
-  Expires:    2026-10-15 02:31:59Z
+  Person:        Ada Lovelace (3c1f…)
+  Organisation:  Example Org (8a2e…)
+  Expires:       2026-10-15 02:31:59Z
 ```
 
 The first line is the person, the second is the organisation, and the third is when this session ends. An administrator also sees a line saying so. Any notices the control plane has for the organisation follow, each with what to do about it.
