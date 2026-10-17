@@ -5,7 +5,7 @@ sidebar:
   order: 8
 ---
 
-A [watch](/reference/glossary/#watch) is a standing instruction to look at something on a schedule, such as a work-item query, and to nominate work from what it finds. Each run of a watch is a **sweep**. An agent that follows a written procedure (a skill kept in a repository) performs each sweep, and what it nominates goes to the [board](/guides/use-the-board/), where the organisation's rules decide whether it opens as a flight.
+A [watch](/reference/glossary/#watch) is a standing instruction to look at something on a schedule, such as a work-item query, and to nominate work from what it finds. Each run of a watch is a **sweep**. An agent performs each sweep by following a written procedure (a skill kept in a repository). What it nominates goes to the [board](/guides/use-the-board/), where the organisation's rules decide whether it opens as a flight.
 
 Use this guide to have Good Grief pick up work by itself: for example, to triage every work item carrying a particular tag, once an hour.
 
@@ -66,7 +66,7 @@ Every field except `bounds` and `for` is required:
 | `mapping.subject` | Which field identifies each item the query returns. |
 | `mapping.version` | Which field says the item changed. The watch nominates once per subject and version, so it can nominate a changed item again and does not nominate an unchanged one. |
 | `mapping.intent-key` | Which field names the item outside Good Grief. The budget counts by it. |
-| `pull-point` | Who performs the sweep: `resident-runner` (a runner), `control-plane` or `forge-scheduler`. |
+| `pull-point` | Who performs the sweep. Use `resident-runner`, which means a runner. |
 | `nominates` | The `flight` destination the nominations stand under: which work kinds they may open (`opens`), and whether they open at once or wait for a person (`opens-as`). [Use the board](/guides/use-the-board/#auto-or-gated) explains `auto` and `gated`. |
 | `bounds.active-hours` | When it may sweep at all, as `HH:MM-HH:MMZ` in UTC. Leave it out to sweep at any time. |
 | `bounds.cap-per-pass` | The most items one sweep may report. |
@@ -74,6 +74,10 @@ Every field except `bounds` and `for` is required:
 | `for` | Whose watch it is: the organisation, or one person. Leave it out for the organisation. |
 
 Every bound is optional, and leaving a bound out makes it unlimited.
+
+:::caution[Only resident-runner sweeps today]
+The document also accepts `control-plane` and `forge-scheduler` as the pull point, but nothing performs a sweep from either yet. A watch that names one is in force and never sweeps. [Watches and sweeps](/concepts/watches-and-sweeps/#who-performs-it) explains who performs a sweep.
+:::
 
 ## 2. Declare the name
 
@@ -83,7 +87,7 @@ Declare a watch's name before applying its file:
 gg airspace name watch triage
 ```
 
-Declaring a name loosens the rules, so gg may report a flight that waits for approval, and no one can use the name until that gate opens. `gg airspace apply --declare-names` can declare it instead, as part of applying.
+Declaring a name loosens the rules, so gg may report a flight that waits for approval. No one can use the name until that gate opens. `gg airspace apply --declare-names` can declare it instead, as part of applying.
 
 ### A watch of one's own
 
@@ -107,11 +111,11 @@ gg airspace diff
 gg airspace apply
 ```
 
-A new watch, and any change that loosens its filter, bound or budget, opens a flight that waits for approval. For an organisation's watch, root's approver answers it; for a personal watch, its person does.
+A new watch, and any change that loosens its filter, bound or budget, opens a flight that waits for approval. For an organisation's watch, root's approver answers it. For a personal watch, its person does.
 
 ## 4. Check that it is running
 
-Nothing watches a sweep while it runs, so asking is the only way to know a watch is alive:
+Nothing reports on a sweep while it runs. To check that a watch is alive, run:
 
 ```sh
 gg watches
@@ -138,7 +142,7 @@ When no watch is in force, gg says so and suggests `gg airspace show` to list th
 
 ## The same steps in the console
 
-Run `gg` with no arguments, then `;` to open the board, and `v` to switch from nominations to sweeps. When a watch's failure appears in the queue (`,`), `*` marks every failure so a person can decline them together.
+Run `gg` with no arguments, then `;` to open the board, and `v` to switch from nominations to sweeps. When a watch's failure appears in the queue (`,`), `*` marks every failure, to decline them together.
 
 ## Related
 

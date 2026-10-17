@@ -14,13 +14,13 @@ A gate is a flight that has stopped and is waiting on a person. A nomination is 
 Nominations arrive from several places:
 
 - **[Watches](/reference/glossary/#watch).** A watch looks at something on a schedule, such as a work-item query, and nominates work from what it finds. [Set up a watch](/guides/set-up-a-watch/) covers them.
-- **Plans.** A planning flight, or a plan a person proposes, nominates each of its legs. `gg itineraries` lists legs with their plan; the board does not. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
+- **Plans.** A planning flight, or a plan a person proposes, nominates each of its legs. `gg itineraries` lists legs with their plan. The board does not. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
 - **Pull requests.** A pull request opened or updated in a registered repository can nominate a flight, such as a review.
 - **Flights opened directly.** A flight opened with `gg fly` also passes through the board, as a nomination that opens at once. It never waits there.
 
 ## Auto or gated
 
-A `flight` [destination](/concepts/envelope/#destinations) bounds every nominator, and its `opens-as` setting decides how a nomination opens:
+A `flight` [destination](/concepts/envelope/#destinations) bounds every nominator. Its `opens-as` setting decides how a nomination opens:
 
 - **`auto`** (the default): the nomination opens as a flight straight away, if the rules allow it. No one needs to answer it.
 - **`gated`**: the nomination waits on the board until a person opens or declines it.
@@ -84,7 +84,7 @@ Each nomination shows:
 | `lapsed` | No one opened it in time. |
 | `dropped` | The plan that named it no longer does. |
 
-Only `opened` and `declined` are a person's decision; the others belong to the board, the clock and the rules.
+Only `opened` and `declined` are a person's decision. The others belong to the board, the clock and the rules.
 
 ## 2. Open or decline a nomination
 

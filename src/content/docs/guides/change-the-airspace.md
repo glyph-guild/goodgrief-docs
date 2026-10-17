@@ -5,7 +5,7 @@ sidebar:
   order: 6
 ---
 
-The [airspace](/reference/glossary/#airspace) is where an organisation keeps its rules and names: [root](/reference/glossary/#root), its [work kinds](/reference/glossary/#work-kind), its registered repositories, its [watches](/reference/glossary/#watch), its [strategies](/reference/glossary/#strategy) and its fleet profiles. The control plane holds what is in force. Use this guide to change any of it: a person edits the airspace like a working copy, by pulling it into files, changing them, checking the difference, and applying it.
+The [airspace](/reference/glossary/#airspace) is where an organisation keeps its rules and names: [root](/reference/glossary/#root), its [work kinds](/reference/glossary/#work-kind), its registered repositories, its [watches](/reference/glossary/#watch), its [strategies](/reference/glossary/#strategy) and its fleet profiles. The control plane holds what is in force. Use this guide to change any of it. Edit the airspace like a working copy: pull it into files, change them, check the difference, and apply it.
 
 The control plane compares every change with what is in force. A change that tightens the rules applies directly. A change that loosens them waits for approval, as [The envelope: changing the rules](/concepts/envelope/#changing-the-rules) explains.
 
@@ -59,7 +59,7 @@ work-kinds/investigate.yaml: widening - loops cannot be shown to tighten
 watches/old-queue: missing from the tree - an intent to retire
 ```
 
-Each line names a file and whether the change tightens or loosens the rules (`tightening` or `widening`). For a loosening change, gg names the field that makes it one. gg shows a file that is missing from the working copy as an intent to retire its name, and shows a file that does not read as a document with the reason.
+Each line names a file and whether the change tightens or loosens the rules (`tightening` or `widening`). For a loosening change, gg names the field that makes it one. A file missing from the working copy shows as an intent to retire its name. A file that does not read as a document shows with the reason.
 
 ## 4. Apply it
 
@@ -91,7 +91,11 @@ A document applies only to a name the airspace has already declared. A new work 
 
   The role is one of `work-kind`, `narrowing`, `strategy`, `watch` or `fleet-profile`. `--under` names the parent when it is not root, such as the work kind a new work kind extends. Declaring the name fixes its parent.
 
-Declaring a name loosens the rules, so it may open a flight that waits for approval. gg then says which flight and who it awaits, and that no one can use the name until that gate opens; the control plane refuses a document applied to it before then. No one can undo a declaration quietly: removing a name takes a retirement, which itself needs approval. That is why a person must ask for `--declare-names`.
+Declaring a name loosens the rules, so it may open a flight that waits for approval. gg then says which flight and who it awaits. No one can use the name until that gate opens, and the control plane refuses a document applied to it before then.
+
+:::caution[A declared name lasts]
+Removing a declared name takes a retirement, which itself needs approval. That is why apply declares names only when asked with `--declare-names`.
+:::
 
 ## Retire a name
 
@@ -103,7 +107,7 @@ Retiring a name removes every rule in its document at once, so it always opens a
 
 ## Register a repository
 
-Someone must register a repository before a flight can name it:
+Register a repository before any flight names it:
 
 ```sh
 gg airspace repositories add --name web-app --provider forge --id R_123 --ref refs/heads/main --path example-org/web-app
@@ -119,7 +123,7 @@ gg airspace repositories add --name web-app --provider forge --id R_123 --ref re
 | `--credential` | `required` (the default) or `none`. Use `none` only for a repository a runner reaches with nothing to authenticate to, such as a local mirror. |
 | `--narrowings` | A directory in the repository under which every document is a [narrowing](/reference/glossary/#narrowing). Leaving it out turns narrowings off for this repository. |
 
-Registering a new repository loosens the rules, so it rides a gate. Until that gate opens, the name is not in the registry, and the control plane refuses a flight naming it. When the registration needs no approval, gg says who registered it and that nothing rode a flight.
+Registering a new repository loosens the rules, so it opens a flight that waits for approval. Until that gate opens, the name is not in the registry, and the control plane refuses a flight naming it. When the registration needs no approval, gg says who registered it and that nothing rode a flight.
 
 ## Change root directly
 
@@ -132,19 +136,19 @@ gg envelope apply root.yaml
 
 Both read the file named, or standard input when the file is `-`.
 
-- **`gg envelope validate`** checks the file without sending it anywhere. It prints `This is a valid envelope.` and the form the control plane will store it in, or `This is not an envelope.` with the reason, and exits with an error when the file is invalid, so it can run in a pipeline.
-- **`gg envelope apply`** sends it. gg prints `Applied. This envelope is now v21.`, `Nothing changed.`, or, for a loosening change, `Waiting.` with the flight it rides and who it waits on. Applying the same loosening change again opens a second gate, so wait for the first.
+- **`gg envelope validate`** checks the file without sending it anywhere. It prints `This is a valid envelope.` and the form the control plane will store it in, or `This is not an envelope.` with the reason. It exits with an error when the file is invalid, so it can run in a pipeline.
+- **`gg envelope apply`** sends it. gg prints `Applied. This envelope is now v21.`, `Nothing changed.`, or, for a loosening change, `Waiting.` with the flight it rides and who it waits on. Applying the same loosening change again opens a second gate. Wait for the first gate to be answered.
 
 ## Chart an environment
 
-Someone must chart an [environment](/reference/glossary/#environment) before root can list it:
+Chart an [environment](/reference/glossary/#environment) before root lists it:
 
 ```sh
 gg environment chart ui --means "<predicate>"
 gg environments
 ```
 
-`--means` describes what makes a machine part of that environment. A name charted without a meaning is a claim that nothing measures; a meaning is what lets the chart record it as measured. Charting rides a gate. `gg environments` lists every charted environment, with its disposition, who charted it, when, and its meaning.
+`--means` describes what makes a machine part of that environment. Without a meaning, the chart records the name as a claim that nothing measures. With one, the chart records it as measured. Charting opens a flight that waits for approval. `gg environments` lists every charted environment, with its disposition, who charted it, when, and its meaning.
 
 ## The same steps in the console
 

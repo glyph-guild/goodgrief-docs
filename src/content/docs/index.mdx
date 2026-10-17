@@ -13,3 +13,12 @@ hero:
       icon: external
       variant: minimal
 ---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard title="Start here" description="What Good Grief is, installing gg, and a first flight." href="/start-here/what-good-grief-is/" />
+  <LinkCard title="Guides" description="One task per page: answer a gate, run a runner, change the airspace." href="/guides/fly-from-a-work-item/" />
+  <LinkCard title="Concepts" description="How flights, envelopes, gates, runners and credentials work." href="/concepts/anatomy-of-a-flight/" />
+  <LinkCard title="Troubleshooting" description="gg doctor, diagnostics bundles and common problems." href="/troubleshooting/gg-doctor/" />
+</CardGrid>

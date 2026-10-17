@@ -21,13 +21,13 @@ The gg console is also a terminal multiplexer. Like tmux, it runs several progra
 | Server | A separate server process | None: everything runs inside the one gg process |
 | Detach and reattach | Yes | Not for sessions on this machine: quitting gg ends them. gg can leave sessions on another machine running and reattach to them. |
 | Scrollback | Copy mode | None of its own; the mouse wheel becomes arrow keys for a program that does not use the mouse |
-| Platforms | Any Unix | macOS and Linux |
+| Platforms | Any Unix | macOS, Linux and Windows |
 
 The rest of this page explains each part.
 
 ## One process, one terminal per agent
 
-When an agent starts, gg starts it as a child process with a pseudo-terminal of its own, using the Porta.Pty library. gg tells the child its terminal is the size of the screen minus the column on the left and the bar on the top line, so it lays itself out in the space it will actually have. Its environment sets `TERM=xterm-256color`, and it runs in the folder gg started the session for.
+When an agent starts, gg starts it as a child process with a pseudo-terminal of its own, using the Porta.Pty library. gg tells the child that its terminal is the size of the screen minus the column on the left and the bar on the top line. The agent therefore lays itself out in the space it will actually have. Its environment sets `TERM=xterm-256color`, and it runs in the folder gg started the session for.
 
 ```
 gg (one process)
@@ -37,9 +37,9 @@ gg (one process)
 └── agent 3 ── pseudo-terminal ── reader thread ── terminal emulator (its screen)
 ```
 
-Each agent has a reader thread that takes everything the agent writes and feeds it into a terminal emulator kept for that agent alone (XTerm.NET). The emulator is the agent's screen, held in memory. The reader thread updates it whether or not the agent is on screen, so a hidden agent's screen is always current, and switching to it shows exactly what it would have shown.
+Each agent has a reader thread that takes everything the agent writes and feeds it into a terminal emulator kept for that agent alone (XTerm.NET). The emulator is the agent's screen, held in memory. The reader thread updates it whether or not the agent is on screen. A hidden agent's screen is therefore always current, and switching to it shows exactly what it would have shown.
 
-There is no server. The agents, their emulators and their reader threads all belong to the gg process, and they live outside the console's user interface, so they keep running while gg draws, tears down or rebuilds the console.
+There is no server. The agents, their emulators and their reader threads all belong to the gg process. They live outside the console's user interface, so they keep running while gg draws, tears down or rebuilds the console.
 
 ## Drawing the screen
 
@@ -55,7 +55,7 @@ Only one thing is on screen at a time: either the console or one agent. gg draws
 
 Each repaint draws the whole frame from the emulator, with colours in 256-colour or true colour as the agent used them. Because gg told the agent its terminal is one line shorter, it never draws over gg's bar.
 
-**Switching back to the console** restores the terminal's modes, leaves the alternate screen and builds the console again from its saved state. The console's state, such as the tab, the selected row and what it has loaded, survives every switch; gg rebuilds its windows each time.
+**Switching back to the console** restores the terminal's modes, leaves the alternate screen and builds the console again from its saved state. The console's state, such as the tab, the selected row and what it has loaded, survives every switch. gg rebuilds only its windows each time.
 
 **Resizing** the terminal resizes the agent on screen: gg resizes both its pseudo-terminal and its emulator. An agent that is hidden keeps its old size until gg next shows it.
 
@@ -89,7 +89,7 @@ In the console itself, `ctrl+g` arms the same switch, and pressing `ctrl+g` twic
 | The agent stops | waiting (`·`) |
 | A notification asks for permission | needs the person (`?`) |
 
-Each hook runs `gg mux mark`, which writes one small file for that session in gg's state folder and always succeeds, so a hook can never break the agent. gg deletes the file when the session ends. Sessions that are not Claude Code show no activity mark.
+Each hook runs `gg mux mark`, which writes one small file for that session in gg's state folder. `gg mux mark` always succeeds, so a hook can never break the agent. gg deletes the file when the session ends. Sessions that are not Claude Code show no activity mark.
 
 **What it is working on.** For a plain Claude Code session, the row shows the title the agent sets for its terminal window, as its emulator reads it. Until the agent sets one, the row shows the session's kind.
 
@@ -99,7 +99,7 @@ Each hook runs `gg mux mark`, which writes one small file for that session in gg
 
 ## History and resuming
 
-gg records every session it starts on this machine in a history file in its state folder, one line each: an identifier, its label, the folder it ran in, when it started and, for a session on another machine, which machine. The file holds no transcript; what was said in a session stays with the agent.
+gg records every session it starts on this machine in a history file in its state folder, one line each: an identifier, its label, the folder it ran in, when it started and, for a session on another machine, which machine. The file holds no transcript. What was said in a session stays with the agent.
 
 gg gives each Claude Code session its identifier when it starts it, so it can ask Claude Code to resume exactly that session later. Opening a session in **history** starts Claude Code again with that session resumed, in the folder where it ran.
 
@@ -113,7 +113,7 @@ Sessions on another machine behave differently. Leaving one lets go of it withou
 
 ## Limits
 
-- gg holds at most nine agents. Every way of starting another says so instead.
+- gg holds at most nine agents. Any attempt to start a tenth says so instead.
 - One agent is on screen at a time. There are no split panes.
 - gg has no scrollback or copy mode of its own.
 - The multiplexer needs a terminal gg can take over. It runs on macOS, Linux and Windows (release 0.88.45 or later), and not when gg's output is piped.

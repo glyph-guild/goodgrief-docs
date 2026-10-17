@@ -5,6 +5,8 @@ sidebar:
   order: 11
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 A machine joins the organisation's [fleet](/reference/glossary/#fleet) by **enrolment**. A person creates an enrolment token, someone installs the machine with that token, and the machine registers itself as a [runner](/reference/glossary/#runner). No one signs in on it. It takes its configuration from the **fleet profile** the token names, so no one configures it by hand.
 
 This page assumes the steps in [Run a runner](/guides/run-a-runner/) are familiar.
@@ -41,7 +43,7 @@ relays:
   - "stun:<relay-host>:3478"
 ```
 
-A profile names credentials but never contains them; each machine resolves its own. Applying a profile for the first time, or adding to what it allows, opens a [gate](/reference/glossary/#gate), so a person approves it. Removing something applies at once. `gg airspace pull`, `gg airspace diff` and `gg airspace apply` change airspace documents.
+A profile names credentials but never contains them. Each machine resolves its own. Applying a profile for the first time, or adding to what it allows, opens a [gate](/reference/glossary/#gate) for a person to approve. Removing something applies at once. `gg airspace pull`, `gg airspace diff` and `gg airspace apply` change airspace documents.
 
 ## 1. Create an enrolment token
 
@@ -57,7 +59,9 @@ gg fleet enroll --profile dev-worker --uses 1 --expires 24h
 
 Both limits are required, so no token stays valid for ever.
 
-gg prints the token **once**. Store it somewhere private until a machine uses it.
+:::caution[Shown once]
+gg prints the token once. Store it somewhere private until a machine uses it.
+:::
 
 A token also decides whose each machine starts as:
 
@@ -76,7 +80,7 @@ To list the organisation's tokens, without their secrets, run:
 gg fleet tokens
 ```
 
-If a token gets loose, revoke it so that it enrols nothing more:
+If a token leaks, revoke it so that it enrols nothing more:
 
 ```sh
 gg fleet revoke <id>
@@ -86,9 +90,16 @@ In the console, `t` on the runners tab lists the tokens, and `x` revokes the sel
 
 ## 2. Install the machine with the token
 
-**No one passes the token as an argument**, to the installer or to gg, because the shell keeps arguments in its history, and anyone on the machine who lists running processes can see them. There are two ways to hand it over.
+:::note[The token is never an argument]
+Neither the installer nor gg takes the token as an argument. The shell keeps arguments in its history, and anyone on the machine who lists running processes can see them.
+:::
 
-To type it at a prompt, add `--enroll`. The prompt does not echo the token:
+Hand the token over in one of these ways:
+
+<Tabs>
+<TabItem label="At a prompt">
+
+Add `--enroll`. The prompt does not echo the token:
 
 ```sh
 curl -fsSL https://goodgrief.dev/install.sh \
@@ -97,6 +108,9 @@ curl -fsSL https://goodgrief.dev/install.sh \
       --agent-binary /usr/local/bin/claude \
       --enroll
 ```
+
+</TabItem>
+<TabItem label="From a file">
 
 For a machine with no terminal, put the token in a file only the installing account can read, pass the file with `--enroll-file`, and delete the file afterwards:
 
@@ -111,13 +125,25 @@ curl -fsSL https://goodgrief.dev/install.sh \
 rm -f /tmp/enroll
 ```
 
-On a machine where gg is already installed, `sudo gg service install --control-plane <url> --enroll` does the same; it reads the token from a prompt or from standard input.
+</TabItem>
+<TabItem label="gg already installed">
 
-On its first start, the runner exchanges the token for a runner credential of its own. The token's use is spent. The control plane refuses a token that has expired, been revoked or been used up, and the refusal does not say which.
+On a machine where gg is already installed, run:
+
+```sh
+sudo gg service install --control-plane <url> --enroll
+```
+
+It reads the token from a prompt or from standard input.
+
+</TabItem>
+</Tabs>
+
+On its first start, the runner exchanges the token for a runner credential of its own. This uses up one of the token's uses. The control plane refuses a token that has expired, been revoked or been used up, and the refusal does not say which.
 
 ## 3. Finish bringing it up
 
-After it registers, the machine appears in `gg runners` with its profile. If it cannot yet meet everything its profile asks for, such as a credential that only a person can provide or an agent that is not signed in, it says what it lacks, and a maintenance flight for the machine appears in `gg flights`, with one gate for each missing item. Answer them from a signed-in machine:
+After it registers, the machine appears in `gg runners` with its profile. If it cannot yet meet everything its profile asks for, such as a credential that only a person can provide or an agent that is not signed in, it says what it lacks. A maintenance flight for the machine then appears in `gg flights`, with one gate for each missing item. Answer them from a signed-in machine:
 
 ```sh
 gg credential send --runner <id|name> --repo example-org/web-app
@@ -144,13 +170,13 @@ A claimed machine can also be **reserved**, which means it takes only its owner'
 | `gg runner release <id>` | Lets a reserved machine take anyone's flights again. | Its owner. |
 | `gg runner ownership <id> tenant\|open` | Turns an organisation machine into an open one, or the reverse. | An administrator. |
 
-No one can claim a machine someone else has claimed until they unclaim it. No one can ever claim an organisation machine. `gg runner ownership` refuses a claimed machine: someone must unclaim it first, so an owner never loses a machine without a record of it. An administrator unclaiming a machine is how to free one whose owner has left.
+No one can claim a machine someone else has claimed until they unclaim it. No one can ever claim an organisation machine. `gg runner ownership` refuses a claimed machine. Unclaim it first, so that an owner never loses a machine without a record of it. To free a machine whose owner has left, an administrator unclaims it.
 
 In the console, the window for a runner offers `m` to claim it, `o` to hold it back for the organisation, and `h` to keep it to its owner's flights.
 
 ## When a runner's key changes
 
-The console remembers each runner's key the first time it reaches the runner, and checks it every time after. When someone reinstalls a machine, its key changes, and gg refuses to send anything to it, because it cannot tell a rebuilt machine from someone substituting a key. If someone rebuilt the machine, trust its new key with:
+The console remembers each runner's key the first time it reaches the runner, and checks it every time after. Reinstalling a machine changes its key. gg then refuses to send anything to it, because it cannot tell a rebuilt machine from someone substituting a key. If the machine was rebuilt, trust its new key with:
 
 ```sh
 gg runner repin <id>
@@ -170,7 +196,7 @@ A [strategy](/reference/glossary/#strategy) says how a pool's members are built 
 - `gg strategy build <name>` builds the strategy's image.
 - `gg strategies` lists the strategies, and `gg pools` lists what each pool last reported, and when.
 
-Setting up a machine to host a pool involves more than gg; the [pool host README](https://github.com/glyph-guild/gg/tree/main/deploy/pool-host) in the gg repository covers it.
+Setting up a machine to host a pool involves more than gg. The [pool host README](https://github.com/glyph-guild/gg/tree/main/deploy/pool-host) in the gg repository covers it.
 
 ## Next steps
 

@@ -5,7 +5,7 @@ sidebar:
   order: 13
 ---
 
-Good Grief runs AI agents against an organisation's repositories. Anyone deciding whether to trust it needs to know where the code, the credentials and the agent's work go. This page answers that, part by part. Each statement on it describes something gg's code does and its tests check, not an intention.
+Good Grief runs AI agents against an organisation's repositories. Anyone deciding whether to trust it needs to know where the code, the credentials and the agent's work go. This page answers that, part by part. Each statement on it describes something gg's code does and its tests check, not an intention. [Security](/concepts/security/) summarises the whole security model, including sign-in, approvals and machine settings, which this page does not cover.
 
 In short:
 
@@ -22,7 +22,7 @@ gg is a single program with two roles, and they run as separate operating-system
 
 gg uses a person's sign-in only to register a runner. After that, the runner works with a credential of its own, issued to that machine, and never with the person's sign-in. A pool member, which no one signs in on, exchanges a one-time code for a short-lived credential of its own.
 
-The two roles see different things, and the rest of the design treats the runner as the less trusted of the two. The runner decides nothing about whether work is acceptable: it gathers facts and reports them, and the control plane evaluates the organisation's rules. A modified runner could report false facts, but it cannot approve its own work. [Anatomy of a flight](/concepts/anatomy-of-a-flight/#what-a-runner-reports-and-what-it-means-for-the-flight) explains how the control plane, not the runner, decides how a flight ended.
+The two roles see different things, and the rest of the design treats the runner as the less trusted of the two. The runner does not decide whether work is acceptable. It gathers facts and reports them, and the control plane evaluates the organisation's rules against them. A modified runner could report false facts, but it cannot approve its own work. [Anatomy of a flight](/concepts/anatomy-of-a-flight/#what-a-runner-reports-and-what-it-means-for-the-flight) explains how the control plane, not the runner, decides how a flight ended.
 
 ## What stays on the machine
 
@@ -30,13 +30,13 @@ The two roles see different things, and the rest of the design treats the runner
 |---|---|
 | The repository | The runner clones it into a working copy for the flight, on its own machine. |
 | Credential values | Held in gg's credential store, sealed to their holders. See [Credentials](/concepts/credentials/). |
-| The agent's transcript | The full record of what the agent said and did. It lives outside the flight's working copy, so it survives the flight, and nothing deletes it automatically. Facts carry only a reference to it: where it is, its size and a hash of its contents. |
+| The agent's transcript | The full record of what the agent said and did. It lives outside the flight's working copy, so it survives the flight. Nothing deletes it automatically. Facts carry only a reference to it: where it is, its size and a hash of its contents. |
 | The agent's live output | Shown to a person watching over a direct channel between the two machines. The control plane does not store it. |
 
 Work does leave the machine for places the organisation chose, never for the control plane:
 
 - **The runner pushes branches** to the organisation's own repository host, and opens pull requests there, only where the envelope allows and the credential has write access. The control plane does not push.
-- **The agent talks to its own model provider**, under whatever account the agent is signed in with. gg starts the agent on the machine; it does not route or see that traffic.
+- **The agent talks to its own model provider**, under whatever account the agent is signed in with. gg starts the agent on the machine. It does not route or see that traffic.
 - **Trackers and MCP servers** take their calls directly from the machine, with credentials opened there.
 
 ## What the runner sends
@@ -77,7 +77,7 @@ Some facts carry words the agent wrote, because a person needs to read them:
 - a proposed change to a work item, with its reason (`work-item.proposal`);
 - an airspace document the flight drafted, for a person to approve (`document.proposal`).
 
-The search terms and error messages in `loop.digest`, and the reason in `loop.outcome`, can also contain text from the repository or from the agent. An organisation should treat these as it would treat a summary of the work written by someone who has read the code.
+The search terms and error messages in `loop.digest`, and the reason in `loop.outcome`, can also contain text from the repository or from the agent. Treat these as a summary of the work written by someone who has read the code.
 
 ### Checked before it leaves, and again when it arrives
 
@@ -100,13 +100,13 @@ The control plane records each refusal on the flight's log, with the reason and 
 
 **Code.** No fact type has a field for file contents. The change list carries paths and line counts, and a fact about a file names it and its hash, never its text.
 
-**Credential values.** Tests check that every message type that carries a credential reference, in either direction, has no field that could hold a value. The single message that carries a credential at all, used when a person sends one to a machine, carries it sealed to the receiving machine's key and travels over a direct channel, not through the control plane. A further test plants a credential value and searches every place the control plane writes, including its tables, flight log, log lines and traces, and fails if the value appears in any of them. On the runner, credentials go only to the process that needs them, through its environment or a request header, never on a command line or in a request body.
+**Credential values.** Tests check that every message type that carries a credential reference, in either direction, has no field that could hold a value. Only one message carries a credential: the one used when a person sends a credential to a machine. It carries the credential sealed to the receiving machine's key, over a direct channel rather than through the control plane. A further test plants a credential value and searches every place the control plane writes, including its tables, flight log, log lines and traces, and fails if the value appears in any of them. On the runner, credentials go only to the process that needs them, through its environment or a request header, never on a command line or in a request body.
 
 **What crosses a channel.** When a console reaches a runner, to watch it, drive an agent or send a credential, the control plane introduces the two machines. The connection details it passes along arrive sealed, so it cannot read or alter them, and the connection itself is encrypted end to end. If the connection goes through a relay, the relay forwards encrypted traffic it cannot read. [Driving an agent](/concepts/driving-an-agent/#how-the-console-reaches-a-machine) explains how a channel is set up.
 
 ## Diagnostics bundles
 
-When something goes wrong, `gg bundle` produces a diagnostics bundle for the Good Grief team. It **prints the bundle to the terminal and sends nothing**: a person reads it and decides whether to send it.
+When something goes wrong, `gg bundle` produces a diagnostics bundle for the Good Grief team. It **prints the bundle to the terminal and sends nothing**. Read it, then decide whether to send it.
 
 A bundle contains:
 
@@ -114,15 +114,15 @@ A bundle contains:
 - the machine's fingerprint, in the same form a flight records, so a person can match the two;
 - every check `gg doctor` ran, passing or not, and a line for each problem it found.
 
-A bundle has no field that could hold anything a runner or agent printed. Tests send a token-shaped string through the real live-output path, and separately place one in a work item's title, then check that neither appears in a bundle or its printed form. The console's own state, which gg also uses for diagnostics, cannot hold a passphrase typed into the console: tests check that no part of that state could carry one.
+A bundle has no field that could hold anything a runner or agent printed. Tests send a token-shaped string through the real live-output path, and separately place one in a work item's title, then check that neither appears in a bundle or its printed form. The console's own state, which gg also uses for diagnostics, cannot hold a passphrase typed into the console. Tests check that no part of that state could carry one.
 
 ## While gg hosts an editor
 
-Some console actions open the editor named by `$EDITOR`. gg runs the editor inside a terminal of its own, so that it can keep its top row on screen. **This puts gg in the middle: every byte typed into the editor, and everything it draws, passes through the gg process.** A program given the terminal directly would be invisible to gg.
+Some console actions open the editor named by `$EDITOR`. gg runs the editor inside a terminal of its own, so that it can keep its top row on screen. **Every byte typed into the editor, and everything it draws, therefore passes through the gg process.** A program given the terminal directly would be invisible to gg.
 
 What gg does with those bytes:
 
-- **gg keeps nothing.** The part of gg that hosts the editor holds no state between sessions; a test checks that it has none.
+- **gg keeps nothing.** The part of gg that hosts the editor holds no state between sessions. A test checks that it has none.
 - **gg writes nothing to disk.** A test fails if the hosting code contains any file-writing call.
 - **gg sends nothing anywhere.** The hosting code makes no network calls and opens no credentials. It starts the editor, reads its output, draws it, and restores the terminal.
 
@@ -134,8 +134,8 @@ When the editor exits, however it exits, gg restores the terminal's settings as 
 
 - **One outside dependency, named.** The package depends on exactly one third-party library, a YAML parser, and a test fails if that changes in any way.
 - **Every message is listed.** Every type that crosses the wire carries a fixed identifier and appears in the package's own list of messages. A test fails if a type is missing from the list, or the list names one that no longer exists.
-- **The version means something.** The package records a fingerprint of everything that crosses the wire against each of its versions, and changing the wire without changing the version fails the build. The fact vocabulary carries its own version, recorded the same way.
+- **The version means something.** The package records a fingerprint of everything that crosses the wire against each of its versions. Changing the wire without changing the version fails the build. The fact vocabulary carries its own version, recorded the same way.
 
 **The flight log.** Every flight's log records what happened to it, including every fact the control plane refused and why. `gg log <flight>` and `gg facts <flight>` show it.
 
-**The machine itself.** The transcript of every flight stays on the machine that ran it, and each transcript fact carries a hash of it, so a person can check what an agent did against what the runner reported.
+**The machine itself.** The transcript of every flight stays on the machine that ran it. Each transcript fact carries a hash of it, so a person can check what an agent did against what the runner reported.

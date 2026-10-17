@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-A [gate](/reference/glossary/#gate) is a point where a flight waits for a person to approve or reject something, such as a pull request or a running preview. Use this guide when a flight is waiting on a decision: to find it, to understand exactly what the gate asks, and to record an answer. Nothing behind a gate proceeds until someone answers it, and waiting at a gate does not end the flight.
+A [gate](/reference/glossary/#gate) is a point where a flight waits for a person to approve or reject something, such as a pull request or a running preview. Use this guide when a flight is waiting on a decision: to find it, to understand exactly what the gate asks, and to record an answer. Nothing behind a gate proceeds until someone answers it. Waiting at a gate does not end the flight.
 
 ## Prerequisites
 
@@ -41,7 +41,11 @@ Each entry names the flight and the **[obligation](/reference/glossary/#obligati
 | `because` | Why the gate opened. When the agent stopped to ask a question, the question is the end of this sentence. |
 | `since` | When the gate opened. |
 
-When an agent proposed a flight, the entry adds a block that begins `an agent proposed this flight, in its own words`, followed by the kind of work, the environment and repository it asked for, its reason, and any note it left for the next agent. Those are the agent's words, not the organisation's rules, and the person answering the gate is the only review they get before they reach the next agent.
+When an agent proposed a flight, the entry adds a block that begins `an agent proposed this flight, in its own words`, followed by the kind of work, the environment and repository it asked for, its reason, and any note it left for the next agent. 
+
+:::caution[An agent's own words]
+Those are the agent's words, not the organisation's rules. Answering the gate is the only review they get before they reach the next agent.
+:::
 
 When nothing is waiting, gg says `Nothing is waiting on a decision.`
 
@@ -89,7 +93,7 @@ The indented lines under it say more:
 | `verdict` | The result: `satisfied`, `violated` or `unevaluable`. An obligation with no verdict has not been decided yet. |
 | `detail` | More about the result, such as the files outside the allowed scope. |
 
-When gg prints `Nothing has been judged against this flight.`, either the envelope declares no obligation or Good Grief has evaluated nothing yet. A flight that has not reached its first gate reads this way; `gg show` gives the stage it is at.
+When gg prints `Nothing has been judged against this flight.`, either the envelope declares no obligation or Good Grief has evaluated nothing yet. A flight that has not reached its first gate reads this way. Run `gg show` to see its stage.
 
 ## 3. Record a decision
 
@@ -99,7 +103,7 @@ Run `gg decide` with the flight, the obligation and the outcome, `approved` or `
 gg decide GG-42 code-review approved "Correct, and the test covers the expiry path."
 ```
 
-A reason is optional when approving and required when rejecting. A reason may be up to 4,000 characters; Good Grief refuses a longer one rather than shortening it.
+A reason is optional when approving and required when rejecting. A reason may be up to 4,000 characters. Good Grief refuses a longer one rather than shortening it.
 
 gg records the decision, then watches the gate until the decision is visible, and reports what it saw:
 
@@ -120,9 +124,9 @@ A decision applies to the gate as it was when gg looked it up, for that exact ve
 
 ## What rejecting does
 
-Rejecting sends the work back. The agent makes another [attempt](/reference/glossary/#attempt), with the reason attached, which is why a rejection needs a reason that says what to change. `gg show` numbers the attempts `#1`, `#2` and so on.
+Rejecting sends the work back. The agent makes another [attempt](/reference/glossary/#attempt), with the reason attached. Give a reason that says what to change. `gg show` numbers the attempts `#1`, `#2` and so on.
 
-Rejecting the gate of a plan a person proposed is different: the control plane declines every leg of that plan that is still waiting, and the plan's flight ends `withdrawn`. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
+Rejecting the gate of a plan a person proposed works differently. The control plane declines every leg of that plan that is still waiting, and the plan's flight ends `withdrawn`. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
 
 ## Who may decide a gate
 
@@ -131,7 +135,7 @@ The `approver` line says who the rules expect to decide. An approver takes one o
 - **A role**, such as `platform-owner`, written as a bare word.
 - **A named person**, written as `<provider>:<subject>`, the form `gg whoami` prints.
 
-When the approver is a role, the control plane does not check the role: anyone in the organisation who may decide gates can answer it. To limit a gate to one person, name that person as the approver.
+When the approver is a role, anyone in the organisation who may decide gates can answer it. The control plane does not check the role. To limit a gate to one person, name that person as the approver.
 
 When the approver is a named person, only that person can decide the gate. The control plane refuses anyone else, including an administrator, and says whose gate it is. Gates that belong to a person's own [watch](/reference/glossary/#watch) work the same way: only that person can answer them. [Set up a watch](/guides/set-up-a-watch/) explains personal watches.
 

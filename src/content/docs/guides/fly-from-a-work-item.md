@@ -15,7 +15,7 @@ Use this guide to open a [flight](/reference/glossary/#flight) from something th
 
 ## 1. Say what the flight is for
 
-What a person opens a flight for is its [intent](/reference/glossary/#intent). `gg fly` takes exactly one intent, in one of four forms:
+A flight's [intent](/reference/glossary/#intent) is what it is opened for. `gg fly` takes exactly one intent, in one of four forms:
 
 | Form | Example | Use it for |
 |---|---|---|
@@ -55,7 +55,7 @@ A flight that names no repository inherits one only when the organisation's [roo
 Each of these options narrows a choice the organisation's rules already allow. None of them can grant something the rules withhold.
 
 - **`--work-kind <name>`** chooses the [work kind](/reference/glossary/#work-kind) whose rules govern the flight, such as `investigate` or `review`. `gg airspace show` lists the work kinds the organisation has declared. The control plane refuses a name the organisation has not declared, and a work kind marked as abstract, which exists only for other work kinds to extend.
-- **`--environment <name>`** chooses the [environment](/reference/glossary/#environment) the flight runs in, such as `dev` or `ui`. It must be one of the environments root lists; `gg environments` lists every charted one. A flight that names none inherits the only entry when root lists exactly one.
+- **`--environment <name>`** chooses the [environment](/reference/glossary/#environment) the flight runs in, such as `dev` or `ui`. It must be one of the environments root lists. `gg environments` lists every charted one. A flight that names none inherits the only entry when root lists exactly one.
 - **`--model <name>`** chooses the model the agent runs on. It must be one of the models root lists under `models:`. When root lists none, no person may choose a model, and the work kind's loop decides.
 
 ```sh
@@ -108,7 +108,7 @@ When there are more flights than fit on one page, gg ends the list with the comm
 gg model GG-42 claude-opus-5-5
 ```
 
-gg prints the flight as it now stands. Its `model` line shows the model now in force. The model must be one root lists; the control plane refuses any other name.
+gg prints the flight as it now stands. Its `model` line shows the model now in force. The model must be one root lists. The control plane refuses any other name.
 
 ## The same steps in the console
 

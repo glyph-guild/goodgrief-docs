@@ -36,13 +36,13 @@ A nomination also records the rules the board judged it against, so a person rea
 | **A pull request** | Opening or updating a pull request in a registered repository can nominate a flight, such as a review. The subject is the pull request and the version is its head commit. |
 | **`gg fly`** | A flight opened directly also passes through the board, as a nomination that a person opened by hand. It never waits there. |
 
-Whatever the source, a `flight` [destination](/concepts/envelope/#destinations) bounds every nominator: for a flight, its work kind's destination; for a watch, its `nominates` destination. The destination's `opens` list is the menu of work kinds a nomination may name. The board refuses a nomination outside the menu.
+Whatever the source, a `flight` [destination](/concepts/envelope/#destinations) bounds every nominator. For a flight, that is its work kind's destination. For a watch, it is its `nominates` destination. The destination's `opens` list is the menu of work kinds a nomination may name. The board refuses a nomination outside the menu.
 
 ## One nomination per piece of work
 
 Its nominator, subject and version identify a nomination. The same nominator proposing the same subject at the same version twice makes one nomination, not two. When the work changes, its version changes, and the nominator can nominate it again.
 
-For nominations made by a flight or a plan, a newer nomination of the same subject from the same nominator replaces the older one: the last one wins, and the older one ends `superseded`. No newer nomination replaces a watch or pull-request nomination this way; each version stands on its own.
+For nominations made by a flight or a plan, a newer nomination of the same subject from the same nominator replaces the older one, which ends `superseded`. A newer watch or pull-request nomination never replaces an older one. Each version stands on its own.
 
 ## Auto or gated
 
@@ -53,21 +53,21 @@ The destination's `opens-as` decides how a nomination opens:
 
 Even an `auto` nomination waits for what its destination requires:
 
-- A flight's nominations open only once the flight's own destination accepts its work. A planning work kind's destination typically requires a person to approve the plan, so its legs open when a person approves that gate.
-- A watch has no flight of its own to carry a gate, so when its `nominates` destination requires a human check, each of its nominations waits on the board for a person instead.
+- A flight's nominations open only once the flight's own destination accepts its work. A planning work kind's destination typically requires a person to approve the plan. Its legs open when a person approves that gate.
+- A watch has no flight of its own to carry a gate. When its `nominates` destination requires a human check, each of its nominations waits on the board for a person instead.
 
 An `auto` nomination can become gated when its nominator has spent its budget:
 
 - A watch's `bounds.budget` limits how many flights its nominations may open in a window.
 - A repository's budget limits how many flights its pull requests may open.
 
-Once a budget is spent, further nominations stand on the board as gated, and the board says why. Changing `auto` to `gated` tightens the rules; changing `gated` to `auto` loosens them, and waits for approval.
+Once a budget is spent, further nominations stand on the board as gated, and the board says why. Changing `auto` to `gated` tightens the rules. Changing `gated` to `auto` loosens them, and waits for approval.
 
 ### How many at once
 
 A destination's `cap-per-pass` limits how many nominations one run may make:
 
-- For a **plan**, the cap applies to the plan as a whole. The board refuses a plan with more legs than the cap entirely: every leg ends `refused`, rather than some opening and others not.
+- For a **plan**, the cap applies to the plan as a whole. If a plan has more legs than the cap, the board refuses the whole plan, and every leg ends `refused`.
 - For a **watch**, the first nominations up to the cap stand, and the watch leaves the rest for a later sweep to report again.
 
 A destination that leaves out the cap has no limit.
@@ -80,14 +80,14 @@ The board lists every nomination that is still **standing**: it has not ended, a
 
 A person answers a standing nomination in one of two ways:
 
-- **Open it** with `gg board open <id> <why>`. The board does not simply open the flight: it applies the rules again, as they stand now. The work kind must still be on the menu, the rules must still combine, and anything else the nominator's destination requires must still hold. If they do not, the nomination ends `refused`, with the reason.
+- **Open it** with `gg board open <id> <why>`. Before it opens the flight, the board applies the rules again, as they stand now. The work kind must still be on the menu, the rules must still combine, and anything else the nominator's destination requires must still hold. If they do not, the nomination ends `refused`, with the reason.
 - **Decline it** with `gg board decline <id> <why>`. It ends `declined` at once, with the person's sentence.
 
 A reason is required either way. It is the only record of why a person opened work no one explicitly asked for, or turned down work that something proposed.
 
 The first answer stands. Once one person has answered a nomination, the board refuses a second answer.
 
-Only that person can answer a nomination marked `for` a person, from that person's own watch. The board refuses anyone else.
+A nomination marked `for` a person comes from that person's own watch, and only that person can answer it. The board refuses anyone else.
 
 ### Whose flight it becomes
 
@@ -118,7 +118,7 @@ Only `opened` and `declined` record a person's decision. The others belong to th
 
 What happens to a nomination no one answers depends on how it stands:
 
-- **An `auto` nomination lapses** if it has not opened an hour after the nominator made it, as long as no gate is open on the flight or plan that nominated it. An `auto` nomination is meant to open at once, so one that has not opened within the hour ends `lapsed` rather than standing indefinitely. While a gate on the nominating flight or plan is open, the board keeps its nominations.
+- **An `auto` nomination lapses** if it has not opened an hour after the nominator made it, as long as no gate is open on the flight or plan that nominated it. An `auto` nomination is meant to open at once. One that has not opened within the hour ends `lapsed` rather than standing indefinitely. While a gate on the nominating flight or plan is open, the board keeps its nominations.
 - **A `gated` nomination never lapses.** It stands on the board until a person opens or declines it.
 
 Gated nominations therefore accumulate when no one reads the board. In the console, the queue (`,`) lists them alongside the gates waiting on a person.

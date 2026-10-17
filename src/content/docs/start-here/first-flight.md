@@ -17,7 +17,7 @@ This page follows one [flight](/reference/glossary/#flight) from start to finish
   gg login
   ```
 
-  An administrator can provide the control-plane address. `gg login` prints a link and a code. Opening the link and entering the code completes sign-in.
+  Ask an administrator for the control-plane address. `gg login` prints a link and a code. Open the link and enter the code to finish signing in.
 - **At least one runner is available.** A runner is a machine that carries out the work. `gg runners` lists the organisation's runners. If the list is empty, ask an administrator, or run `gg runner up` on a suitable machine.
 
 To check all of this at once, run:
@@ -36,7 +36,7 @@ Run `gg fly`, followed by a plain description of the work:
 gg fly "Why does the login page sign people out after an hour?" --repo web-app
 ```
 
-`--repo` names the repository the work concerns, using the name someone registered it under. `gg airspace show` lists the registered names.
+`--repo` names the repository the work concerns, by its registered name. `gg airspace show` lists the registered names.
 
 gg replies with the flight's number:
 
@@ -58,7 +58,7 @@ gg flights
 GG-42       2026-10-14 14:31:59Z  open       Why does the login page sign people out after an hour?
 ```
 
-`open` means nothing has ended this flight yet. `gg show` gives its history so far:
+`open` means the flight has not ended yet. `gg show` gives its history so far:
 
 ```sh
 gg show GG-42
@@ -134,7 +134,7 @@ Every flight ends with one word:
 | `grounded` | A person stopped it. |
 | `withdrawn` | The question stopped mattering. |
 
-A flight that has not ended is `open`, even while it waits at a gate or for a free machine. Waiting is not the same as finished; [Anatomy of a flight](/concepts/anatomy-of-a-flight/) explains the distinction.
+A flight that has not ended is `open`, even while it waits at a gate or for a free machine. [Anatomy of a flight](/concepts/anatomy-of-a-flight/) explains the difference between waiting and ending.
 
 ## The same steps in the console
 

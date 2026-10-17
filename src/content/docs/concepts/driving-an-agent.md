@@ -5,7 +5,7 @@ sidebar:
   order: 12
 ---
 
-Most [flights](/reference/glossary/#flight) run with no one watching: a [runner](/reference/glossary/#runner) takes the flight, runs the [agent](/reference/glossary/#agent) on its own, and reports what happened. Sometimes a person wants to be closer to the work. gg offers several ways to do that, which differ in two respects: whether there is a flight, and whether the person can type to the agent or only watch.
+Most [flights](/reference/glossary/#flight) run with no one watching: a [runner](/reference/glossary/#runner) takes the flight, runs the [agent](/reference/glossary/#agent) on its own, and reports what happened. Sometimes a person wants to be closer to the work. gg offers several ways to do that. They differ in two respects: whether there is a flight, and whether the person can type to the agent or only watch.
 
 | Way | A flight? | Where the agent runs | The person can |
 |---|---|---|---|
@@ -19,7 +19,7 @@ To take a flight away from its runner and finish the work by hand, see [Take ove
 
 ## Flying a flight by hand
 
-`y` on the console's main screen opens a new flight and flies it on this machine, with the person at the keyboard. gg starts a runner for that one flight, and that runner gives the person's own terminal to the agent, running interactively in the flight's working copy of the repository. Its [envelope](/reference/glossary/#envelope) governs the flight like any other: the same rules decide what it may concern and where its work may land, and the person answers any [gate](/reference/glossary/#gate) it reaches from the same session.
+`y` on the console's main screen opens a new flight and flies it on this machine, with the person at the keyboard. gg starts a runner for that one flight, and that runner gives the person's own terminal to the agent, running interactively in the flight's working copy of the repository. Its [envelope](/reference/glossary/#envelope) governs the flight like any other. The same rules decide what it may concern and where its work may land, and the person answers any [gate](/reference/glossary/#gate) it reaches from the same session.
 
 Because a person holds the terminal, the runner cannot measure the agent's run the way it measures a flight that runs alone. Instead of recording how the agent's run ended, it records that a person flew the session by hand: which agent binary and version ran, how long the person held it, and what it could not measure as a result.
 
@@ -67,7 +67,7 @@ The console can hold agents beside gg itself, each running in a terminal of its 
 
 A new agent can be a Claude Code session in a chosen directory, or an agent started for a purpose, such as managing gg (its gates, board, flights and runners), managing the [airspace](/reference/glossary/#airspace), or planning a flight or an [itinerary](/reference/glossary/#itinerary). The menu ends with **Remote control…**, described [below](#driving-an-agent-on-another-machine).
 
-Each local agent's entry in the column shows what it is doing: `»` while it works, `?` when it needs the person, and `·` while it waits. A `•` means its screen changed while it was hidden. gg learns this from the agent's own hooks, which run `gg mux mark`; that command is for the hooks, not for people.
+Each local agent's entry in the column shows what it is doing: `»` while it works, `?` when it needs the person, and `·` while it waits. A `•` means its screen changed while it was hidden. gg learns this from the agent's own hooks, which run `gg mux mark`. That command is for the hooks, not for people.
 
 Quitting gg with agents running asks first, and names the local agents that will stop.
 
@@ -84,7 +84,7 @@ From the agent column, choose **+ new agent**, then **Remote control…**. gg li
 | `d` | Forget a session that ended. |
 | `D` | Forget every session that ended. |
 
-The session then appears in the agent column like a local one. Until the machine answers, which happens the next time it checks in, its entry says it is being reached.
+The session then appears in the agent column like a local one. Its entry says it is being reached until the machine answers, the next time it checks in.
 
 ### What runs on the machine
 
@@ -100,14 +100,14 @@ The machine runs the agent's own interactive program in a terminal it owns, in a
 
 A session starts only when both of these hold:
 
-1. **The machine allows it.** Its own configuration file must say `"accept-agent-sessions": true`. gg reads this setting only from that file: no environment variable can set it and the control plane cannot offer it, so turning it on means opening the file on that machine. A machine without it refuses the session and names the setting.
+1. **The machine allows it.** Its own configuration file must say `"accept-agent-sessions": true`. gg reads this setting only from that file. No environment variable can set it, and the control plane cannot offer it. To turn it on, edit the file on that machine. A machine without it refuses the session and names the setting.
 2. **The person may reach the machine.** A machine someone has claimed admits only its owner. Any other machine admits the person who registered it, or an administrator of the organisation.
 
 [Add machines to the fleet](/guides/enrol-machines/#whose-a-machine-is) explains claiming.
 
 ### What is recorded
 
-The control plane records who reached which machine, and when, and each machine reports its sessions: who last attached and how long each ran. It records nothing of what the person typed or the session showed. The agent keeps its own record of the conversation, on that machine.
+The control plane records who reached which machine, and when. Each machine also reports its sessions: who last attached and how long each ran. It records nothing of what the person typed or the session showed. The agent keeps its own record of the conversation, on that machine.
 
 ## How the console reaches a machine
 
@@ -117,17 +117,17 @@ Watching a runner, driving an agent on another machine, sending a credential and
 2. **Both sides seal the connection details.** The console seals its offer to the runner's registered key, and the runner seals its answer to a single-use key of the console's. The control plane passes both along, and the runner picks up the offer when it next checks in. Neither the control plane nor anything else carrying them can read the details, and the encryption detects any alteration.
 3. **The two machines connect** with WebRTC, which encrypts everything that crosses the connection.
 
-**The console remembers each runner's key** the first time it reaches the runner, and checks it every time after. If the key changes, gg refuses to send anything to that runner until a person runs `gg runner repin <id>`. [Add machines to the fleet](/guides/enrol-machines/#when-a-runners-key-changes) covers this.
+**The console remembers each runner's key** the first time it reaches the runner, and checks it every time after. If the key changes, gg refuses to send anything to that runner. Run `gg runner repin <id>` to send to it again. [Add machines to the fleet](/guides/enrol-machines/#when-a-runners-key-changes) covers this.
 
 ### Finding a way through
 
-The two machines are often on different networks. Each asks a STUN server how it appears from outside its network; a machine's fleet profile can list these servers under `relays`, and gg ships none of its own. When the two machines can reach each other this way, the connection is direct.
+The two machines are often on different networks. Each asks a STUN server how it appears from outside its network. A machine's fleet profile can list these servers under `relays`. gg ships none of its own. When the two machines can reach each other this way, the connection is direct.
 
 When they cannot, the channel can fall back to a **relay**: a server that forwards the encrypted traffic between them without being able to read it. When the organisation's control plane is configured with a relay, each introduction carries short-lived credentials for it, issued separately to each side. The channel reports which way it connected: directly, directly through the network's address translation, or through the relay.
 
 ### Limits
 
-- The channel reaches a relay over its standard ports only; gg does not support relaying over the port used for secure web traffic.
+- The channel reaches a relay over its standard ports only. gg does not support relaying over the port used for secure web traffic.
 - `gg doctor` checks whether this machine can reach the STUN servers. It does not test the relay.
 - Only the console offers driving an agent on another machine. No gg command does it.
 - gg supports only Claude Code as the agent for these sessions.

@@ -1,0 +1,38 @@
+/* What Good Grief is: a node in the terms diagram and its bullet highlight each other. */
+.gg-node { cursor: default; outline: none; }
+.gg-node rect { transition: fill 0.15s, stroke 0.15s, stroke-width 0.15s; }
+.gg-node:is(:hover, :focus-visible) rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#board"]) .gg-node[data-term="board"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#envelope"]) .gg-node[data-term="envelope"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#flight"]) .gg-node[data-term="flight"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#gate"]) .gg-node[data-term="gate"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#itinerary"]) .gg-node[data-term="itinerary"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#nomination"]) .gg-node[data-term="nomination"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#runner"]) .gg-node[data-term="runner"] rect,
+.sl-markdown-content:has(ul li:hover a[href="/reference/glossary/#watch"]) .gg-node[data-term="watch"] rect {
+	/* The diagram's shapes carry inline styles, so the highlight must override them. */
+	fill: var(--sl-color-accent-low) !important;
+	stroke: var(--sl-color-accent-high) !important;
+	stroke-width: 2.5px !important;
+}
+
+.sl-markdown-content ul li { transition: background-color 0.15s, box-shadow 0.15s; border-radius: 0.25rem; }
+.sl-markdown-content:has(.gg-node[data-term="board"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#board"]),
+.sl-markdown-content:has(.gg-node[data-term="envelope"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#envelope"]),
+.sl-markdown-content:has(.gg-node[data-term="flight"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#flight"]),
+.sl-markdown-content:has(.gg-node[data-term="gate"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#gate"]),
+.sl-markdown-content:has(.gg-node[data-term="itinerary"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#itinerary"]),
+.sl-markdown-content:has(.gg-node[data-term="nomination"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#nomination"]),
+.sl-markdown-content:has(.gg-node[data-term="runner"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#runner"]),
+.sl-markdown-content:has(.gg-node[data-term="watch"]:is(:hover, :focus-visible)) ul li:has(a[href="/reference/glossary/#watch"]),
+.sl-markdown-content:has(.gg-node[data-term="board"]) ul li:has(a[href="/reference/glossary/#board"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="envelope"]) ul li:has(a[href="/reference/glossary/#envelope"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="flight"]) ul li:has(a[href="/reference/glossary/#flight"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="gate"]) ul li:has(a[href="/reference/glossary/#gate"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="itinerary"]) ul li:has(a[href="/reference/glossary/#itinerary"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="nomination"]) ul li:has(a[href="/reference/glossary/#nomination"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="runner"]) ul li:has(a[href="/reference/glossary/#runner"]):hover,
+.sl-markdown-content:has(.gg-node[data-term="watch"]) ul li:has(a[href="/reference/glossary/#watch"]):hover {
+	background-color: var(--sl-color-accent-low);
+	box-shadow: -0.5rem 0 0 var(--sl-color-accent-low), 0.5rem 0 0 var(--sl-color-accent-low);
+}

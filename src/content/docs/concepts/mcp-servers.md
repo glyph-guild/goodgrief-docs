@@ -64,7 +64,7 @@ Good Grief accepts no other field.
 
 ### Changing the servers needs approval
 
-Defining a new server, or changing an existing one in any way, gives agents something they could not reach before. Applying either change opens a [gate](/reference/glossary/#gate) on root, so a person approves it before it takes effect. Removing a server applies at once. A person changes airspace documents with `gg airspace pull`, `gg airspace diff` and `gg airspace apply`; [Change the airspace](/guides/change-the-airspace/) covers the steps.
+Defining a new server, or changing an existing one in any way, gives agents something they could not reach before. Applying either change opens a [gate](/reference/glossary/#gate) on root. The change takes effect only after a person approves it. Removing a server applies at once. To change airspace documents, use `gg airspace pull`, `gg airspace diff` and `gg airspace apply`. [Change the airspace](/guides/change-the-airspace/) covers the steps.
 
 ## A loop allows tools
 
@@ -88,11 +88,11 @@ loops:
 
 **Good Grief rejects a loop that names a server root does not define** when it combines the loop's work kind with root, with a message naming the loop and the server. Correct the name, or define the server in root.
 
-Allowing more is also a widening that opens a gate: naming another server, adding a tool, or changing a list of tools to `"*"`.
+Allowing more also opens a gate. That includes naming another server, adding a tool, or changing a list of tools to `"*"`.
 
 ### Moves do not govern these tools
 
-[Moves](/reference/glossary/#move) bound what an agent may do with gg's own tools and with the repository, such as `read`, `edit` and `run-tests`. They do not apply to an organisation's MCP servers: for those, the `allow:` list is the whole of what is allowed. A loop with the move `anything` runs with no allowed-tool list at all, so `allow:` does not narrow what it may call.
+[Moves](/reference/glossary/#move) bound what an agent may do with gg's own tools and with the repository, such as `read`, `edit` and `run-tests`. They do not apply to an organisation's MCP servers. For those, the `allow:` list alone decides what the agent may call. A loop with the move `anything` runs with no allowed-tool list at all. For such a loop, `allow:` does not narrow what it may call.
 
 See [The envelope: loops](/concepts/envelope/#loops) for the rest of the loop.
 
@@ -104,7 +104,7 @@ Before it starts the agent, the runner:
 
 1. **Resolves each credential reference on its own machine**, from gg's credential store. [Credentials](/concepts/credentials/) explains how a machine comes to hold one.
 2. **Writes the server configuration to a file only the runner's user can read.** The resolved values go into that file, never onto the agent's command line, where other users on the machine could see them. The runner deletes the file as soon as the agent reports that its servers have started, and again when the run ends.
-3. **Starts the agent with only these servers.** The runner does not load any MCP servers configured for the machine's own user, so a flight never runs with tools the envelope did not name.
+3. **Starts the agent with only these servers.** The runner does not load any MCP servers configured for the machine's own user. A flight never runs with tools the envelope did not name.
 4. **Lists the allowed tools.** Each allowed tool becomes an entry on the agent's allowed-tool list, as `mcp__<key>__<tool>`, or `mcp__<key>` for `"*"`.
 
 The same steps apply when a person flies a flight by hand.
@@ -118,7 +118,7 @@ The same steps apply when a person flies a flight by hand.
 | A server's key is the same as one gg already uses on that flight. | The runner refuses the flight rather than start two servers under one name. |
 | A loop names a server root does not define. | The work kind cannot be combined with root, so no flight runs under it. |
 
-In each case no flight runs with fewer tools than the envelope says. A missing server stops the flight, so the agent never works without a tool it was meant to have.
+In each case the flight stops rather than run with fewer tools than the envelope names.
 
 ## What is not supported
 
@@ -127,6 +127,6 @@ In each case no flight runs with fewer tools than the envelope says. A missing s
 - **Moves for external tools.** `allow:` alone controls access to an organisation's server.
 - **Watches.** gg does not give the organisation's MCP servers to the agent that runs a [watch](/reference/glossary/#watch)'s sweep.
 - **Substitution other than credentials.** `${credential:<name>}` is the only reference a value may contain.
-- **Managing servers from the command line.** No gg command edits `mcp-servers:`; a person changes it like any other part of root.
+- **Managing servers from the command line.** No gg command edits `mcp-servers:`. Change it like any other part of root.
 
 gg's own tool servers, such as the one that answers an agent's questions about its flight, are separate from these. The airspace does not declare them, and moves still govern them.

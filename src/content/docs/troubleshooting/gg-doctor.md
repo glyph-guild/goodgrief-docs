@@ -13,7 +13,7 @@ gg doctor
 
 ## Reading the result
 
-Each check prints one line: a mark, the check's name, and a **detail** that states what is true. After a failed check that the person at the machine can fix, gg prints a **fix** line that says exactly what to do. For example:
+Each check prints one line: a mark, the check's name, and a **detail** that states what is true. After a failed check that can be fixed on this machine, gg prints a **fix** line that says exactly what to do. For example:
 
 ```
 warn  executor          no agent binary is configured, so this machine will take flights and never start an agent
@@ -79,7 +79,7 @@ The control plane can hold notices for the organisation, such as a setting that 
 
 ### What this machine is set up to do
 
-These checks are about the job the machine was installed for, such as running flights or maintaining a [pool](/reference/glossary/#pool). None of them stops gg, because no one expects a laptop to do every job.
+These checks are about the job the machine was installed for, such as running flights or maintaining a [pool](/reference/glossary/#pool). None of them stops gg, because not every machine does every job.
 
 | Check | What a failure means | Fix it prints |
 |---|---|---|
@@ -95,7 +95,7 @@ A **forge** is a repository host, such as a Git server. A **destination API** is
 
 | Check | What it says |
 |---|---|
-| `moves` | Printed every time. The runner enforces the [moves](/reference/glossary/#move) an envelope declares only partly: it checks each tool on its own, so a flight that declares `read` cannot edit a file directly, but it can still run shell commands, which can edit files. The runner measures and reports what a flight actually did. |
+| `moves` | Printed every time. The runner enforces the [moves](/reference/glossary/#move) an envelope declares only partly. It checks each tool on its own. A flight that declares `read` cannot edit a file directly, but it can still run shell commands, which can edit files. The runner measures and reports what a flight actually did. |
 | `runner`, `pool` | When a gg service is installed on the machine, these two checks become notes. The service runs as its own user, with its own settings and its own runner identity, which a check run from a person's shell cannot read. The fix line names the command that shows the service, such as `systemctl status <unit>`. |
 
 ## Exit code

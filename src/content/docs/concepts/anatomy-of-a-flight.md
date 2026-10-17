@@ -41,12 +41,12 @@ These are **stages, not statuses**. A flight can remain in a stage for some time
 Not every flight passes through all six stages:
 
 - **Rejected when opened.** The request to open the flight fails, and Good Grief creates no flight. This happens when a request names an environment that does not exist or a repository that no one registered, or when the rules contradict each other. gg states which.
-- **Halted.** Good Grief found a rule it cannot evaluate as yes or no, so it stops and reports the rule rather than guessing. **The flight is still open**: once someone fixes the rule, it can continue.
+- **Halted.** Good Grief found a rule it cannot evaluate as yes or no. It stops and reports the rule rather than guessing. **The flight is still open**: once someone fixes the rule, it can continue.
 - **Sent back.** The work gets another attempt, because a reviewer rejected it or it ran out of time. Each retry is a new attempt. When retries happen automatically after the time runs out, the envelope's attempt limit decides when to stop and wait for a person.
 
 ## Waiting is not the same as finished
 
-A flight can stop because no machine is free, because a person has not answered yet, because time ran out, or because Good Grief could not check a rule. **None of these ends the flight.** Until something ends it, the flight is `open`, which is what allows a runner to pick it up again later.
+A flight can stop because no machine is free, because a person has not answered yet, because time ran out, or because Good Grief could not check a rule. **None of these ends the flight.** Until something ends it, the flight stays `open`, and a runner can pick it up again later.
 
 A flight ends in exactly one of four ways:
 
@@ -64,7 +64,7 @@ Two other words can appear, and neither is an ending:
 
 ## What a runner reports, and what it means for the flight
 
-A runner never decides how a flight ended. It reports only what happened to **its own turn** at the work, and Good Grief decides what that means for the flight. This keeps a machine reporting on its own work from being the one that declares the work accepted.
+A runner never decides how a flight ended. It reports only what happened to **its own turn** at the work, and Good Grief decides what that means for the flight. A machine therefore never declares its own work accepted.
 
 | Runner reports | Meaning | The flight | Offered to another machine? |
 |---|---|---|---|
@@ -85,7 +85,7 @@ Consider an agent that stops to ask a question. Without `outstanding`, the runne
 - `completed` would record the work as accepted, which it was not.
 - `abandoned` would return the flight to the queue. The next machine would run the same agent into the same question and ask it again.
 
-`outstanding` states what actually happened: the work is waiting on a person, so it should not go to another machine.
+`outstanding` states what actually happened. The work is waiting on a person, and should not go to another machine.
 
 ### One word, two meanings
 
@@ -105,7 +105,7 @@ the agent's run ended  blocked
 
 ## When each rule is checked
 
-Good Grief does not check the envelope all at once at the end. It checks each field at a particular stage, so when a flight stops or Good Grief rejects it, the stage points to the field responsible.
+Good Grief does not check the envelope all at once at the end. It checks each field at a particular stage. When a flight stops or Good Grief rejects it, the stage points to the field responsible.
 
 | Field | Checked at | Set by | In short |
 |---|---|---|---|

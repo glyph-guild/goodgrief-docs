@@ -18,7 +18,7 @@ An **[obligation](/reference/glossary/#obligation)** is one condition a flight m
 | **Machine check** | `check: machine` with a `rule` | Good Grief, from the facts the runner reported. |
 | **Human check** | `check: human` with an `approver` | A person, at a gate. |
 
-A machine check must name a rule and a human check must name an approver; a human check cannot also name a rule. Two rules exist:
+A machine check must name a rule and a human check must name an approver. A human check cannot also name a rule. Two rules exist:
 
 - **`no-file-outside-scope`**: every file the flight changed is within the envelope's `context.scope`.
 - **`loop-not-exhausted`**: the agent finished within its budget.
@@ -52,7 +52,7 @@ Good Grief does not attach machine checks to flights that change no repository, 
 
 - `satisfied`: the rule passed, or a person approved.
 - `violated`: the rule failed, or a person rejected.
-- No verdict yet: a human check is waiting at its gate. Waiting is not a failure: nothing is missing, and a person has not answered yet.
+- No verdict yet: a human check is waiting at its gate. Waiting is not a failure. It means only that a person has not answered yet.
 
 ## When a gate opens
 
@@ -60,7 +60,7 @@ A gate opens when a human check applies to a flight. Good Grief decides this whe
 
 Two things can hold a gate back until there is something real to decide:
 
-- **A pull request destination waits for the push.** For a flight whose work lands as a pull request, the gate opens only once the runner has pushed the branch, so the approver has real code to look at. The pull request itself opens after the decision. Flights that propose something rather than change a repository, such as a plan or a question the agent asked, do not wait at the gate for a pushed commit.
+- **A pull request destination waits for the push.** For a flight whose work lands as a pull request, the gate opens only once the runner has pushed the branch. The approver then has real code to look at. The pull request itself opens after the decision. Flights that propose something rather than change a repository, such as a plan or a question the agent asked, do not wait at the gate for a pushed commit.
 - **Good Grief must assemble evidence first.** When the obligation asks for evidence, Good Grief assembles it before the gate opens. See [Evidence](#evidence) below.
 
 There is one gate per flight and obligation. Good Grief does not replace it on each attempt. When the work changes, the same gate opens again, and any earlier answer no longer counts. When the obligation stops applying, for example because a later change no longer touches the files its condition names, Good Grief withdraws the gate.
@@ -72,7 +72,7 @@ While any gate on a flight is open, the control plane offers the flight to no ru
 The obligation's `approver` takes one of two forms, and the control plane treats them differently:
 
 - **A named person**, written as `<provider>:<subject>`, the form `gg whoami` prints. Only that person can decide the gate. The control plane refuses anyone else and records nothing.
-- **A role**, written as a bare word such as `platform-owner`. A role says who the organisation expects to decide. The control plane does not check the role itself: any person who is allowed to decide gates in the organisation can decide a gate that names a role.
+- **A role**, written as a bare word such as `platform-owner`. A role says who the organisation expects to decide. The control plane does not check the role itself. Any person who is allowed to decide gates in the organisation can decide a gate that names a role.
 
 To make sure only one person can answer a gate, name that person.
 
@@ -116,7 +116,7 @@ A decision is one of two outcomes:
 | `approved` | The obligation is **satisfied**. Good Grief evaluates the flight again, and if nothing else its destination requires is outstanding, it accepts the work. |
 | `rejected` | The obligation is **violated**. Good Grief sends the flight back for another [attempt](/reference/glossary/#attempt), and the reason travels to the agent with the next attempt. |
 
-A reason is optional when approving and required when rejecting, because a rejection reason is what the next attempt works from. A reason may be up to 4,000 characters; the control plane refuses a longer one rather than shortening it.
+A reason is optional when approving and required when rejecting, because a rejection reason is what the next attempt works from. A reason may be up to 4,000 characters. The control plane refuses a longer one rather than shortening it.
 
 There are no other outcomes. No one can waive an obligation. To stop the work instead of sending it back, ground the flight with `gg ground`.
 
@@ -124,7 +124,7 @@ There are no other outcomes. No one can waive an obligation. To stop the work in
 
 A rejection starts a new attempt only while the loop's `budget.attempts` allows it. Once the flight reaches that limit, it waits for a person instead of running again.
 
-If the work is unchanged after a rejection and the agent has run again, the gate opens again with an explanation, so the approver knows they are looking at the same work.
+If the work is unchanged after a rejection and the agent has run again, the gate opens again with an explanation that the approver is looking at the same work.
 
 ### Rejecting a plan
 
@@ -146,7 +146,7 @@ Every [destination](/concepts/envelope/#destinations) lists the obligations it *
 - A required obligation that is **violated** means Good Grief does not accept the work.
 - Good Grief passes over a required obligation that is **not attached**.
 
-An obligation the destination does not require cannot stop Good Grief from accepting the work. Its gate still opens if it is a human check, however, and an open gate keeps the control plane from offering the flight to a runner until someone answers it.
+An obligation the destination does not require cannot stop Good Grief from accepting the work. If it is a human check, however, its gate still opens. While that gate is open, the control plane offers the flight to no runner.
 
 ```yaml
 # An example destination.
@@ -168,9 +168,9 @@ Good Grief never guesses. When it cannot tell whether an obligation applies or w
 - Good Grief cannot determine the flight's envelope;
 - Good Grief cannot assemble evidence an obligation asks for.
 
-A halted flight records no verdicts and opens no gates. It is **still open**: halting is not an ending. `gg why` prints `HALTED:` followed by the reason, and `gg log` shows the halt.
+A halted flight records no verdicts and opens no gates. It is **still open**. Halting is not an ending. `gg why` prints `HALTED:` followed by the reason, and `gg log` shows the halt.
 
-When missing or unreadable facts caused a halt, it stops counting as soon as new facts arrive, and Good Grief evaluates the flight again. When the envelope or evidence that cannot be assembled caused it, it stands until someone fixes the cause, such as by changing the envelope, or until a person ends the flight.
+A halt caused by missing or unreadable facts clears as soon as new facts arrive, and Good Grief evaluates the flight again. A halt caused by the envelope, or by evidence that cannot be assembled, stands until someone fixes the cause, such as by changing the envelope, or until a person ends the flight.
 
 ## Related
 
