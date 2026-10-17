@@ -5,16 +5,18 @@ sidebar:
   order: 10
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 A [runner](/reference/glossary/#runner) is a machine that takes flights and carries them out. It clones the repository, holds the credentials, runs the agent, and reports what happened to the [control plane](/reference/glossary/#control-plane). Any machine with gg installed can be a runner. There are two ways to run one:
 
-- **From a terminal**, with `gg runner up`. This suits a laptop: the runner works while the command runs and stops when a person stops it.
+- **From a terminal**, with `gg runner up`. This suits a laptop. The runner works while the command runs, and stops when the command is stopped.
 - **As a service**, which the operating system starts at boot and restarts if it exits. This suits a machine whose job is to take work.
 
 All of an organisation's runners together are its [fleet](/reference/glossary/#fleet).
 
 ## Tell the runner which agent to run
 
-A runner runs the [agent](/reference/glossary/#agent) installed on its machine. gg never installs an agent, in the same way that it never installs Git; it only needs to know where the agent is. The setting is `executor-binary`, written as the agent's name and the absolute path to its program:
+A runner runs the [agent](/reference/glossary/#agent) installed on its machine. gg never installs an agent, just as it never installs Git. It only needs to know where the agent is. The setting is `executor-binary`, written as the agent's name and the absolute path to its program:
 
 ```sh
 gg config set executor-binary claude=/usr/local/bin/claude
@@ -26,6 +28,8 @@ Without this setting, a runner still registers and still takes flights, but neve
 
 ## On a laptop: `gg runner up`
 
+<Steps>
+
 1. [Sign in](/start-here/sign-in/). Registering a runner is a person's act, so `gg runner up` refuses on a machine where no one has signed in.
 2. Set `executor-binary`, as above.
 3. Run:
@@ -33,6 +37,8 @@ Without this setting, a runner still registers and still takes flights, but neve
    ```sh
    gg runner up
    ```
+
+</Steps>
 
 The runner registers with the control plane, then waits for flights it is allowed to take. Press `ctrl+c` to stop it.
 
@@ -44,7 +50,7 @@ On Linux (systemd) and macOS (launchd), gg writes the platform's own service def
 
 ### With the installer
 
-The usual route is the installer from [Install gg](/start-here/install/), with `--control-plane` added. That option is what makes an install a runner install:
+The usual route is the installer from [Install gg](/start-here/install/), with `--control-plane` added. Adding that option makes an install a runner install:
 
 ```sh
 curl -fsSL https://goodgrief.dev/install.sh \
@@ -66,7 +72,7 @@ sudo gg service install --control-plane <url> --agent-binary /usr/local/bin/clau
 A service cannot sign in by itself. There are two ways to register it:
 
 - **With an enrolment token**, so that no one signs in on the machine at all. Add `--enroll` to either command above. [Add machines to the fleet](/guides/enrol-machines/) covers tokens.
-- **By signing in once as the service user.** Without a token, a person signs in on the machine as that user before the runner can register. On Linux, for example:
+- **By signing in once as the service user.** Without a token, sign in on the machine as that user before the runner can register. On Linux, for example:
 
   ```sh
   sudo -u gg gg login
@@ -114,7 +120,13 @@ To take a runner out of the fleet for good, run, from any signed-in machine:
 gg runner retire <id|name>
 ```
 
-`gg runners` shows each runner's id and name. A machine that keeps its runner credential resumes its old identity when it starts again rather than registering afresh, so retire a runner before enrolling the same machine again.
+`gg runners` shows each runner's id and name.
+
+:::caution[Retiring is permanent]
+No one can undo a retirement. The runner's credential stops working and it leaves the fleet list, though the control plane keeps its history.
+:::
+
+A machine that keeps its runner credential resumes its old identity when it starts again rather than registering afresh. Retire a runner before enrolling the same machine again.
 
 ## Next steps
 

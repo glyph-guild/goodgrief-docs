@@ -42,19 +42,19 @@ A setting with none of these is **unset**. `gg config show` names the source tha
 
 gg checks the file strictly when it reads it:
 
-- gg refuses a key it does not know, rather than ignoring it, so a misspelt setting is never silently without effect.
+- gg refuses a key it does not know. A misspelt setting is never silently ignored.
 - gg refuses a blank value. To mean "unset", remove the line.
 - `control-plane` and `pool-endpoint` must be `http` or `https` addresses.
 - `runner-hold-seconds` must be a whole number of at least `1`.
 
 ## Settings
 
-`gg config set <key> <value>` sets each setting, and its environment variable overrides it.
+Set each setting with `gg config set <key> <value>`. Its environment variable, when set, overrides the file.
 
 | Key | Variable | What it controls | Default |
 |---|---|---|---|
 | `control-plane` | `GG_CONTROL_PLANE` | The address of the [control plane](/reference/glossary/#control-plane) this machine reads and writes. | `http://localhost:5199` |
-| `editor` | `EDITOR` | The editor the console hands the terminal to when a person writes an intent with `n`. An editor that returns at once instead of holding the terminal, as most graphical editors do, comes back with nothing written. | `vi` |
+| `editor` | `EDITOR` | The editor the console hands the terminal to when a person writes an intent with `n`. An editor that returns at once instead of holding the terminal, as most graphical editors do, leaves the intent empty. | `vi` |
 | `take-command` | `GG_TAKE_COMMAND` | The command the console's `t` key starts to hand a person a flight's working tree. | `claude` |
 | `intent-hosts` | `GG_INTENT_HOSTS` | The work-item trackers gg reads work items from itself, as comma-separated `key=host\|reference` entries, where the reference names the credential to read with. This is what the console's browse tab offers. | Unset |
 | `intent-readers` | `GG_INTENT_READERS` | Trackers that gg reads through a separately installed tool server, for a tracker gg cannot read itself. A key may appear in `intent-hosts` or here, not both. | Unset |
@@ -86,11 +86,11 @@ Some switches decide whether something else may configure or reach this machine.
 | `accept-agent-login` | A person may make this machine run its agent's sign-in, with `gg agent login`. |
 | `accept-agent-sessions` | A person may start, or attach to, an agent session on this machine from their console. |
 | `agent-session-roots` | Where those sessions may start, as comma-separated directories. Without it, sessions start in the home directory. |
-| `fleet-allowances` | This machine's console shows the allowances of the whole fleet. It decides only what is drawn; the control plane decides what a person may see. |
+| `fleet-allowances` | This machine's console shows the allowances of the whole fleet. It changes only what the console draws. The control plane decides what a person may see. |
 
 ## Values gg writes
 
-gg writes two more keys itself. They are records, not choices, and no one should edit them by hand:
+gg writes two more keys itself. They are records. Do not edit them by hand:
 
 | Key | What it records |
 |---|---|
@@ -105,7 +105,7 @@ Names the file, says whether this machine accepts offered configuration and whet
 
 ### `gg config init`
 
-Writes a new file containing the settings that environment variables currently give, so that a machine set up with variables can move them into the file. It refuses if the file already exists; change one value with `gg config set` instead.
+Writes a new file containing the settings that environment variables currently give, so that a machine set up with variables can move them into the file. It refuses if the file already exists. To change one value, use `gg config set`.
 
 ### `gg config set <key> <value>`
 

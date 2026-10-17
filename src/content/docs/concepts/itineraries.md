@@ -17,9 +17,9 @@ An itinerary is for work that needs **different flights**, usually of different 
 
 ## What an itinerary is
 
-An itinerary is a numbered record that groups the legs of one plan. Its number has the form `ITN-63`. Numbers only increase, and a number can be skipped, so a gap means nothing.
+An itinerary is a numbered record that groups the legs of one plan. Its number has the form `ITN-63`. Numbers only increase, and some are skipped. A gap in the numbers means nothing.
 
-An itinerary holds no status of its own. What it shows, such as how many legs are still standing, comes from its legs: Good Grief reads them each time it displays the itinerary.
+An itinerary holds no status of its own. What it shows, such as how many legs are still standing, comes from its legs. Good Grief reads them each time it displays the itinerary.
 
 A leg is a **[nomination](/concepts/nominations-and-the-board/)**: a proposal that some work should become a flight. Each leg names its work kind, its subject (which piece of work it is) and a reason, and optionally a repository, an environment, a note for the agent that flies it, and the leg it follows. When a person approves the plan, each leg opens as an ordinary flight, with its own number, rules and gates.
 
@@ -29,7 +29,7 @@ A leg is a **[nomination](/concepts/nominations-and-the-board/)**: a proposal th
 
 ### A planning flight
 
-A **planning flight** is a flight whose work kind has a `flight` destination: instead of doing the work, its agent proposes the legs. The destination's `opens` list is the menu of work kinds a leg may use, and its `requires:` usually includes a human check, so that a person approves the plan before any leg opens.
+A **planning flight** is a flight whose work kind has a `flight` destination. Instead of doing the work, its agent proposes the legs. The destination's `opens` list is the menu of work kinds a leg may use, and its `requires:` usually includes a human check, so that a person approves the plan before any leg opens.
 
 ```yaml
 # An example destination for a planning work kind.
@@ -56,11 +56,11 @@ When the agent nominates legs with subjects, Good Grief creates an itinerary for
 A person can propose a plan directly, as a file with `gg itinerary propose`, or by drafting it with an agent through `gg itinerary tools`. Good Grief checks the plan against a planning work kind (`plan` unless the file names another) exactly as `gg itinerary check` would check it, and:
 
 - **The control plane refuses a plan whole if it refuses any leg.** A person can propose only a plan the check would accept.
-- **The planner's destination must require at least one human check, and only human checks.** A person's plan has no agent run to produce the facts a machine check reads, so a machine check could never be satisfied.
+- **The planner's destination must require at least one human check, and only human checks.** A person's plan has no agent run to produce the facts a machine check reads. A machine check on it could never be satisfied.
 
-A flight of the planner's work kind, which no runner ever takes, holds a proposed plan. It exists only to carry the plan's gate.
+Good Grief holds a proposed plan in a flight of the planner's work kind. No runner ever takes that flight. It exists only to carry the plan's gate.
 
-The same draft proposed twice by the same person is one plan. A changed draft is a new plan, unless it replaces the earlier one: proposing a revised draft through the agent tools replaces the plan it was drafted from, as long as that plan is the same person's, has not already been replaced, and has not been approved. The replaced plan's flight ends `withdrawn` and the control plane declines its legs. Two attempts to replace the same plan at once cannot both succeed.
+The same draft proposed twice by the same person is one plan. A changed draft is a new plan, unless it replaces the earlier one. A revised draft proposed through the agent tools replaces the plan it was drafted from, as long as that plan is the same person's, has not already been replaced, and has not been approved. The replaced plan's flight ends `withdrawn` and the control plane declines its legs. Two attempts to replace the same plan at once cannot both succeed.
 
 ## The gate
 
@@ -99,9 +99,9 @@ legs:
 
 The rules for `after`:
 
-- **It names one leg, by subject, in the same plan.** A leg cannot wait for two legs. A leg that needs two results follows the later of them, or someone splits it.
-- **The control plane enforces it when a machine asks for work.** It offers a leg to no runner until the leg it follows has **landed**. Nothing wakes the leg up: the control plane simply passes over it until its predecessor lands.
-- **A predecessor that does not land holds its followers for good.** If the leg it follows is grounded, fails or is withdrawn, the control plane never offers the follower, because the premise it was written on is false. Nothing expires the hold. A person ends the held legs, for example with `gg ground`.
+- **It names one leg, by subject, in the same plan.** A leg cannot wait for two legs. For a leg that needs two results, make it follow the later of them, or split it.
+- **The control plane enforces it when a machine asks for work.** It offers a leg to no runner until the leg it follows has **landed**. Until then, the control plane passes over it.
+- **A predecessor that does not land holds its followers for good.** If the leg it follows is grounded, fails or is withdrawn, the control plane never offers the follower, because the result it depends on will never exist. Nothing expires the hold. End the held legs, for example with `gg ground`.
 - **Order only real dependencies.** Ordering independent legs turns one plan into a queue of waits.
 
 A held leg says why. `gg why`, `gg show` and the console name the leg it follows and what happened to it: that it has not landed yet, or that it ended some other way and the control plane will never offer the held leg.
@@ -120,17 +120,17 @@ The control plane refuses a plan whose `after` lines no order can satisfy:
 
 The control plane gives legs that open their flight numbers **in the order the plan lists them**, so the first leg written gets the lowest number. A refused leg gets no number.
 
-The order of the list decides only the numbering. It does not decide when a leg runs: `after` does. Two legs with no `after` between them can run in either order, or at the same time.
+The order of the list decides only the numbering. `after` decides when a leg runs. Two legs with no `after` between them can run in either order, or at the same time.
 
 Every leg needs a subject, and two legs of the same work kind need different subjects. The same subject under two different work kinds is allowed.
 
 ## What an itinerary does not do
 
-An itinerary holds no process. Nothing polls it, wakes it or advances it. The control plane reads the `after` line in two places only: when a runner asks for work, and when a person asks why a leg has not started. Several things follow from that.
+An itinerary is a record, not a running process. Nothing polls it, wakes it or advances it. The control plane reads the `after` line in two places only: when a runner asks for work, and when a person asks why a leg has not started. Several things follow from that.
 
 | An itinerary does not | What that means in practice |
 |---|---|
-| End by itself, or have an ending of its own | No command ends an itinerary. Ending its work means ending its legs, each with `gg ground`. |
+| End by itself, or have an ending of its own | No command ends an itinerary. To end its work, end each leg with `gg ground`. |
 | Expire a waiting leg | A leg held behind a predecessor that did not land waits until a person ends it. |
 | Schedule by time | There is no "not before" and no deadline. A leg runs when its predecessor has landed and a machine is free. |
 | Wait for more than one leg | Each leg follows at most one other. |

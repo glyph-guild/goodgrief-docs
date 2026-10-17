@@ -48,11 +48,11 @@ An empty list means the work has no subject at all.
 `accepts` decides two other things:
 
 - **Which scope is allowed.** A work kind that accepts `repository` declares a path pattern as its `context.scope`. A work kind that does not must declare `scope: none`, because there is no tree to change.
-- **Which facts the work can yield.** Facts that need a tree, such as the list of changed files (`change.manifest`), only a work kind that accepts `repository` can produce. The control plane marks obligations that read a fact the work kind can never produce not attached, instead of halting the flight.
+- **Which facts the work can yield.** Only a work kind that accepts `repository` can produce facts that need a tree, such as the list of changed files (`change.manifest`). When an obligation reads a fact the work kind can never produce, the control plane marks the obligation not attached, instead of halting the flight.
 
 Removing a value from `accepts` loosens the rules, and waits for approval.
 
-The control plane reads `accepts` when a person proposes a plan: a leg whose work kind works in a repository must name one. It does not check `accepts` against the repositories `gg fly` names, so a flight opened directly can name a repository for a work kind that does not accept one, as long as root allows the repository.
+The control plane reads `accepts` when a person proposes a plan. A leg whose work kind works in a repository must name one. The control plane does not check `accepts` against the repositories `gg fly` names. A flight opened directly can therefore name a repository for a work kind that does not accept one, as long as root allows the repository.
 
 ### What the work yields: `produces`
 
@@ -80,11 +80,11 @@ Three fields reach the agent, each in a different role.
 | `instructions` | Standing guidance about how the work is done, passed word for word. | A person, in root and in the work kind. |
 | `learned` | Advice about what a particular place is like: a repository, a commit, an image or an environment. | Usually an agent, in a flight that rehearses the work and hands the advice back for a person to approve. |
 
-**`brief`** comes first in the agent's task: the task tells the agent what to work on, followed by the brief. A work kind with no brief tells the agent to make the code changes the work asks for. The brief is the place to say "change nothing" or "write a plan, not code".
+**`brief`** opens the agent's task. The task names what to work on, then gives the brief. A work kind with no brief tells the agent to make the code changes the work asks for. The brief is the place to say "change nothing" or "write a plan, not code".
 
 **`instructions`** follow, introduced as the operator's standing instructions. Root's come first, then the work kind's, and the task marks each line with the document it came from.
 
-**`learned`** comes later, fenced as reviewed advice that grants nothing. Each entry names what it was learned against, such as a repository and the commit it was true of, so that advice can be told to have gone stale. A flight receives only the entries that match its repository, image or environment. A flight whose destination proposes a change to the work kind's document normally adds advice, and a person approves that change like any other loosening change. A person can also write advice by hand. Any addition to `learned` loosens the rules and waits for approval.
+**`learned`** comes later, fenced as reviewed advice that grants nothing. Each entry names what it was learned against, such as a repository and the commit it was true of, so that stale advice can be recognised. A flight receives only the entries that match its repository, image or environment. A flight whose destination proposes a change to the work kind's document normally adds advice, and a person approves that change like any other loosening change. A person can also write advice by hand. Any addition to `learned` loosens the rules and waits for approval.
 
 ```yaml
 # An example of the three fields together.
@@ -142,7 +142,7 @@ The control plane resolves the chain first, applying each child over its parent,
 | `instructions` | The child's are added after the parent's. |
 | `remove:` | Takes away the parent's loops, destinations or obligations by name, and instructions by their exact text. |
 
-The control plane refuses a removal that matches nothing, naming it, so a parent reworded under its child fails at the child's next apply instead of being silently kept. Removing an obligation or a destination loosens the rules and needs approval like any other loosening change.
+The control plane refuses a removal that matches nothing, and names it. If a parent's entry is later reworded, the child's next apply fails, instead of the reworded entry being silently kept. Removing an obligation or a destination loosens the rules and needs approval like any other loosening change.
 
 In the example, the child removes its parent's `none` destination before adding its own, because a work kind has one destination.
 
@@ -161,7 +161,7 @@ A work kind that exists only to be extended is marked `abstract: true`. An abstr
 - may leave out its destination, but may not declare more than one;
 - is checked through each work kind that extends it.
 
-Being abstract is not inherited: a child of an abstract work kind can be flown unless it is marked abstract too.
+Being abstract is not inherited. A child of an abstract work kind can be flown unless it is marked abstract too.
 
 ### A family of work kinds
 
@@ -171,12 +171,12 @@ A flight belongs to the **family** of every work kind in its chain. A flight of 
 
 Every flight opens with at most one work kind, and keeps it:
 
-- **`gg fly --work-kind <name>`** names it. The name must be a work kind the organisation has declared; the control plane refuses an unknown name, a name declared for something else, or an abstract work kind, and opens nothing.
+- **`gg fly --work-kind <name>`** names it. The name must be a work kind the organisation has declared. The control plane refuses an unknown name, a name declared for something else, or an abstract work kind, and opens nothing.
 - **With no work kind named**, the flight runs under the organisation's `implement` work kind. When the organisation has no `implement` work kind in force, the flight runs under root alone, and root's loop and destination govern it.
 - **A nomination** names the work kind it would open. It must be on the `opens` list of the destination it stands under, or the control plane refuses it. This covers the legs of a plan, the flights a watch proposes, and the flights an agent proposes. See [Nominations and the board](/concepts/nominations-and-the-board/).
 - **In the console**, starting a new flight offers the declared work kinds with their descriptions. Its first row sends no work kind, so the flight runs under `implement` as described above.
 
-No one can change the work kind after the flight opens. A flight records every layer of its chain and the version of each that was in force, so a later change to a work kind does not change the rules of a flight already open.
+No one can change the work kind after the flight opens. A flight records every layer of its chain and the version of each that was in force. A later change to a work kind does not change the rules of a flight already open.
 
 ## Related
 

@@ -5,7 +5,7 @@ sidebar:
   order: 6
 ---
 
-A [fact](/reference/glossary/#fact) is a recorded observation about a flight, which the [runner](/reference/glossary/#runner) that carried it out reports. Facts are what the control plane checks the rules against: an [obligation](/reference/glossary/#obligation) reads facts, and a work kind's [`produces:`](/concepts/envelope/#produces) lists the fact families its work can yield.
+A [fact](/reference/glossary/#fact) is a recorded observation about a flight, which the [runner](/reference/glossary/#runner) that carried it out reports. The control plane checks the rules against facts. An [obligation](/reference/glossary/#obligation) reads facts, and a work kind's [`produces:`](/concepts/envelope/#produces) lists the fact families its work can yield.
 
 The facts a runner may report come from a fixed list, the **fact vocabulary**. A runner cannot report a fact outside it. The vocabulary has a version, which changes whenever the vocabulary adds or changes a family, or a value a family may hold. `gg version` prints the version a release of gg reports.
 
@@ -23,7 +23,7 @@ Each family belongs to one of three categories, which say what the fact describe
 | `tree` | Something measured from the repository's working tree that the flight touched. A flight with no repository cannot produce these. |
 | `flight` | The flight itself: what the agent did, what it said, who took it over, and where the work went. Any work kind that runs can produce these. |
 
-The category matters when the control plane checks the rules. An obligation that reads a `tree` fact cannot apply to a flight that has no repository, so the control plane marks it **not attached** rather than halting the flight.
+An obligation that reads a `tree` fact cannot apply to a flight that has no repository. The control plane marks such an obligation **not attached** rather than halting the flight.
 
 ## Families
 
@@ -41,7 +41,7 @@ The category matters when the control plane checks the rules. An obligation that
 | `loop.question` | flight | A question the agent could not answer from the work itself. |
 | `loop.attended` | flight | A session a person ran by hand, and how long the person held the terminal. |
 | `handoff.account` | flight | What a person who took a flight over says they did, confirmed in their own name. |
-| `flight.nomination` | flight | A work kind the agent nominates for a flight of its own, and why. The nomination asks; the destination decides whether a flight opens. |
+| `flight.nomination` | flight | A work kind the agent nominates for a flight of its own, and why. The destination, not the nomination, decides whether a flight opens. |
 | `work-item.proposal` | flight | A change the agent proposes be made to a work item in a tracker. |
 | `document.proposal` | flight | An airspace document the flight drafted, asking that it be applied. |
 | `landing.proposal` | flight | What the agent asks its own proposal be called, such as a pull request's title and description. |

@@ -19,9 +19,9 @@ A runner is gg running on a machine the organisation controls, as `gg runner up`
 4. **Does the work**: opens the credentials the flight needs on its own machine, clones the repository, runs the [agent](/reference/glossary/#agent), and records what happened as [facts](/reference/glossary/#fact).
 5. **Reports** the facts, pushes the work where the rules allow, and hands the lease back with what became of its turn.
 
-The control plane decides; the runner does. The control plane never sees the repository or the credentials. [What leaves the machine](/concepts/what-leaves-the-machine/) describes exactly what the runner sends.
+The control plane decides what happens, and the runner carries it out. The control plane never sees the repository or the credentials. [What leaves the machine](/concepts/what-leaves-the-machine/) describes exactly what the runner sends.
 
-A runner has a credential of its own, issued when it registers. It lasts thirty days, and the runner renews it before it expires, so a machine that has registered once keeps working with no one signed in on it. gg uses a person's sign-in only to register the runner; after that, the runner works with its own credential.
+A runner has a credential of its own, issued when it registers. It lasts thirty days, and the runner renews it before it expires. A machine that has registered once therefore keeps working with no one signed in on it. gg uses a person's sign-in only to register the runner. After that, the runner works with its own credential.
 
 ## Leases
 
@@ -43,11 +43,11 @@ The control plane offers a flight to a runner only when all of these hold:
 
 A lease lasts one minute. The runner renews it when twenty seconds remain, for as long as it is working on the flight. The control plane sets the new expiry; the runner does not compute its own.
 
-Each lease carries a number that changes whenever the flight changes hands. A runner whose lease has passed to another machine cannot renew it, report facts against it or hand it back: the control plane refuses all three. A machine that stalled and came back late therefore cannot overwrite the work of the machine that replaced it.
+Each lease carries a number that changes whenever the flight changes hands. Once a lease has passed to another machine, the control plane refuses to let the old runner renew it, report facts against it or hand it back. A machine that stalled and came back late therefore cannot overwrite the work of the machine that replaced it.
 
 ### Expiry
 
-A lease that is not renewed expires. The clock decides expiry, not any timer firing: a lease past its expiry is expired whether or not anything has noticed yet. When it expires, the flight stays open and becomes available to another machine. The runner reports nothing in this case; Good Grief records `expired` itself.
+A lease that is not renewed expires. A lease is expired as soon as its expiry time passes, whether or not anything has noticed yet. When it expires, the flight stays open and becomes available to another machine. The runner reports nothing in this case. Good Grief records `expired` itself.
 
 [Anatomy of a flight](/concepts/anatomy-of-a-flight/#what-a-runner-reports-and-what-it-means-for-the-flight) lists what a runner can report when it hands a lease back, and what each report means for the flight.
 
@@ -75,7 +75,7 @@ To see what each runner advertises, run:
 gg runner labels
 ```
 
-The command shows each label with its **disposition**, which says how much weight it carries. `stated` means the label is the machine's own claim: Good Grief admits it, but nothing has checked it. `measured` marks a label whose name has a registered meaning, which is what [charting](#environments) an environment with `--means` provides.
+The command shows each label with its **disposition**, which says how much weight it carries. `stated` means the label is the machine's own claim, which Good Grief accepts without checking. `measured` marks a label whose name has a registered meaning, which is what [charting](#environments) an environment with `--means` provides.
 
 A runner reports its CPU and memory readings separately, and `gg runners` shows them. They are not labels, and no flight can require them.
 
@@ -95,7 +95,9 @@ The control plane refuses to apply an envelope that lists an environment no live
 
 ## When no machine matches
 
-A flight with no machine to take it is **not an error**. It waits in the Ready stage until a matching machine appears, and nothing times it out. Ordinary flights wait indefinitely.
+:::note[Waiting is not an error]
+A flight with no machine to take it is not an error. It waits in the Ready stage until a matching machine appears, and nothing times it out. Ordinary flights wait indefinitely.
+:::
 
 While a flight waits, `gg show` and the console say why, in a sentence such as:
 
@@ -141,7 +143,7 @@ Every runner is in one of three states:
 | Open | Anyone in the organisation may claim it. |
 | Claimed | It belongs to one person. |
 
-A claimed machine can also be **reserved**, which keeps it to its owner's flights: the control plane offers it no flight that anyone else opened. gg reports a reserved machine that could have taken a flight as kept back, not as missing, so no one goes to bring up a machine that already exists.
+A claimed machine can also be **reserved**. The control plane then offers it only flights its owner opened. gg reports a reserved machine that could have taken a flight as kept back, not as missing. That way no one brings up a machine that already exists.
 
 [Runners in a team](/concepts/runners-in-a-team/) explains, for each state, which work the control plane offers a machine and who started each flight. An enrolment token decides the state a machine starts in, and `gg runner claim`, `unclaim`, `reserve`, `release` and `ownership` change it later. [Add machines to the fleet: whose a machine is](/guides/enrol-machines/#whose-a-machine-is) lists who may run each one.
 
@@ -180,7 +182,7 @@ A [strategy](/reference/glossary/#strategy) says how to furnish a pool and the l
 The control plane decides each pool action and the maintaining runner carries it out:
 
 - **Kept warm.** When the pool holds fewer ready members than its `warm` target, or flights are waiting for its environment, it starts more, never beyond `pool-max` and never outside its active hours.
-- **Reset.** After a member's flight ends and no lease stands, the pool resets a member, so the next flight starts from the strategy's image rather than from what the last flight left behind.
+- **Reset.** After a member's flight ends and no lease stands, the pool resets a member. The next flight then starts from the strategy's image rather than from what the last flight left behind.
 - **Rolled.** When someone applies a strategy with a new image, the pool replaces its members.
 - **Removed.** The pool removes stopped members beyond its `size`, and creates nothing in their place.
 

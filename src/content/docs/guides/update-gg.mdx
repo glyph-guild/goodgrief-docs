@@ -5,6 +5,8 @@ sidebar:
   order: 13
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 The organisation's [control plane](/reference/glossary/#control-plane) says which release of gg is current. `gg doctor` compares the installed release against it, on the `binary` line, and says when the organisation expects a newer one.
 
 ## `gg update`
@@ -30,7 +32,10 @@ To see the plan without running it, run `gg update --json`, which prints the ins
 
 ## Each kind of install
 
-### Installed with the installer (macOS and Linux)
+Choose the way gg was installed:
+
+<Tabs syncKey="install">
+<TabItem label="macOS or Linux">
 
 Run the installer again. With no version given, it installs the newest release:
 
@@ -38,9 +43,9 @@ Run the installer again. With no version given, it installs the newest release:
 curl -fsSL https://goodgrief.dev/install.sh | sudo sh
 ```
 
-The new release goes in beside the old one under `/usr/local/lib/gg/`, the `/usr/local/bin/gg` link moves to it, and, on a runner, the service restarts onto it. The installer remembers a name chosen with `--as`, so no flag is needed. The installer keeps the three newest releases, plus the one the link pointed at before, so going back is one more run with the older version. `--keep <n>` changes how many it keeps; `0` keeps all of them.
+The new release goes in beside the old one under `/usr/local/lib/gg/`, the `/usr/local/bin/gg` link moves to it, and, on a runner, the service restarts onto it. The installer remembers a name chosen with `--as`, so no flag is needed. The installer keeps the three newest releases, plus the one the link pointed at before. To go back, run it again with the older version. `--keep <n>` changes how many it keeps, and `0` keeps all of them.
 
-For `gg update` to do this itself, the machine needs to know where its installer comes from. Set the `installer` setting to a path to the install script, which gg runs, or an address, which gg downloads first:
+For `gg update` to do this itself, set the `installer` setting to a path to the install script, which gg runs, or an address, which gg downloads first:
 
 ```sh
 gg config set installer <path-or-url>
@@ -48,11 +53,24 @@ gg config set installer <path-or-url>
 
 Without it, `gg update` says that no installer is set up and changes nothing. The control plane can say which version is current but never where an installer comes from, so this setting is always the machine's own.
 
-### Installed by hand
+</TabItem>
+<TabItem label="Windows">
 
-Repeat the steps in [Install gg: by hand](/start-here/install/#by-hand) with the newer version, including both native libraries.
+Run the installer again in PowerShell. With no version given, it installs the newest release:
 
-### Installed as a .NET tool
+```powershell
+irm https://goodgrief.dev/install.ps1 | iex
+```
+
+The installer remembers a name chosen with `-Alias`.
+
+</TabItem>
+<TabItem label="By hand">
+
+Repeat the steps in the same tab of [Install gg](/start-here/install/#choose-how-to-install) with the newer version, including both native libraries.
+
+</TabItem>
+<TabItem label=".NET tool">
 
 `gg update` clears the local package cache, so that a newly published release is not reported as missing, then runs:
 
@@ -62,15 +80,8 @@ sudo dotnet tool update GlyphGuild.Gg.Cli --version <version> --tool-path /usr/l
 
 To update by hand to the newest release, run the same command without `--version`.
 
-### Windows
-
-Run the installer again in PowerShell with the newer version:
-
-```powershell
-irm https://goodgrief.dev/install.ps1 | iex
-```
-
-The installer remembers a name chosen with `-Alias`.
+</TabItem>
+</Tabs>
 
 ### Pool members
 
@@ -106,9 +117,9 @@ The control plane can offer only these settings:
 | `tracker-apis` | Which trackers may receive work items. |
 | `control-plane` | The control plane itself. |
 
-A machine may apply the first two with no one watching: a wrong value degrades a connection or offers less work, and grants nothing. The rest change where a machine fetches something from or sends it to, so **a person accepts them**, and sees exactly what changes.
+A machine may apply the first two with no one watching. A wrong value degrades a connection or offers less work, and grants nothing. The rest change where a machine fetches something from or sends it to, so **a person must accept them**, and sees exactly what changes.
 
-The control plane never offers some settings, because no review makes them safe to take from elsewhere: the agent's location (`executor-binary`), the `installer`, and the switches that decide whether a machine accepts offers or credentials at all. A person always sets those on the machine itself.
+The control plane never offers the agent's location (`executor-binary`), the `installer`, or the switches that decide whether a machine accepts offers or credentials at all. No review makes them safe to take from elsewhere. Always set those on the machine itself.
 
 ### Runners and offers
 

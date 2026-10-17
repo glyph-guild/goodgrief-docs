@@ -7,7 +7,7 @@ sidebar:
 
 The **envelope** is the set of rules that governs a [flight](/reference/glossary/#flight). It decides which repositories a flight may concern, where it may run, how the agent works, which files it may change, what must be approved, and where finished work goes.
 
-Good Grief determines every flight's envelope once, when the flight opens. It then checks each field at a particular [stage](/concepts/anatomy-of-a-flight/#six-stages) of the flight, so when a flight stops or is rejected, the stage points to the field responsible.
+Good Grief determines every flight's envelope once, when the flight opens. It then checks each field at a particular [stage](/concepts/anatomy-of-a-flight/#six-stages) of the flight. When a flight stops or is rejected, the stage points to the field responsible.
 
 ## Where the rules come from
 
@@ -60,7 +60,7 @@ Only root may set this field. A work kind may repeat root's value, but Good Grie
 1. **When the flight is created**, its environment must be on the list. As with repositories, a flight that names none inherits the list's only entry when there is exactly one.
 2. **When the flight is ready**, its environment becomes a requirement on the machine. The control plane offers the flight only to a runner that advertises the environment, as the label `environment=<name>`.
 
-**What happens when it does not match.** Good Grief rejects an environment that is not on the list the same way: the request to open the flight fails. An environment that no runner advertises is not an error: the flight waits in Ready until a matching machine appears. `gg runner labels` shows what each runner advertises.
+**What happens when it does not match.** If the environment is not on the list, the request to open the flight fails, as with repositories. An environment that no runner advertises is not an error. The flight waits in Ready until a matching machine appears. `gg runner labels` shows what each runner advertises.
 
 ```yaml
 environments:
@@ -77,12 +77,16 @@ Only root may set this field.
 - **`executor`**: who does the work. `frontier` means an AI agent; `human` means a person.
 - **`model`**: which model the agent runs on. Leaving it out uses the account's default.
 - **`moves`**: what the agent is allowed to do, such as `read`, `search`, `edit`, `run-tests` and `write`. Moves that open something for review include `propose` and `propose-landing`. The single move `anything` removes the list entirely and must appear on its own.
-- **`budget`**: how long the agent has (`wall-clock`, such as `20m`) and, optionally, how many times the work may run again automatically when that time runs out (`attempts`). The limit applies when `on-exhaustion` is `handoff-to-agent`; once the flight reaches it, the flight waits for a person instead. Leaving out `attempts` sets no limit.
+- **`budget`**: how long the agent has (`wall-clock`, such as `20m`) and, optionally, how many times the work may run again automatically when that time runs out (`attempts`). The limit applies when `on-exhaustion` is `handoff-to-agent`. Once the flight reaches it, the flight waits for a person instead. Leaving out `attempts` sets no limit.
 - **`on-exhaustion`**: who takes over when the budget runs out: `handoff-to-human` or `handoff-to-agent`.
 - **`discharges`**: which of the envelope's checks this loop is responsible for satisfying.
 - **`mcp`**: optionally, which tools from the organisation's MCP servers the agent may call.
 
-**When it is checked.** When a runner claims the flight, the loop's settings travel with it. The runner then enforces them while the agent works: it blocks a tool call outside the allowed moves when the agent attempts it.
+**When it is checked.** When a runner claims the flight, the loop's settings travel with it. The runner then enforces them while the agent works. It blocks a tool call outside the allowed moves when the agent attempts it.
+
+:::caution[Moves are enforced only partly]
+The runner checks each tool call on its own. A flight that declares `read` cannot edit a file directly, but it can still run shell commands, and a shell command can edit files. The moves list limits some actions and records what was intended. The runner measures and reports what the flight actually did, and the envelope's scope check catches files changed outside the scope. `gg doctor` prints this as its `moves` note on every runner.
+:::
 
 **What happens when the budget runs out.** The loop ends `exhausted`, and the work is handed over as `on-exhaustion` says. The flight stays open.
 
@@ -112,9 +116,9 @@ The work kind's loop replaces root's entirely. Root's loop applies only to fligh
 
 **What it decides.** Which files the agent may change. The scope is a path pattern: `**` means anywhere in the repository, and `.goodgrief/**` means only files under `.goodgrief/`. Work that has no repository, such as a change to the rules themselves, uses the word `none`.
 
-**When it is checked.** At Evaluated. The check covers every file the flight changed at any point during its work, not only the files in the final result, so a change the agent made and later undid still counts.
+**When it is checked.** At Evaluated. The check covers every file the flight changed at any point during its work, not only the files in the final result. A change the agent made and later undid still counts.
 
-**What happens when it does not match.** The envelope's scope check (the `no-file-outside-scope` rule) fails. gg lists the files outside the scope and the scope that was allowed. A person's approval cannot excuse this; the only way to allow those files is to change the scope in the envelope, and someone reviews that change in turn. If the flight cannot report which files changed, Good Grief cannot evaluate the check and the flight halts.
+**What happens when it does not match.** The envelope's scope check (the `no-file-outside-scope` rule) fails. gg lists the files outside the scope and the scope that was allowed. A person's approval cannot excuse this. To allow those files, change the scope in the envelope. Someone reviews that change in turn. If the flight cannot report which files changed, Good Grief cannot evaluate the check and the flight halts.
 
 ```yaml
 context:
@@ -150,7 +154,7 @@ An obligation with no condition applies to every flight. An obligation can also 
 - **Not attached**: its condition did not apply to this flight.
 - **Unevaluable**: Good Grief could not tell. This halts the flight.
 
-**What happens when it is not met.** That depends on the destination, described [below](#destinations). A destination lists the obligations it requires, and only those obligations block it. An obligation awaiting a decision is not a failure: nothing is missing, and a person simply has not answered yet.
+**What happens when it is not met.** That depends on the destination, described [below](#destinations). A destination lists the obligations it requires, and only those obligations block it. An obligation awaiting a decision is not a failure. It means only that a person has not answered yet.
 
 ```yaml
 obligations:
@@ -171,7 +175,7 @@ Obligations **add up** across layers: a flight carries root's obligations, the w
 
 **What it decides.** What this kind of work yields, as a list of named facts. Examples include `change.manifest` (the list of files changed), `loop.outcome` (how the agent's run ended), `loop.digest` (a summary of the run) and `preview.url` (a link to a running preview).
 
-**When it is checked.** At Evaluated. Good Grief marks an obligation that depends on a fact this kind of work never produces **not attached**, instead of halting the flight. A review that changes no files, for example, does not produce `change.manifest`, so a scope check cannot apply to it.
+**When it is checked.** At Evaluated. Good Grief marks an obligation that depends on a fact this kind of work never produces **not attached**, instead of halting the flight. A review that changes no files, for example, does not produce `change.manifest`. A scope check cannot apply to it.
 
 **What happens when it is wrong.** Nothing fails while the flight runs. Leaving a fact out of `produces:` quietly switches off the obligations that depend on it. For that reason, removing a fact from the list counts as loosening the rules, and needs approval.
 
@@ -206,7 +210,9 @@ Every destination lists the obligations it **requires**. Other settings depend o
 
 **When it is checked.** As the flight is evaluated and ended. Good Grief checks the obligations the destination requires. When all of them are satisfied, it accepts the work and the flight ends **landed**. When one is still awaiting a decision, the flight waits at that gate. When one is violated, it does not accept the work.
 
-**Permission is not the same as ability.** The envelope grants permission to land the work, but the runner performs the landing with the organisation's own credential. A pull request needs a credential with write access to the repository. If the credential is read-only, the landing fails at the credential, and gg names it.
+:::note[Permission is not ability]
+The envelope grants permission to land the work, but the runner performs the landing with the organisation's own credential. A pull request needs a credential with write access to the repository. If the credential is read-only, the landing fails at the credential, and gg names it.
+:::
 
 ```yaml
 destinations:
@@ -219,7 +225,7 @@ destinations:
     branch: "refs/heads/feature/{flight}-{ticket}"
 ```
 
-The destination comes entirely from the work kind. The only additions come from repository narrowings: Good Grief adds each obligation a narrowing declares to the destination's `requires:` list automatically.
+The destination comes entirely from the work kind. The only additions come from repository narrowings. Good Grief automatically adds each obligation a narrowing declares to the destination's `requires:` list.
 
 ## Changing the rules
 

@@ -7,23 +7,23 @@ sidebar:
 
 An [allowance](/reference/glossary/#allowance) is a metered budget of agent time, such as one person's agent subscription, that a machine spends from when it runs flights. gg measures allowances over two windows: a **session** window, the short one a provider resets most often, and a **week** window, which is the last seven days. Use this guide to see what an allowance has left, to keep part of one back for its owner (a [floor](/reference/glossary/#floor)), and, as an administrator, to spend that part when the need is urgent.
 
-When a person lends a machine to the fleet, the machine's flights spend that person's allowance. A floor is how they lend it without lending all of it.
+When a person lends a machine to the fleet, the machine's flights spend that person's allowance. A floor lends the allowance without lending all of it.
 
 ## Prerequisites
 
-- To report an allowance, the machine's configuration names it with the `allowance` setting. Naming one is how a person says they are lending it:
+- To report an allowance, name it in the machine's `allowance` setting. Naming it lends it to the fleet:
 
   ```sh
   gg config set allowance ada-subscription
   ```
 
-- To see a share of each window instead of a raw count, the machine also needs the window ceilings, as whole numbers of tokens:
+- To see a share of each window instead of a raw count, also set the window ceilings, as whole numbers of tokens:
 
   ```sh
   gg config set allowance-limits session=88000,week=2400000
   ```
 
-  Nothing on a machine can discover a subscription's limits, so a person types them. Without them, gg shows the tokens spent and says that no ceiling is set.
+  gg cannot discover a subscription's limits from the machine, so type them in. Without them, gg shows the tokens spent and says that no ceiling is set.
 
 ## 1. See what this machine has spent
 
@@ -64,7 +64,7 @@ ada-subscription  measured 2026-10-14 15:10:02Z  2 machines
   week           1,108,400 of 2,400,000      46%
 ```
 
-gg lists each allowance with the machines under it, not the other way round, because two machines can share one allowance and gg should not add their spending twice. When no machine has reported an allowance, gg says so.
+gg lists each allowance with the machines under it, not the other way round. Two machines can share one allowance, and listing them this way keeps gg from counting their spending twice. When no machine has reported an allowance, gg says so.
 
 ## 4. Keep a share back
 
@@ -75,7 +75,7 @@ gg allowances floor ada-subscription --week 25
 gg allowances floor ada-subscription --session 33 --week 25
 ```
 
-Keeping a share of the week and nothing of the session is reasonable: the session refills in hours and the week does not. A floor must keep back more than nothing and less than everything.
+Keeping a share of the week and nothing of the session is reasonable. The session refills in hours, and the week does not. A floor must keep back more than nothing and less than everything.
 
 To remove a floor:
 
@@ -85,7 +85,7 @@ gg allowances floor ada-subscription --clear
 
 `--clear` is required to remove one, and cannot be combined with a share. gg refuses the command with no share at all, so that a forgotten number never clears a floor by accident.
 
-gg measures a floor against the window ceilings, so set `allowance-limits` on the machines that report the allowance.
+gg measures a floor against the window ceilings. Set `allowance-limits` on the machines that report the allowance.
 
 Both commands print every allowance in the fleet afterwards.
 
@@ -104,7 +104,7 @@ The allowance's owners can see the override, together with who made it and until
 
 ## The same steps in the console
 
-Run `gg` with no arguments, then `u` to open the runners tab. On the allowance of this machine, `o` keeps a share back: `1` keeps a tenth, `2` a quarter, `3` half, and `0` nothing. An administrator whose configuration asks for it can open the fleet's allowances with `v`.
+Run `gg` with no arguments, then `u` to open the runners tab. On this machine's allowance, `o` keeps a share back: `1` keeps a tenth, `2` a quarter, `3` half, and `0` nothing. An administrator whose configuration asks for it can open the fleet's allowances with `v`.
 
 ## Related
 

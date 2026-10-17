@@ -13,18 +13,22 @@ The [control plane](/reference/glossary/#control-plane) holds a **reference** to
 
 Two rules follow from that:
 
-- **A person always types the value at a prompt**, and gg does not echo it. No gg command takes a secret as an argument, because the shell keeps arguments in its history, and anyone on the machine who lists running processes can see them.
+- **Always type the value at a prompt.** gg does not echo it. No gg command takes a secret as an argument, because the shell keeps arguments in its history, and anyone on the machine who lists running processes can see them.
 - **A person authorises moving a credential, not using it.** Sending a credential to another machine costs the sender's passphrase. A machine that has received a credential opens it by itself, with no one present, for as long as it holds it.
 
 ## 1. Create a personal key
 
-gg seals a credential to the person who registers it, so each person needs a key before registering one. Run:
+gg seals a credential to the person who registers it. Create a key before registering a credential. Run:
 
 ```sh
 gg key create
 ```
 
-gg asks for a passphrase, which protects the private half of the key on this machine. gg never stores the passphrase or sends it anywhere, and keeps no copy of the key: a lost passphrase means creating the credential again at its provider and registering it again.
+gg asks for a passphrase, which protects the private half of the key on this machine. gg never stores the passphrase or sends it anywhere, and keeps no copy of the key.
+
+:::danger[A lost passphrase cannot be recovered]
+No one can recover a lost passphrase. The only way back is to create the credential again at its provider and register it again.
+:::
 
 gg registers the public half with the control plane. To list the public keys the organisation's people have registered, run:
 
@@ -38,7 +42,7 @@ gg key list
 
 | Option | For | Example |
 |---|---|---|
-| `--repo <slug>` | A repository, by the name someone registered it under. | `gg credential add --repo example-org/web-app` |
+| `--repo <slug>` | A repository, by its registered name. | `gg credential add --repo example-org/web-app` |
 | `--agent <name>` | An agent's own sign-in token. | `gg credential add --agent claude` |
 | `--tracker <key>` | A work-item tracker, by its key. | `gg credential add --tracker ado` |
 | `--analysis <key>` | A service that scans code and reports findings about a repository, by its key. | `gg credential add --analysis <key>` |
@@ -48,7 +52,7 @@ gg then asks two questions:
 1. **Which account the credential acts as**, so that every flight log can say who read what.
 2. **The secret itself**, which gg does not echo.
 
-gg stores the secret on this machine and seals it to the person's key; registering it needs no passphrase. gg then registers the reference with the control plane. If the control plane refuses it, gg removes the stored secret again, so nothing is left behind.
+gg stores the secret on this machine and seals it to the person's key. Registering it needs no passphrase. gg then registers the reference with the control plane. If the control plane refuses it, gg removes the stored secret again, so nothing is left behind.
 
 gg files each credential under a name it derives from what it is for, such as `local:example-org/web-app` for a repository or `local:tracker/ado` for a tracker. `gg credential list` shows these names, and machine settings refer to credentials by them.
 
@@ -60,7 +64,7 @@ A credential may **read** or may also **write**. Read is the default. To registe
 gg credential add --repo example-org/web-app --scopes read,write
 ```
 
-A flight that lands as a pull request needs a credential with write access. The organisation's rules can say that a flight **may** land in a repository, but they cannot give a credential the ability to: only the person who registers the credential decides that. A flight whose destination needs write access, with only a read credential, fails at the credential with a message saying so. The token itself must also carry the matching permissions at its provider.
+A flight that lands as a pull request needs a credential with write access. The organisation's rules can say that a flight **may** land in a repository, but they cannot give a credential write access. Only the person who registers the credential decides that. When a flight's destination needs write access and the flight has only a read credential, it fails at the credential with a message saying so. The token itself must also carry the matching permissions at its provider.
 
 ## 3. Let this machine use it
 
@@ -70,7 +74,7 @@ A registered credential is sealed to its person, not to the machine. For gg on t
 gg credential trust-this-machine local:example-org/web-app
 ```
 
-gg asks for the passphrase. Nothing is sent anywhere: this changes only who can open the credential on this machine's disk.
+gg asks for the passphrase. This changes only who can open the credential on this machine's disk, and sends nothing anywhere.
 
 ## 4. Send it to the machines that need it
 
@@ -82,7 +86,7 @@ gg asks for the passphrase. Nothing is sent anywhere: this changes only who can 
 gg credential send --repo example-org/web-app
 ```
 
-gg first prints the list of machines that need it, and whether it can reach each one, before anything moves. It then asks for the passphrase **once**, however many machines are on the list, and sends the credential to each reachable machine. The control plane introduces the two machines but never sees the value: it travels encrypted, and the receiving machine seals it to its own key on arrival. gg names any machine it cannot reach, and nothing is held for it; send again later.
+gg first prints the list of machines that need it, and whether it can reach each one, before anything moves. It then asks for the passphrase **once**, however many machines are on the list, and sends the credential to each reachable machine. The control plane introduces the two machines but never sees the value. The value travels encrypted, and the receiving machine seals it to its own key on arrival. gg names any machine it cannot reach. Nothing is held for that machine, so send again later.
 
 `--agent`, `--tracker` and `--analysis` work the same way as `--repo`.
 
@@ -94,11 +98,11 @@ To send a credential to one runner, name it with `--runner`:
 gg credential send --runner <id|name> --repo example-org/web-app
 ```
 
-`gg runners` lists runner ids and names. When sending an agent's token that this machine does not hold yet, gg asks for one. For Claude Code, a long-lived token comes from running `claude setup-token`.
+`gg runners` lists runner ids and names. When sending an agent's token that this machine does not hold yet, gg asks for one. For Claude Code, run `claude setup-token` to get a long-lived token.
 
 ### The receiving machine must allow it
 
-A machine accepts a credential this way only if its own configuration file says `"accept-configured": true`. `gg config set` cannot change the setting, and the control plane cannot offer it: turning it on means opening the file on that machine. A machine without it refuses the credential, and gg names the setting.
+A machine accepts a credential this way only if its own configuration file says `"accept-configured": true`. `gg config set` cannot change the setting, and the control plane cannot offer it. To turn it on, edit the file on that machine. A machine without it refuses the credential, and gg names the setting.
 
 ### Signing a runner's agent in
 
@@ -108,7 +112,7 @@ Instead of sending an agent's token, the agent can sign in on the runner itself:
 gg agent login --runner <id|name>
 ```
 
-The runner starts the agent's sign-in. gg shows the address the agent printed, opens a browser if it can, and asks for the code the sign-in page gives back, without echoing it. The code goes back to the runner over the same encrypted connection, and the resulting token never passes through this machine. `--agent <name>` chooses the agent; it defaults to `claude`. The runner's configuration file must say `"accept-agent-login": true`.
+The runner starts the agent's sign-in. gg shows the address the agent printed, opens a browser if it can, and asks for the code the sign-in page gives back, without echoing it. The code goes back to the runner over the same encrypted connection, and the resulting token never passes through this machine. `--agent <name>` chooses the agent. It defaults to `claude`. The runner's configuration file must say `"accept-agent-login": true`.
 
 ## Checking and removing credentials
 

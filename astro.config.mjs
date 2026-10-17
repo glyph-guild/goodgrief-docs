@@ -9,6 +9,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Good Grief',
+			customCss: ['./src/styles/diagrams.css'],
 			plugins: [starlightLinksValidator()],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/glyph-guild/gg' }],
 			editLink: { baseUrl: 'https://github.com/glyph-guild/goodgrief-docs/edit/main/' },

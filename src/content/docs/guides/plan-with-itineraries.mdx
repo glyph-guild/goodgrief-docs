@@ -5,14 +5,16 @@ sidebar:
   order: 5
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 An [itinerary](/reference/glossary/#itinerary) is a plan made of several flights, called [legs](/reference/glossary/#leg), that pursue one goal together. Use this guide when a piece of work is too large or too varied for one flight: for example, investigating an item, then implementing it, then reviewing the result. Someone proposes a plan as a whole, a person approves its shape once, and only then do its legs open.
 
-A person can write a plan by hand as a file or draft it together with an agent in a Claude Code session, or a planning flight (a flight whose work kind proposes legs instead of doing the work) can propose it.
+Write a plan by hand as a file, or draft it with an agent in a Claude Code session. A planning flight (a flight whose work kind proposes legs instead of doing the work) can also propose one.
 
 ## Prerequisites
 
 - gg is signed in to the organisation's control plane.
-- The organisation has a planning work kind, `plan` by default, whose destination is of kind `flight`. Its `opens` list is the menu of work kinds a leg may use. To accept plans that people propose, that destination must require a human check, and only human checks, so that a person approves the plan and nothing waits for evidence no runner will produce. [The envelope: destinations](/concepts/envelope/#destinations) describes the fields.
+- The organisation has a planning work kind, `plan` by default, whose destination is of kind `flight`. Its `opens` list is the menu of work kinds a leg may use. To accept plans that people propose, that destination must require at least one human check and nothing else. A person then approves the plan, and nothing waits for evidence that no runner will produce. [The envelope: destinations](/concepts/envelope/#destinations) describes the fields.
 
 ## 1. Write the plan
 
@@ -106,9 +108,9 @@ proposed ITN-63 - nothing opens until its gate is answered
   waits on plan-reviewed, answered by platform-owner
 ```
 
-A person can propose only a plan the check would accept. A flight of the planner's kind that no runner ever takes holds a proposed plan; that flight exists only to carry the plan's gate. When the same person proposes the same plan twice, it is one plan.
+A person can propose only a plan the check would accept. Each proposed plan is held by a flight of the planner's kind that no runner ever takes. That flight exists only to carry the plan's gate. When the same person proposes the same plan twice, it remains one plan.
 
-A person can revise a plan drafted with the agent tools while its gate is unanswered: proposing the revised draft replaces the earlier plan and declines its legs. To change a plan proposed with `gg itinerary propose`, ground its flight with `gg ground` and propose a new one.
+To revise a plan drafted with the agent tools while its gate is unanswered, propose the revised draft. It replaces the earlier plan and declines the earlier plan's legs. To change a plan proposed with `gg itinerary propose`, ground its flight with `gg ground` and propose a new one.
 
 ## 4. Approve it
 
@@ -117,7 +119,11 @@ The plan's gate appears in `gg gates` like any other. [Answer a gate](/guides/an
 - **When a person approves it**, each leg opens as a flight, and the control plane attributes each leg's flight to the person who proposed the plan. The plan's own flight then ends `landed`.
 - **When a person rejects it**, the control plane declines every leg that is still waiting, and the plan's flight ends `withdrawn`.
 
-After approval, the control plane offers a leg with `after` to no machine until the leg it follows has landed. If someone grounds that leg or it fails, the legs after it stay held, because their premise is false. `gg why` on a held leg names the leg it follows and how that leg ended. A permanently held leg is something a person ends, for example with `gg ground`.
+After approval, the control plane offers a leg with `after` to a machine only once the leg it follows has landed. If someone grounds that leg or it fails, the legs after it stay held, because their premise is false. `gg why` on a held leg names the leg it follows and how that leg ended.
+
+:::caution[A held leg never expires]
+A leg held this way stays held. End it by hand, for example with `gg ground`.
+:::
 
 ## 5. Follow it
 
@@ -144,7 +150,9 @@ Each plan shows how many legs are still standing, what it is about, and each leg
 
 ## Draft a plan with an agent
 
-`gg itinerary tools` is a tool server that any Claude Code session can use to draft a plan. The agent and the person edit the same plan file: the server reads the draft fresh on every call and writes it whole, so a hand edit and a tool call are edits to the same plan. gg keeps drafts under its state directory, one file per draft.
+`gg itinerary tools` is a tool server that any Claude Code session can use to draft a plan. The agent and the person edit the same plan file. The server reads the draft fresh on every call and writes it whole, so a hand edit and a tool call are edits to the same plan. gg keeps drafts under its state directory, one file per draft.
+
+<Steps>
 
 1. Print the line that registers the server with Claude Code:
 
@@ -171,13 +179,15 @@ Each plan shows how many legs are still standing, what it is about, and each leg
 
    Every tool answers with the whole draft. The work kinds, repositories and environments a leg may choose come from the planner's menu.
 
-Proposing a plan keeps nothing about the conversation itself: only the plan, and which agent helped write it.
+</Steps>
+
+Proposing a plan keeps only the plan and which agent helped write it, not the conversation itself.
 
 In the console, `n` and then `l` plans the legs of a new flight with an agent, and `l` on the intents tab (`[`) plans from the selected work item.
 
 ## Follow plans in the console
 
-Run `gg` with no arguments, then `'` to open the itineraries tab. `enter` opens the selected plan; inside it, `f` goes to the flight a leg became and `t` opens the work item the plan is about.
+Run `gg` with no arguments, then `'` to open the itineraries tab. `enter` opens the selected plan. Inside it, `f` goes to the flight a leg became and `t` opens the work item the plan is about.
 
 ## Related
 

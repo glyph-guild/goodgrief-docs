@@ -1,0 +1,212 @@
+---
+title: Install gg
+description: Install the newest release of the gg command on a laptop running macOS, Linux or Windows, and check that it works.
+sidebar:
+  order: 3
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+gg is a single command-line program. The same program opens the [console](/reference/glossary/#console) and, on a machine set up for it, works as a [runner](/reference/glossary/#runner). This page installs only the program on a laptop, and leaves nothing running. Making a machine a runner is a different install, which [Run a runner](/guides/run-a-runner/) describes.
+
+The commands on this page install the newest release of gg. goodgrief.dev serves the installers. Each one is a byte-for-byte copy of the newest release's installer, and goodgrief.dev checks that gg's own release workflow built a script before it publishes it.
+
+## Choose how to install
+
+Choose one way to install. The installer for macOS and Linux, or for Windows, suits most machines. Install by hand to see every step, or use the .NET tool on a machine that already has the .NET SDK.
+
+<Tabs syncKey="install">
+<TabItem label="macOS or Linux">
+
+Run:
+
+```sh
+curl -fsSL https://goodgrief.dev/install.sh | sudo sh
+```
+
+To check the installer before running it instead:
+
+<Steps>
+
+1. Download the installer:
+
+   ```sh
+   curl -fsSLO https://goodgrief.dev/install.sh
+   ```
+
+2. Confirm that gg's release workflow built it. This needs the [GitHub CLI](https://cli.github.com), and fails if the file differs in any way from what the release published:
+
+   ```sh
+   gh attestation verify install.sh --repo glyph-guild/gg
+   ```
+
+3. Run it:
+
+   ```sh
+   sudo sh install.sh
+   ```
+
+</Steps>
+
+The installer:
+
+- runs only once the whole script has arrived, so a download cut off part-way does nothing;
+- picks the build for the machine it runs on;
+- checks the downloaded bytes against the release's build attestation before unpacking them, and installs nothing if they do not match;
+- installs gg under `/usr/local/lib/gg/<version>/`, with its two native libraries beside it, and links `/usr/local/bin/gg` to it;
+- makes sure `/usr/local/bin` is on the PATH of the shell it runs from, adding a line to that shell's startup file if it is missing and naming the file;
+- **starts nothing.** It installs no service and creates no user.
+
+It ends by printing the two remaining steps, which [Sign in](/start-here/sign-in/) covers:
+
+```sh
+gg config set control-plane <url>
+gg login
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+In PowerShell, run:
+
+```powershell
+irm https://goodgrief.dev/install.ps1 | iex
+```
+
+The Windows installer installs for the current user only and needs no administrator rights. To pass options such as `-ControlPlane <url>` or `-Version <version>`, run it as a script block instead:
+
+```powershell
+& ([scriptblock]::Create((irm https://goodgrief.dev/install.ps1))) -ControlPlane <url>
+```
+
+On Windows, running `gg` with no arguments opens the console, as on macOS and Linux, in Windows Terminal or the Windows console window.
+
+:::note[Release 0.88.45 or later]
+The console on Windows needs release 0.88.45 or later. An older release on Windows is a command-line tool only. Run `gg update` to move it to the newest release.
+:::
+
+</TabItem>
+<TabItem label="By hand">
+
+To see every step, download the newest release's archive and install the files directly. On Linux, for example:
+
+<Steps>
+
+1. Download and unpack the archive:
+
+   ```sh
+   curl -fsSL https://github.com/glyph-guild/gg/releases/latest/download/gg-linux-x64.tar.gz | tar xz
+   ```
+
+2. Install the program:
+
+   ```sh
+   sudo install -m 0755 gg /usr/local/bin/gg
+   ```
+
+3. Install its two native libraries beside it:
+
+   ```sh
+   sudo install -m 0644 libporta_pty.so libonigwrap.so /usr/local/bin/
+   ```
+
+4. Check that it runs:
+
+   ```sh
+   gg --version
+   ```
+
+</Steps>
+
+To download a particular release instead, replace `latest/download` with `download/v<version>`. A release carries archives for `linux-x64`, `linux-arm64`, `osx-arm64`, `osx-x64` and `win-x64`. Choose the archive for the machine, and on macOS use `.dylib` in place of `.so`.
+
+:::caution[Both native libraries are required]
+Steps 2 and 3 are both required. gg loads its two native libraries from its own directory, which is why they go beside the binary. It loads them the first time it needs them, not at startup. Without them, gg starts and runs normally, then opens the editor without the gg bar along the top. At that point it names the missing file.
+:::
+
+Unlike the installer, this route does not check the release's build attestation. To check an archive before unpacking it, run `gh attestation verify gg-linux-x64.tar.gz --repo glyph-guild/gg`.
+
+</TabItem>
+<TabItem label=".NET tool">
+
+On a machine that already has the .NET SDK, install gg from nuget.org:
+
+<Steps>
+
+1. Install the package into a shared directory:
+
+   ```sh
+   sudo dotnet tool install GlyphGuild.Gg.Cli --tool-path /usr/local/lib/gg
+   ```
+
+2. Link the command onto the PATH:
+
+   ```sh
+   sudo ln -sf /usr/local/lib/gg/gg /usr/local/bin/gg
+   ```
+
+</Steps>
+
+The package is called `GlyphGuild.Gg.Cli` because the name `gg` is taken on nuget.org. The command it installs is still `gg`.
+
+:::caution[Use --tool-path, not -g]
+A global install (`-g`) lands in the home directory of the account that ran the command. On a runner, that is the account the runner runs as, and the runner could then rewrite its own program.
+:::
+
+`--version <version>` installs a particular release. Without it, dotnet installs the newest release on nuget.org.
+
+</TabItem>
+</Tabs>
+
+### Installing a particular release
+
+To install a particular release, such as the one the rest of the organisation runs, pass its version: `sh -s -- --version <version>` on macOS and Linux, or `-Version <version>` on Windows. The [releases page](https://github.com/glyph-guild/gg/releases) lists every release.
+
+### When another program is called gg
+
+At least one other program, a Git interface, is also called `gg`. If a different program already sits where the installer would put its link, the installer stops rather than replace it, and asks for another name. To answer in advance, for example on a machine with no one at the keyboard, pass `--as`:
+
+<Tabs syncKey="install">
+<TabItem label="macOS or Linux">
+
+```sh
+curl -fsSL https://goodgrief.dev/install.sh | sudo sh -s -- --as goodgrief
+```
+
+</TabItem>
+<TabItem label="Windows">
+
+```powershell
+& ([scriptblock]::Create((irm https://goodgrief.dev/install.ps1))) -Alias goodgrief
+```
+
+</TabItem>
+</Tabs>
+
+If another `gg` is only earlier on the PATH, the installer leaves it alone and continues. It says that the other program will keep the name. Pass `--as` to give this one its own name. Every hint the installer prints then uses the chosen name. The installer remembers the name, so a later update needs no flag. These pages always write `gg`.
+
+A runner is always installed as `gg`, because its service runs `/usr/local/bin/gg`.
+
+## Check the install
+
+Run:
+
+```sh
+gg version
+```
+
+This prints the version of the program, the protocol it speaks to the control plane, and the vocabulary of facts it reports.
+
+Then, once gg is pointed at the organisation's control plane, run:
+
+```sh
+gg doctor
+```
+
+`gg doctor` checks what gg needs in order to work, including whether this release is the one the control plane expects. Each problem it reports comes with a line saying how to fix it. [Sign in](/start-here/sign-in/) covers pointing gg at the control plane.
+
+## Next steps
+
+- [Sign in](/start-here/sign-in/): point gg at the organisation and sign in.
+- [Update gg](/guides/update-gg/): move an install to a newer release.
+- [Run a runner](/guides/run-a-runner/): make a machine take work.

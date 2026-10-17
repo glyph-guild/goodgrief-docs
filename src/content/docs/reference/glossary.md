@@ -41,7 +41,7 @@ The service gg talks to. It keeps the record of every flight, decides which mach
 
 ## Credential
 
-A secret, such as a repository access token, that a runner uses to act on the organisation's behalf. The control plane holds only a reference to where the secret lives, never the secret itself. `gg credential add` registers one; gg always prompts for the value and never takes it as an argument.
+A secret, such as a repository access token, that a runner uses to act on the organisation's behalf. The control plane holds only a reference to where the secret lives, never the secret itself. `gg credential add` registers one. gg always prompts for the value and never takes it as an argument.
 
 ## Decision
 
@@ -61,7 +61,7 @@ A named kind of place where work runs, such as `dev` or `ui`. An organisation ch
 
 ## Fact
 
-A recorded observation about a flight, which the runner reports, such as the list of files changed (`change.manifest`) or how the agent's run ended (`loop.outcome`). Facts are what the control plane checks the rules against. `gg facts` lists a flight's facts.
+A recorded observation about a flight, which the runner reports, such as the list of files changed (`change.manifest`) or how the agent's run ended (`loop.outcome`). The control plane checks the rules against facts. `gg facts` lists a flight's facts.
 
 ## Fleet
 
@@ -97,7 +97,7 @@ A flight ending: its destination accepted the work. This is the intended outcome
 
 ## Lease
 
-A runner's claim on a flight. While a runner holds the lease, no other machine can take the flight. The runner renews its lease regularly; a lease the runner does not renew expires, and the flight becomes available again.
+A runner's claim on a flight. While a runner holds the lease, no other machine can take the flight. The runner renews its lease regularly. If it stops renewing, the lease expires and the flight becomes available again.
 
 ## Leg
 

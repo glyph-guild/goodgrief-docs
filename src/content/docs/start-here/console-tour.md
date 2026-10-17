@@ -5,9 +5,9 @@ sidebar:
   order: 5
 ---
 
-The [console](/reference/glossary/#console) is the terminal application that opens when a person runs `gg` with no arguments. It shows what is waiting on a person, every [flight](/reference/glossary/#flight), the organisation's machines and more, and every action in it has a key. It also holds AI agent sessions beside gg itself, so a person can work with several agents and switch between them and gg without leaving the terminal. This page covers the keys needed to find the way around. [Console keys](/reference/console-keys/) lists all of them.
+The [console](/reference/glossary/#console) is the terminal application that opens when a person runs `gg` with no arguments. It shows what is waiting on a person, every [flight](/reference/glossary/#flight), the organisation's machines and more. Every action in it has a key. It also holds several AI agent sessions beside gg itself, and switches between them and gg without leaving the terminal. This page covers the keys needed to find the way around. [Console keys](/reference/console-keys/) lists all of them.
 
-The console needs a signed-in machine; [Sign in](/start-here/sign-in/) covers that. If no one is signed in when the console opens, it offers to sign in. The console runs on macOS, Linux and Windows.
+The console needs a signed-in machine. [Sign in](/start-here/sign-in/) covers signing in. If no one is signed in when the console opens, it offers to sign in. The console runs on macOS, Linux and Windows.
 
 To open it, run:
 
@@ -19,7 +19,7 @@ gg
 
 ## gg includes tmux-like features
 
-Like tmux, gg is a terminal multiplexer. It runs AI agent sessions in terminals of its own, keeps every one of them running, shows one at a time beside the console, and switches between them with a prefix key, `ctrl+g`. A person can have several agents working at once and move between them and gg without leaving the terminal or opening another window. [How gg works as a terminal multiplexer](/concepts/terminal-multiplexer/) explains the technical detail, and how it compares with tmux.
+Like tmux, gg is a terminal multiplexer. It runs AI agent sessions in terminals of its own, keeps every one of them running, shows one at a time beside the console, and switches between them with a prefix key, `ctrl+g`. Several agents can work at once, and moving between them and gg needs no other terminal or window. [How gg works as a terminal multiplexer](/concepts/terminal-multiplexer/) explains the technical detail, and how it compares with tmux.
 
 The column on the left is the agent column. It lists gg, then every agent session gg is holding, then **+ new agent**, then **history**. The console opens with the column in place, even before any agent is running.
 
@@ -32,7 +32,7 @@ Each agent runs in a terminal of its own inside gg and keeps running while gg, o
 - **what it is working on**, taken from the agent's own title;
 - **how long it has been running**, and a `•` when its screen changed while it was hidden.
 
-The activity marks come from the agent's own hooks, so they appear for Claude Code sessions on this machine.
+The activity marks come from the agent's own hooks. They appear for Claude Code sessions on this machine.
 
 ### Switching
 
@@ -71,13 +71,13 @@ When an agent is on screen, gg keeps the top line, which names the agent and how
 
 gg holds at most nine agents at once. **history** lists the plans proposed from this machine and the agent sessions started from it, newest first. Opening a session resumes it in the folder where it ran.
 
-Quitting gg ends every agent it holds, so while any are running, `q` first says which ones and asks for `q` again.
+Quitting gg ends every agent it holds. While any are running, `q` first names them and asks for `q` again.
 
 [Driving an agent](/concepts/driving-an-agent/#the-agent-column) explains the column in more depth, including remote sessions.
 
 ## The tabs
 
-The bar along the bottom lists every tab, each with the key that jumps to it, and the last line lists the keys that work on the screen in view. `tab` moves to the next one.
+The bar along the bottom lists every tab, each with the key that jumps to it. The last line lists the keys that work on the screen in view. `tab` moves to the next one.
 
 | Tab | Key | What it shows |
 |---|---|---|
@@ -97,11 +97,11 @@ A dot after a tab's name means the tab has not loaded anything yet. `g` refreshe
 
 The arrow keys move through any list; `j` and `k` do the same. `enter` acts on the row under the cursor: on the flights tab it opens the flight, on the runners tab it opens the runner, and on the queue it lists what a person can do with the row.
 
-`esc` closes any open window. `ctrl+f` freezes the screen and hands the mouse back to the terminal, so a person can select and copy text; press it again to continue.
+`esc` closes any open window. To select and copy text, press `ctrl+f`. It freezes the screen and hands the mouse back to the terminal. Press it again to continue.
 
 ## The queue
 
-The queue holds everything that is waiting on this person: flights stopped at a [gate](/reference/glossary/#gate), nominations waiting to be opened or declined, and failures that need attention. On a healthy day it can be empty, and the flights tab still shows everything that has run.
+The queue holds everything that is waiting on this person: flights stopped at a [gate](/reference/glossary/#gate), nominations waiting to be opened or declined, and failures that need attention. On a healthy day it can be empty. The flights tab still shows everything that has run.
 
 Each row says what it is waiting for: a nomination asks whether to open it, and a flight stopped at a gate is awaiting a decision. `o` opens the selected row.
 
@@ -130,11 +130,11 @@ When a flight is stopped at a gate, select it and press `d`. The window that ope
 
 ## Starting a flight
 
-`n` starts a new flight. The console asks how to write it: `w` opens the editor to write the description by hand, and other keys compose it, or plan several flights, with an agent. It then asks which kind of work the flight is, and `enter` opens it.
+`n` starts a new flight. The console asks how to write it. `w` opens the editor to write the description by hand. Other keys compose it with an agent, or plan several flights with one. The console then asks which kind of work the flight is, and `enter` opens it.
 
 ## Help
 
-`?` opens the help page. It lists every key that works at that moment, grouped by where it applies, and the list matches what the keys actually do. `tab` turns to the second page, which shows the environment: every setting, and where its value came from. From the help page, `e` opens this machine's configuration file in the editor, and `o` takes any configuration the control plane is offering, as [Update gg](/guides/update-gg/#offered-configuration) describes.
+`?` opens the help page. It lists every key that works at that moment, grouped by where it applies. The list matches what the keys actually do. `tab` turns to the second page, which shows the environment: every setting, and where its value came from. From the help page, `e` opens this machine's configuration file in the editor, and `o` takes any configuration the control plane is offering, as [Update gg](/guides/update-gg/#offered-configuration) describes.
 
 ## Quitting
 
@@ -148,7 +148,11 @@ Some actions hand the terminal to the editor that `$EDITOR` names, such as writi
  gg · editing — save and quit to come back
 ```
 
-This means everything a person types into the editor, and everything it draws, passes through gg. gg stores none of it, writes none of it to disk, puts none of it in a diagnostics bundle, and sends none of it off the machine. When the editor exits, gg restores the terminal exactly as it was. Where gg cannot host the editor this way, such as behind a pipe, it opens the editor directly and says so.
+:::note[What gg sees while it hosts the editor]
+Everything a person types into the editor, and everything it draws, passes through gg. gg stores none of it, writes none of it to disk, puts none of it in a diagnostics bundle, and sends none of it off the machine.
+:::
+
+When the editor exits, gg restores the terminal exactly as it was. Where gg cannot host the editor this way, such as behind a pipe, it opens the editor directly and says so.
 
 ## Next steps
 

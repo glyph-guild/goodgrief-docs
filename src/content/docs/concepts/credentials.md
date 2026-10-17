@@ -47,7 +47,7 @@ A credential may **read**, which is the default, or may also **write**. A runner
 1. **The organisation allows it**: the flight's [envelope](/reference/glossary/#envelope) names a destination that the work may land in.
 2. **The credential can do it**: the person who registered the credential gave it the `write` scope.
 
-Neither is enough alone. The envelope cannot widen a credential: a flight whose destination needs write access, run with a read-only credential, is refused at the landing, with a message naming the repository and the scopes its credential carries. The token itself must also carry matching permissions at its provider.
+Neither is enough alone. The envelope cannot widen a credential. If a flight's destination needs write access and its credential can only read, the landing is refused, with a message naming the repository and the scopes its credential carries. The token itself must also carry matching permissions at its provider.
 
 ## What a machine holds
 
@@ -68,7 +68,9 @@ A credential can have several holders. Who holds it depends on how it arrived:
 | `gg credential trust-this-machine <name>` was run | The person, and now this machine. The person's passphrase unlocks their key for this one step. |
 | Sent to a machine with `gg credential send` | The receiving machine. |
 
-**What sealing protects, and what it does not.** Anything running as the same user as gg on a machine can read that machine's key, and so can open what the machine holds. Sealing protects copies of the store taken elsewhere, such as backups or disk images: a store copied to another machine does not open there. No machine can open a credential sealed only to a person without that person's passphrase.
+:::caution[What sealing does not protect]
+Anything running as the same user as gg on a machine can read that machine's key, and so can open what the machine holds. Sealing protects copies of the store taken elsewhere, such as backups or disk images. A store copied to another machine does not open there. No machine can open a credential sealed only to a person without that person's passphrase.
+:::
 
 ### How a credential rests
 
@@ -82,11 +84,11 @@ A credential can have several holders. Who holds it depends on how it arrived:
 
 `gg doctor` checks that every registered credential can be opened on this machine, and counts how many rest in each state.
 
-A sealed credential carries a format version. A gg that does not recognise the version refuses the credential and says to update gg on the machine. An older gg that cannot see sealed credentials at all reports them as absent; if a person then registers the value again with that older gg, the newer gg uses the newer value and seals it.
+A sealed credential carries a format version. A gg that does not recognise the version refuses the credential and says to update gg on the machine. An older gg that cannot see sealed credentials at all reports them as absent. If someone then registers the value again with that older gg, the newer gg uses the newer value and seals it.
 
 ## Moving a credential to a machine
 
-A runner can only open a credential it holds, so the value has to reach the machines that need it. `gg credential send` does this.
+A runner can only open a credential it holds. `gg credential send` delivers the value to the machines that need it.
 
 1. **gg lists the machines first.** Run without `--runner`, gg finds every machine whose [fleet profile](/guides/enrol-machines/#fleet-profiles) names the credential, and prints the list, with whether each machine can be reached, before anything moves.
 2. **gg asks for the person's passphrase once.** It unlocks the person's key, however many machines are on the list.
@@ -94,11 +96,11 @@ A runner can only open a credential it holds, so the value has to reach the mach
 4. **It travels over a channel.** The sealed credential goes directly to each machine over an encrypted connection that the control plane arranges but cannot read. [Driving an agent: how the console reaches a machine](/concepts/driving-an-agent/#how-the-console-reaches-a-machine) explains these channels.
 5. **The machine keeps it sealed.** The receiving machine writes the sealed credential to its store without opening it, then adds itself as a holder.
 
-gg never leaves anything for a machine to collect later. It names any machine it cannot reach and sends nothing to it; send again when that machine is back.
+gg never leaves anything for a machine to collect later. It names any machine it cannot reach and sends nothing to it. Send again when that machine is back.
 
-**A machine must agree to be given credentials.** It accepts one only if its own configuration file says `"accept-configured": true`. gg reads this setting only from that file: no environment variable, `gg config set` or control plane can set it. A machine without it refuses, and gg names the setting.
+**A machine must agree to be given credentials.** It accepts one only if its own configuration file says `"accept-configured": true`. gg reads this setting only from that file. No environment variable, `gg config set` or control plane can set it. A machine without it refuses, and gg names the setting.
 
-A person can also create an agent's sign-in on the runner itself, with `gg agent login --runner <id|name>`. The runner starts the agent's sign-in, the person completes it in a browser and types back the code, and the sign-in creates the resulting token on the runner, which seals it to itself. The token never passes through the person's machine. The runner's configuration file must say `"accept-agent-login": true`, which is a separate setting from `accept-configured`.
+A person can also create an agent's sign-in on the runner itself, with `gg agent login --runner <id|name>`. The runner starts the agent's sign-in. Complete it in a browser and type back the code. The sign-in then creates the token on the runner, which seals it to itself. The token never passes through the person's machine. The runner's configuration file must say `"accept-agent-login": true`, which is a separate setting from `accept-configured`.
 
 ## How a flight opens a credential with no one present
 
@@ -128,7 +130,7 @@ Each runner reports, every time it checks in, the names of the credentials it ho
 
 ## Replacing and removing a credential
 
-- **Replacing.** Registering a credential again for the same purpose replaces the reference: flights use the new one from then on. Machines that already hold the old value keep it until someone sends them the new one, so send it again after replacing it.
+- **Replacing.** Registering a credential again for the same purpose replaces the reference. Flights use the new one from then on. Machines that already hold the old value keep it until someone sends them the new one. Send it again after replacing it.
 - **Removing.** `gg credential rm <id>` removes the reference from the control plane and deletes the value on this machine. The control plane then tells every runner that checks in to delete its copy, whether or not it is flying, and repeats the instruction for thirty days so a machine that was offline still receives it.
 
 Good Grief does not track when a credential expires at its provider. A token that expires there fails when it is next used.

@@ -5,40 +5,50 @@ sidebar:
   order: 5
 ---
 
+import { FileTree } from '@astrojs/starlight/components';
+
 The [airspace](/reference/glossary/#airspace) is where an organisation keeps its rules and names. `gg airspace pull` writes it as a working copy of YAML files, one per document, and `gg airspace apply` sends changes back. [Change the airspace](/guides/change-the-airspace/) describes that cycle. This page describes the files themselves.
 
 ## Layout
 
 A working copy has this shape:
 
-```
-root.yaml
-work-kinds/<name>.yaml
-narrowings/<name>.yaml
-strategies/<name>.yaml
-watches/<name>.yaml
-fleet/<name>.yaml
-exposures/<name>.yaml
-```
+<FileTree>
 
-Each file takes its document's name. A name is lower-case letters, digits and dashes, starts with a letter or digit, and is at most 64 characters. Someone must declare a new document's name before applying the document, as described in [Declare a new name first](/guides/change-the-airspace/#declare-a-new-name-first).
+- root.yaml
+- work-kinds/
+  - &lt;name&gt;.yaml
+- narrowings/
+  - &lt;name&gt;.yaml
+- strategies/
+  - &lt;name&gt;.yaml
+- watches/
+  - &lt;name&gt;.yaml
+- fleet/
+  - &lt;name&gt;.yaml
+- exposures/
+  - &lt;name&gt;.yaml
+
+</FileTree>
+
+Each file takes its document's name. A name is lower-case letters, digits and dashes, starts with a letter or digit, and is at most 64 characters. Declare a new document's name before applying the document, as described in [Declare a new name first](/guides/change-the-airspace/#declare-a-new-name-first).
 
 ## Rules every file follows
 
-- **Keys are closed.** Each kind of document allows a fixed set of keys, listed below. Good Grief refuses a key that is not on the list, with a message naming it, so it never silently ignores a misspelt key. The same is true of the keys inside each section.
+- **Keys are closed.** Each kind of document allows a fixed set of keys, listed below. Good Grief refuses a key that is not on the list, and its message names the key. A misspelt key is never silently ignored. The same is true of the keys inside each section.
 - **`based-on:`** may appear in any file. `gg airspace pull` writes it, naming the version it pulled the file from, such as `based-on: investigate@v7`. It is not a rule; leave it as pull wrote it.
 - **Checking a file.** `gg envelope validate <file>` checks a root, work kind, narrowing or strategy file without sending it anywhere, and prints the form the control plane will store it in. `gg airspace diff` shows what applying the whole working copy would do.
 
 ## Root and work kinds
 
-Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds/<name>.yaml`) holds the rules for one kind of work. Both are layers of the [envelope](/concepts/envelope/), the set of rules that governs a flight, and both allow the same list of keys. Combining the layers decides which layer may set a key.
+Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds/<name>.yaml`) holds the rules for one kind of work. Both are layers of the [envelope](/concepts/envelope/), the set of rules that governs a flight, and both allow the same list of keys. The Layer column below shows which layer may set each key, and how the two combine.
 
 | Key | Layer | What it says |
 |---|---|---|
 | `context` | Both | `scope`: the files the agent may change (the flight gets the overlap of root's and the work kind's). `constitution`: the version of the rules in force, which root sets. See [`context.scope`](/concepts/envelope/#contextscope). |
 | `repositories` | Root | The repositories flights may concern. See [`repositories:`](/concepts/envelope/#repositories). A file may also use `repository` as a single-name spelling. |
 | `environments` | Root | The environments flights may run in. See [`environments:`](/concepts/envelope/#environments). A file may also use `environment` as a single-name spelling. |
-| `models` | Root | The models a person may move one flight to. Left out, no one may; Good Grief refuses an empty list. |
+| `models` | Root | The models a person may move one flight to. When it is left out, no one may move a flight to another model. Good Grief refuses an empty list. |
 | `mcp-servers` | Root | The external tool servers loops may use, each defined once. See [MCP servers](/concepts/mcp-servers/). |
 | `offers` | Root | Settings the control plane offers to every machine in the organisation, from the keys it can offer. See [Offered configuration](/reference/configuration/#offered-configuration). |
 | `obligations` | Both, added up | Machine checks and human checks. See [`obligations:`](/concepts/envelope/#obligations). |
@@ -110,7 +120,7 @@ A [narrowing](/reference/glossary/#narrowing) adds obligations to every flight t
 |---|---|
 | `obligations` | Obligations, written as in root. The control plane adds each to the flight's obligations and to its destination's `requires:`. |
 
-Narrowings live in two places: `narrowings/<name>.yaml` in the airspace, and a directory inside a registered repository, which a person names when registering the repository with `gg airspace repositories add --narrowings <dir>`. By convention that directory is `.goodgrief/narrowings/`. The control plane reads every file under it as a narrowing, so each file should hold one concern, which lets a repository's code-owner rules assign each one to its owner.
+Narrowings live in two places: `narrowings/<name>.yaml` in the airspace, and a directory inside a registered repository. Name that directory when registering the repository with `gg airspace repositories add --narrowings <dir>`. By convention that directory is `.goodgrief/narrowings/`. The control plane reads every file under it as a narrowing. Keep one concern in each file, so that the repository's code-owner rules can assign each file to its owner.
 
 ```yaml
 # .goodgrief/narrowings/migrations.yaml (an example)
@@ -197,7 +207,7 @@ A fleet profile describes one kind of machine in the [fleet](/reference/glossary
 
 ## Exposures
 
-An exposure says where a flight's preview may be published, so that a person can open it. It lives at `exposures/<name>.yaml`. There is no default exposure: an organisation that has declared none cannot publish a preview.
+An exposure says where a flight's preview may be published, so that a person can open it. It lives at `exposures/<name>.yaml`. There is no default exposure. An organisation that has declared none cannot publish a preview.
 
 | Key | Required | What it says |
 |---|---|---|
@@ -224,7 +234,7 @@ inventory:
   port: 8080
 ```
 
-The organisation fixes the addresses in advance on purpose: an administrator can give each one to a sign-in provider that will not accept a wildcard return address.
+Fixed addresses let an administrator give each one to a sign-in provider that does not accept a wildcard return address.
 
 ## Related
 

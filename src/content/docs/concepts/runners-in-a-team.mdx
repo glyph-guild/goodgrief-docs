@@ -5,6 +5,8 @@ sidebar:
   order: 9.5
 ---
 
+import { Steps } from '@astrojs/starlight/components';
+
 In a team, some [runners](/reference/glossary/#runner) are shared: machines the organisation keeps for everyone's work. Others belong to one person, such as a laptop that should run only its owner's [flights](/reference/glossary/#flight). This page explains whose a machine is, which work each kind of machine receives, and how a person keeps a machine to themselves.
 
 [Runners and the fleet](/concepts/runners-and-the-fleet/) explains how a runner and a flight find each other in general. This page is about what changes when several people share a fleet.
@@ -44,7 +46,7 @@ A claimed machine can also be **reserved**. A reserved machine takes only flight
 | `gg runner release <id>` | Lets a reserved machine take anyone's flights again. | Its owner only. An administrator cannot release a reservation, but can unclaim the machine. |
 | `gg runner ownership <id> tenant\|open` | Makes a machine the organisation's, or open. | An administrator, once the owner or an administrator has unclaimed the machine. |
 
-No one can claim a machine someone else has claimed until they unclaim it, and no one can ever claim the organisation's machines. A reservation has no expiry: it lasts until its owner releases it or someone unclaims the machine.
+No one can claim a machine someone else has claimed until that person unclaims it. No one can ever claim the organisation's machines. A reservation does not expire. It lasts until its owner releases it or someone unclaims the machine.
 
 `gg runners` shows whose each machine is, for example `organisation's`, `open` or `Ada Lovelace's, reserved`. The console's runners tab shows the same in its **owner** column.
 
@@ -66,7 +68,7 @@ When a runner asks for work, the control plane offers it the oldest flight that 
 7. **The reservation allows it.** A reserved machine takes a flight only if its owner started it. A flight with no recorded author, such as one opened by a repository event, never goes to a reserved machine.
 8. **The flight is not someone else's personal work.** Work from a person's own [watch](/reference/glossary/#watch) goes only to a machine that person has claimed. Open and organisation machines never take it.
 9. **No one else holds it.** The control plane does not offer a flight another runner already holds.
-10. **Targeting allows it.** When the envelope sets `targeting: least-spent`, the control plane holds a flight for the runner whose allowance has spent the smallest share, unless the flight has waited more than a minute; then any runner may take it. With `targeting: any`, or no setting, the first runner to ask takes it.
+10. **Targeting allows it.** When the envelope sets `targeting: least-spent`, the control plane holds a flight for the runner whose allowance has spent the smallest share. Once the flight has waited more than a minute, any runner may take it. With `targeting: any`, or no setting, the first runner to ask takes it.
 
 Among the flights that pass, the control plane offers the oldest first.
 
@@ -82,7 +84,7 @@ Among the flights that pass, the control plane offers the oldest first.
 
 ### Who started a flight
 
-A reservation turns on who started each flight. That depends on where the flight came from:
+A reserved machine takes a flight only if its owner started it. Who started a flight depends on where the flight came from:
 
 | The flight came from | It counts as started by |
 |---|---|
@@ -95,7 +97,7 @@ A reservation turns on who started each flight. That depends on where the flight
 
 ### Credentials on a claimed machine
 
-A claimed machine uses only credentials its owner registered. An open or organisation machine may use any of the organisation's credentials. When the control plane offers a machine a flight but the machine lacks a credential for one of its repositories, the flight stays available to other machines, and this machine waits until a credential arrives. [Credentials](/concepts/credentials/) covers registering and sending them.
+A claimed machine uses only credentials its owner registered. An open or organisation machine may use any of the organisation's credentials. When the control plane offers a machine a flight but the machine lacks a credential for one of the flight's repositories, the machine waits until a credential arrives. Meanwhile the flight stays available to other machines. [Credentials](/concepts/credentials/) covers registering and sending them.
 
 On a claimed machine that is not reserved, this means a colleague's flight may wait for a credential the owner never registered. Reserving the machine avoids that.
 
@@ -111,6 +113,8 @@ On a claimed machine that is not reserved, this means a colleague's flight may w
 ## Keep a machine to its owner's flights
 
 To keep a laptop running only its owner's work:
+
+<Steps>
 
 1. Make it a runner, if it is not one already. It joins the fleet as an open machine:
 
@@ -131,6 +135,8 @@ To keep a laptop running only its owner's work:
    gg runner reserve <id>
    ```
 
+</Steps>
+
 `gg runners` now shows it as the owner's and reserved. From then on it takes only flights its owner started, and it uses only its owner's credentials.
 
 To lend it to the team again, release the reservation with `gg runner release <id>`. To give it up entirely, `gg runner unclaim <id>` returns it to open.
@@ -143,7 +149,7 @@ When the control plane cannot offer a flight to any machine, the flight says why
 
 | What gg says | What it means | What to do |
 |---|---|---|
-| Every runner advertising the environment is reserved to someone else. | The capacity exists, but someone holds it. | Ask the owner to release the reservation, or bring up a machine that is not reserved. |
+| Every runner advertising the environment is reserved to someone else. | Machines with the environment exist, but each one is reserved to another person. | Ask the owner to release the reservation, or bring up a machine that is not reserved. |
 | The flight is a person's own work, and none of their machines is asking for work. | Personal work runs only on a machine that person has claimed. | Start, or claim, one of that person's machines. |
 | The machine someone opened the flight for is not asking for work. | Someone opened the flight with `--runner` for a machine that is offline or busy. | Start that machine, or open the flight without `--runner`. |
 | The machine is parked. | A parked machine takes nothing. | Ask whoever parked it. |

@@ -35,7 +35,7 @@ Each of these has a key in the configuration file, and the variable overrides it
 | `GG_ALLOWANCE` | `allowance` | The name of the [allowance](/reference/glossary/#allowance) this machine spends from. |
 | `GG_ALLOWANCE_LIMITS` | `allowance-limits` | The ceilings gg measures that allowance against. |
 
-A variable is the way to change a setting for one shell or one command without touching the file. For example, to point one command at a different control plane:
+Use a variable to change a setting for one shell or one command without editing the file. For example, to point one command at a different control plane:
 
 ```sh
 GG_CONTROL_PLANE=https://<other-control-plane> gg whoami
@@ -49,7 +49,7 @@ GG_CONTROL_PLANE=https://<other-control-plane> gg whoami
 | `XDG_STATE_HOME` | Where gg writes and reads a flight's live view. |
 | `XDG_CACHE_HOME` | Where a runner clones a working tree, and where a held tree waits. |
 | `GG_TIMING` | A file path. When set, the console appends one line to the file for each phase it spends time in: what it was, how long it took, and how many calls it made. See [A slow console](#gg_timing-a-slow-console). |
-| `GG_STATE_DUMP` | A file path. When set, the console writes its whole state to the file when it exits, for a bug report. It includes work item titles; it does not include anything a runner printed. |
+| `GG_STATE_DUMP` | A file path. When set, the console writes its whole state to the file when it exits, for a bug report. It includes work item titles. It does not include anything a runner printed. |
 | `GG_IMAGE_DIGEST` | For a runner inside a container: the image the container was started from. Whatever started the container sets it. The runner records it as part of the environment it reports, and a [diagnostics bundle](/troubleshooting/diagnostics-bundle/) includes it in the machine's fingerprint. Leave it unset outside a container. |
 
 ### `GG_TIMING`: a slow console
@@ -81,9 +81,9 @@ Each line gives a time, a phase, its duration, and sometimes a count:
 | `input.<command>`, `input.row-pointed` | A key press or a click, until the console has acted on it. |
 | `pool.*`, `mem.mb`, `gc.gen2` | The state of the runtime at that update. |
 
-Compare a phase with its `reads`: three hundred milliseconds for three requests and for twenty are different problems. When every phase is fast but the console still feels slow, look at `paint.period`, which includes time no other phase measures.
+Compare a phase with its `reads`. Three hundred milliseconds for three requests is a different problem from three hundred milliseconds for twenty. When every phase is fast but the console still feels slow, look at `paint.period`, which includes time no other phase measures.
 
-The console writes the file as it goes, not when it exits, so a console that someone had to stop still shows where it was. It contains phase names, durations and counts, and no flight data. With the variable unset, the console measures and writes nothing.
+The console writes the file as it goes, not when it exits. If the console has to be stopped, the file still shows where it was. It contains phase names, durations and counts, and no flight data. With the variable unset, the console measures and writes nothing.
 
 ## Variables gg sets for a project's scripts
 
@@ -98,7 +98,7 @@ The runner sets each only when it has a value. A script should treat an unset va
 
 ## Variables not listed here
 
-gg also uses variables to pass information between its own processes, such as from a runner to the agent it starts, or to a new pool machine. gg alone sets and reads them, and setting them by hand has no supported effect.
+gg also uses variables to pass information between its own processes, such as from a runner to the agent it starts, or to a new pool machine. Only gg sets and reads them. Setting one by hand has no supported effect.
 
 ## Related
 

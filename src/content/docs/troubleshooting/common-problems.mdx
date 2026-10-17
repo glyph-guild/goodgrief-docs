@@ -5,7 +5,9 @@ sidebar:
   order: 3
 ---
 
-Each entry below starts from what a person sees, then gives the cause and the fix. This page quotes messages as gg and the control plane print them; text in angle brackets, such as `<address>`, stands for a value.
+import { Steps } from '@astrojs/starlight/components';
+
+Each entry below starts from what a person sees, then gives the cause and the fix. This page quotes messages as gg and the control plane print them. Text in angle brackets, such as `<address>`, stands for a value.
 
 When a problem is not listed here, run [`gg doctor`](/troubleshooting/gg-doctor/) first. If it offers no fix, [send a diagnostics bundle](/troubleshooting/diagnostics-bundle/).
 
@@ -45,7 +47,7 @@ Could not reach the control plane at <address>. Run gg doctor to check the conne
 gg config set control-plane <address>
 ```
 
-An administrator can provide the address. If the address is right, check that this machine can reach it, for example from a browser. When `gg config show` lists `GG_CONTROL_PLANE` with the source `environment`, an environment variable is overriding the file, and the variable is the value to correct.
+An administrator can provide the address. If the address is right, check that this machine can reach it, for example from a browser. When `gg config show` lists `GG_CONTROL_PLANE` with the source `environment`, an environment variable is overriding the file. Correct the variable instead.
 
 When the control plane answers with an error instead, the message is:
 
@@ -77,15 +79,21 @@ The same message, with `repository` in place of `environment`, appears for a rep
 
 **Cause.** The organisation's root rules list the [environments](/reference/glossary/#environment) and repositories flights may use, and this flight named one that is not on the list. See [The envelope: `environments:`](/concepts/envelope/#environments).
 
-**Fix.** Open the flight again with one of the names the message lists, or with none when the list has only one entry. If the flight genuinely needs another environment or repository, add it to root's list. Adding one loosens the rules, so it waits for approval. Someone must also chart a new environment first; see [Change the airspace: chart an environment](/guides/change-the-airspace/#chart-an-environment).
+**Fix.** Open the flight again with one of the names the message lists, or with none when the list has only one entry. If the flight genuinely needs another environment or repository, add it to root's list. Adding one loosens the rules, so it waits for approval. Chart a new environment before adding it, as described in [Change the airspace: chart an environment](/guides/change-the-airspace/#chart-an-environment).
 
 ## A flight stays in Ready and no machine takes it
 
 **What appears.** The flight is open and no runner has leased it. `gg show <flight>` shows no runner.
 
-**Cause.** When a flight is ready, its environment becomes a requirement on the machine that takes it. The control plane offers the flight only to a [runner](/reference/glossary/#runner) whose labels include `environment=<name>`. If no running machine advertises that label, the flight waits. This is not an error, and nothing times out.
+**Cause.** When a flight is ready, its environment becomes a requirement on the machine that takes it. The control plane offers the flight only to a [runner](/reference/glossary/#runner) whose labels include `environment=<name>`. If no running machine advertises that label, the flight waits.
+
+:::note[Waiting is not an error]
+Nothing times out. The flight is taken as soon as a matching machine appears.
+:::
 
 **Fix.**
+
+<Steps>
 
 1. Run `gg why <flight>` and `gg plan <flight>` to see what the flight is waiting on.
 2. Run `gg runners` to see which runners are up, and `gg runner labels` to see what each one advertises.
@@ -102,6 +110,8 @@ The same message, with `repository` in place of `environment`, appears for a rep
    No strategy is in force. Nothing furnishes an environment, so a flight selecting one waits until a runner advertises it.
    ```
 
+</Steps>
+
 [Run a runner](/guides/run-a-runner/) covers starting a runner.
 
 ## A runner takes flights and nothing happens
@@ -112,7 +122,7 @@ The same message, with `repository` in place of `environment`, appears for a rep
 warn  executor          no agent binary is configured, so this machine will take flights and never start an agent
 ```
 
-**Cause.** gg never installs an [agent](/reference/glossary/#agent). Someone needs to tell it where the agent's program is, and no one has told this machine.
+**Cause.** gg never installs an [agent](/reference/glossary/#agent). This machine has not been told where the agent's program is.
 
 **Fix.** Run the fix `gg doctor` prints, for example:
 
@@ -130,7 +140,7 @@ When the agent is already on the PATH, `gg doctor` names its path in the fix.
 HALTED: <reason>
 ```
 
-**Cause.** Good Grief could not tell whether an obligation applies or whether it is met, so it stopped rather than guess. This happens when the runner never reported a fact an obligation reads, or that fact holds a value Good Grief does not recognise, when Good Grief cannot determine the flight's rules, or when it cannot assemble evidence an obligation asks for. A halted flight is still open. [Gates and decisions: halting](/concepts/gates-and-decisions/#halting) explains halts in full.
+**Cause.** Good Grief could not tell whether an obligation applies or whether it is met, so it stopped rather than guess. This happens in four cases: the runner never reported a fact an obligation reads; the fact holds a value Good Grief does not recognise; Good Grief cannot determine the flight's rules; or it cannot assemble evidence an obligation asks for. A halted flight is still open. [Gates and decisions: halting](/concepts/gates-and-decisions/#halting) explains halts in full.
 
 **Fix.** Read the reason. A halt caused by a missing or unreadable fact clears by itself when the fact arrives. A halt caused by the rules or by evidence stands until someone corrects the cause, usually by changing the envelope, as described in [Change the airspace](/guides/change-the-airspace/). If the flight should not continue, stop it with `gg ground <flight> <why>`.
 
@@ -164,7 +174,7 @@ The token itself must also carry write permission at its provider. Then send it 
 GG_TIMING=/tmp/gg-timing.txt gg
 ```
 
-Each line names a phase, how long it took and, where it explains the time, how many requests it made. [Environment variables: `GG_TIMING`](/reference/environment-variables/#gg_timing-a-slow-console) explains how to read it. The file holds phase names, durations and counts, and no flight data, so a person can send it to the Good Grief team with a description of what was slow.
+Each line names a phase, how long it took and, where it explains the time, how many requests it made. [Environment variables: `GG_TIMING`](/reference/environment-variables/#gg_timing-a-slow-console) explains how to read it. The file holds phase names, durations and counts, and no flight data. Send it to the Good Grief team with a description of what was slow.
 
 ## The installer stops because another program is called gg
 
@@ -191,7 +201,7 @@ When the other `gg` is only earlier on the PATH, the install continues and ends 
 install.sh: Another program called gg is at <path>, earlier on PATH, so `gg` still runs that one. Install this one under a name of its own with --as <name>, for example --as goodgrief, or put /usr/local/bin first on PATH.
 ```
 
-The installer always installs a runner as `gg`, so on a runner the installer refuses rather than asking:
+A runner is always installed as `gg`. On a runner, the installer refuses instead of asking:
 
 ```
 install.sh: another program called gg is at /usr/local/bin/gg, and a runner's service runs /usr/local/bin/gg. Remove or rename it first; nothing was installed.

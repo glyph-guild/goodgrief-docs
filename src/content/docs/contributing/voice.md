@@ -50,15 +50,30 @@ Prefer the plain word, and introduce a Good Grief term in brackets when the read
 
 On these pages, link each term to the [glossary](/reference/glossary/) the first time it appears.
 
-### 4. Never show internals
+### 4. Say it directly
+
+Write the plainest sentence that says the thing.
+
+- **Lead with what it means for the reader.** State the consequence, not an abstraction the reader has to decode.
+- **Tell the reader what to do.** When the reader must act, use an imperative. Avoiding "you" never calls for describing the reader in the third person, as "the person who created it" or "whoever runs it".
+- **Leave out what changes nothing.** Say what does not happen only when a reader would otherwise expect it, such as what a failed command did not change.
+- **One idea per sentence.** Split a sentence that strings two ideas together with "so" or a colon.
+
+For example:
+
+> **Before:** The link names no one. Whoever opens it joins the organisation, so the person who created it sends it to the newcomer by whatever means they already trust. The control plane does not deliver it.
+>
+> **After:** Anyone who opens the link can join the organisation. Send it only to the newcomer, in a way both people can trust.
+
+### 5. Never show internals
 
 Do not show class or type names, exception text, internal rule names or design-document numbers. If a message has nothing for the reader to act on, it should say what was not changed and how to get help.
 
-### 5. State facts without judgement
+### 6. State facts without judgement
 
 State facts plainly. Do not presume why the reader did something, and do not lecture. "A reason is required" is enough; there is no need to explain what a poor reason looks like.
 
-### 6. Mechanics
+### 7. Mechanics
 
 - Messages are full sentences that start with a capital letter and end with a full stop.
 - Labels, table cells, help summaries and `gg doctor` details are fragments: they start in lower case and have no full stop, such as "list this organisation's runners".
@@ -66,7 +81,7 @@ State facts plainly. Do not presume why the reader did something, and do not lec
 - These pages show commands in backticks; the terminal shows them plain.
 - Say what was **not** changed when a command fails part-way: "Nothing was changed."
 
-### 7. Be honest, and never ahead of the product
+### 8. Be honest, and never ahead of the product
 
 - Say plainly what did and did not happen.
 - Never blame the reader.
