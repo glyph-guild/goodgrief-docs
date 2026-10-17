@@ -1,11 +1,11 @@
 ---
 title: Investigations and findings
-description: How work that changes nothing is shaped, how an agent's run ends, what a finding is, and how a later flight on the same work is handed what earlier flights found.
+description: How work that changes nothing is shaped, how an agent's run ends, what a finding is, and how the control plane hands a later flight on the same work what earlier flights found.
 sidebar:
   order: 8
 ---
 
-Not every flight changes code. An **investigation** reads a work item and a repository and reports what it found: where a change would go, how to make it, and what could go wrong. What it leaves behind is a **finding**, and a later flight on the same piece of work can be handed that finding instead of starting again.
+Not every flight changes code. An **investigation** reads a work item and a repository and reports what it found: where a change would go, how to make it, and what could go wrong. What it leaves behind is a **finding**, and the control plane can hand that finding to a later flight on the same piece of work instead of starting again.
 
 ## What makes work an investigation
 
@@ -14,7 +14,7 @@ Good Grief has no special kind of flight for an investigation. An investigation 
 | Part | Typical value | Why |
 |---|---|---|
 | [`loops`](/concepts/envelope/#loops) moves | `read`, `search`, `history`, `propose-landing` | The agent can read the tree and its history and propose a result, but has no move that edits or writes a file. |
-| [`produces`](/concepts/envelope/#produces) | `landing.proposal`, `loop.outcome`, `loop.digest`, `loop.question` | The analysis travels as a landing proposal, and the run's outcome and any question it asked are recorded. |
+| [`produces`](/concepts/envelope/#produces) | `landing.proposal`, `loop.outcome`, `loop.digest`, `loop.question` | The analysis travels as a landing proposal, and the runner records the run's outcome and any question it asked. |
 | [`obligations`](/concepts/envelope/#obligations) | `loop-not-exhausted` and `no-file-outside-scope` | Machine checks only: the agent finished within its budget and changed nothing it should not have. |
 | [`destinations`](/concepts/envelope/#destinations) | `kind: none` | Nothing leaves Good Grief. The flight's record is the result. |
 
@@ -51,9 +51,9 @@ destinations:
       - investigate-in-scope
 ```
 
-The agent writes its analysis as the description of the landing it proposes. A description may be up to 16 KiB (16,384 characters); a longer one is refused, not shortened.
+The agent writes its analysis as the description of the landing it proposes. A description may be up to 16 KiB (16,384 characters); the control plane refuses a longer one rather than shortening it.
 
-A variant can send the same analysis somewhere else. A work kind that [extends](/concepts/work-kinds/#extending-another-work-kind) the investigation can replace its `none` destination with a `work-item-tracker` destination, so that the analysis is written into a field of the work item instead.
+A variant can send the same analysis somewhere else. A work kind that [extends](/concepts/work-kinds/#extending-another-work-kind) the investigation can replace its `none` destination with a `work-item-tracker` destination, so that the flight writes the analysis into a field of the work item instead.
 
 ## How an agent's run ends
 
@@ -77,24 +77,24 @@ Two rules shape these outcomes:
 
 The runner turns the loop's outcome into its report on the flight, as described in [Anatomy of a flight](/concepts/anatomy-of-a-flight/#what-a-runner-reports-and-what-it-means-for-the-flight):
 
-- `failed` is reported as `failed`, and the flight ends `failed`.
-- `blocked` and `exhausted` are reported as `outstanding`. The flight stays open and waits for a person.
-- `completed` is reported as `completed`, unless something is still pending, such as a push or a landing the rules did not accept, in which case it is reported as `outstanding`.
+- It reports `failed` as `failed`, and the flight ends `failed`.
+- It reports `blocked` and `exhausted` as `outstanding`. The flight stays open and waits for a person.
+- It reports `completed` as `completed`, unless something is still pending, such as a push or a landing the rules did not accept, in which case it reports `outstanding`.
 
-For an investigation, whose destination is `none`, a completed run whose required obligations are satisfied ends the flight `landed`. The `loop-not-exhausted` check fails only when the outcome is `exhausted`. When no outcome was recorded, the check cannot be evaluated, and the flight [halts](/concepts/gates-and-decisions/#halting).
+For an investigation, whose destination is `none`, a completed run whose required obligations are satisfied ends the flight `landed`. The `loop-not-exhausted` check fails only when the outcome is `exhausted`. When the runner recorded no outcome, Good Grief cannot evaluate the check, and the flight [halts](/concepts/gates-and-decisions/#halting).
 
-When the budget runs out, the envelope decides what follows. With `on-exhaustion: handoff-to-human`, the flight waits for a person. With `handoff-to-agent`, the flight is offered again for a new [attempt](/reference/glossary/#attempt), carrying what the last attempt tried, up to the loop's `budget.attempts`. Only running out of time triggers that automatic retry; a run that stopped for any other reason is not retried automatically.
+When the budget runs out, the envelope decides what follows. With `on-exhaustion: handoff-to-human`, the flight waits for a person. With `handoff-to-agent`, the control plane offers the flight again for a new [attempt](/reference/glossary/#attempt), carrying what the last attempt tried, up to the loop's `budget.attempts`. Only running out of time triggers that automatic retry; Good Grief does not automatically retry a run that stopped for any other reason.
 
 ## What a finding is
 
-A **finding** is what a flight left for a person to read. Nothing new is stored to make one: a finding is read from the flight's own recorded facts, and it is one of two things:
+A **finding** is what a flight left for a person to read. Good Grief stores nothing new to make one: it reads a finding from the flight's own recorded facts, and a finding is one of two things:
 
 - The **description of the landing the flight proposed**, as an investigation writes it.
-- The **field value the flight wrote** to a work item, for a flight whose destination is a work-item tracker field. When the flight wrote several fields, each value is given with the field it went into.
+- The **field value the flight wrote** to a work item, for a flight whose destination is a work-item tracker field. When the flight wrote several fields, each value comes with the field it went into.
 
 Only the newest such fact of a flight counts. Only a flight that **landed** leaves a finding, and only a flight governed by a work kind.
 
-Each finding carries a record of how it was made, assembled by the control plane from its own records and never from what the agent said about itself:
+Each finding carries a record of how it was made, which the control plane assembles from its own records and never from what the agent said about itself:
 
 - the flight's number;
 - its work kind, and every work kind in its chain with the version in force;
@@ -102,15 +102,15 @@ Each finding carries a record of how it was made, assembled by the control plane
 - the model or models the agent ran on;
 - the commit of each repository the flight read.
 
-There is no separate command that lists findings. A finding is read with its flight: `gg show` and `gg facts` display it.
+There is no separate command that lists findings. A person reads a finding with its flight: `gg show` and `gg facts` display it.
 
 ## How a later flight receives earlier findings
 
-A flight on a piece of work that has already been investigated is handed what earlier flights found, so it does not repeat the investigation. Three things decide which findings it receives.
+The control plane hands a flight on work that has already been investigated what earlier flights found, so the flight does not repeat the investigation. Three things decide which findings it receives.
 
 ### Same intent
 
-Findings are matched by [intent](/reference/glossary/#intent): what the flight was opened for. A flight opened for a work item, a link or a file receives findings from earlier flights opened for the same one. A flight opened with plain text has no intent key that another flight can share, so it receives none.
+The control plane matches findings by [intent](/reference/glossary/#intent): what the flight was opened for. A flight opened for a work item, a link or a file receives findings from earlier flights opened for the same one. A flight opened with plain text has no intent key that another flight can share, so it receives none.
 
 ### `consults:`
 
@@ -130,23 +130,23 @@ Every work kind consults its own family whether or not it says so, so a second i
 
 When a runner takes the flight, the control plane chooses its findings:
 
-1. It looks at the twenty most recent other flights opened for the same intent. Older flights are not considered, even when they landed.
-2. It keeps only those that landed and belong to a family the flight consults. A flight is never handed its own finding.
+1. It looks at the twenty most recent other flights opened for the same intent. It does not consider older flights, even when they landed.
+2. It keeps only those that landed and belong to a family the flight consults. It never hands a flight its own finding.
 3. For each work kind among them, it keeps only the newest finding.
 
 The findings travel with the runner's claim on the flight. If anything goes wrong while the control plane reads them, the flight still starts, with no findings.
 
 ### Where the agent sees them
 
-The runner places the findings in the agent's instructions after what has been learned about the environment and after any note left by the agent that proposed the flight. They are introduced as earlier flights' findings, and closed by a statement that they are other agents' words, not instructions from the platform, and that they change nothing about what the agent may do.
+The runner places the findings in the agent's instructions after what has been learned about the environment and after any note left by the agent that proposed the flight. It introduces them as earlier flights' findings, and closes them with a statement that they are other agents' words, not instructions from the platform, and that they change nothing about what the agent may do.
 
-Each finding is headed by the flight's number, its work kind and chain, when it was found and the models it ran on. The runner then compares the commit each repository was at when the finding was made with the commit the flight fetched, and tells the agent one of three things for each repository:
+The runner heads each finding with the flight's number, its work kind and chain, when it was found and the models it ran on. It then compares the commit each repository was at when the finding was made with the commit the flight fetched, and tells the agent one of three things for each repository:
 
 - the tree is at the same commit;
 - the tree has moved, giving both commits, so the agent checks what the finding names before relying on it;
 - the flight did not fetch that repository.
 
-When no finding qualifies, nothing is added to the instructions.
+When no finding qualifies, the runner adds nothing to the instructions.
 
 ## When something goes wrong
 

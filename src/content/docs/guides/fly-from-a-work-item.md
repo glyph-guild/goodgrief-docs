@@ -15,7 +15,7 @@ Use this guide to open a [flight](/reference/glossary/#flight) from something th
 
 ## 1. Say what the flight is for
 
-What a flight is opened for is its [intent](/reference/glossary/#intent). `gg fly` takes exactly one intent, in one of four forms:
+What a person opens a flight for is its [intent](/reference/glossary/#intent). `gg fly` takes exactly one intent, in one of four forms:
 
 | Form | Example | Use it for |
 |---|---|---|
@@ -26,9 +26,9 @@ What a flight is opened for is its [intent](/reference/glossary/#intent). `gg fl
 
 A few rules apply to each form:
 
-- **A work item needs both halves.** `--ticket 1234` is refused, because the id alone does not say which tracker the item is in.
-- **A file is read by the runner, not by gg.** The repository is its registered name, the path is inside that repository, and the ref is optional. Without a ref, the runner reads the repository's default branch. The runner records the commit it read, so the agent works from exactly the words that were named.
-- **Only one form at a time.** A command that gives text and `--ticket` together is refused, and nothing is opened.
+- **A work item needs both halves.** gg refuses `--ticket 1234`, because the id alone does not say which tracker the item is in.
+- **The runner reads a file, not gg.** The repository is its registered name, the path is inside that repository, and the ref is optional. Without a ref, the runner reads the repository's default branch. The runner records the commit it read, so the agent works from exactly the words the intent named.
+- **Only one form at a time.** gg refuses a command that gives text and `--ticket` together, and opens nothing.
 
 gg replies with the flight's number:
 
@@ -36,7 +36,7 @@ gg replies with the flight's number:
 Opened GG-42.
 ```
 
-If the control plane has not assigned the number yet, gg prints the flight's id instead and says that the number is assigned as the flight starts.
+If the control plane has not assigned the number yet, gg prints the flight's id instead and says that the control plane assigns the number as the flight starts.
 
 ## 2. Name the repository
 
@@ -46,7 +46,7 @@ A work item or a link does not say which repository the work concerns, so name i
 gg fly --ticket ado#1234 --repo web-app
 ```
 
-`--repo` can be repeated when the work spans two repositories, such as a procedure kept in one and the code it describes in another. The runner clones them and lists them to the agent in the order given, so name the repository the work is mainly about first. Naming the same repository twice is refused.
+Repeat `--repo` when the work spans two repositories, such as a procedure kept in one and the code it describes in another. The runner clones them and lists them to the agent in the order given, so name the repository the work is mainly about first. Good Grief refuses a flight that names the same repository twice.
 
 A flight that names no repository inherits one only when the organisation's [root](/reference/glossary/#root) rules list exactly one. The [envelope](/concepts/envelope/#repositories) explains the rule.
 
@@ -54,7 +54,7 @@ A flight that names no repository inherits one only when the organisation's [roo
 
 Each of these options narrows a choice the organisation's rules already allow. None of them can grant something the rules withhold.
 
-- **`--work-kind <name>`** chooses the [work kind](/reference/glossary/#work-kind) whose rules govern the flight, such as `investigate` or `review`. `gg airspace show` lists the work kinds the organisation has declared. A name the organisation has not declared is refused, and so is a work kind marked as abstract, which exists only for other work kinds to extend.
+- **`--work-kind <name>`** chooses the [work kind](/reference/glossary/#work-kind) whose rules govern the flight, such as `investigate` or `review`. `gg airspace show` lists the work kinds the organisation has declared. The control plane refuses a name the organisation has not declared, and a work kind marked as abstract, which exists only for other work kinds to extend.
 - **`--environment <name>`** chooses the [environment](/reference/glossary/#environment) the flight runs in, such as `dev` or `ui`. It must be one of the environments root lists; `gg environments` lists every charted one. A flight that names none inherits the only entry when root lists exactly one.
 - **`--model <name>`** chooses the model the agent runs on. It must be one of the models root lists under `models:`. When root lists none, no person may choose a model, and the work kind's loop decides.
 
@@ -96,7 +96,7 @@ GG-42       2026-10-14 14:31:59Z  landed     ado#1234
 GG-57       2026-10-15 09:02:11Z  open       ado#1234
 ```
 
-The intent can be a work item (`<provider>#<id>`), an absolute link, or a file. A file is given as the control plane records it: the repository's forge path, then the file's path, then `@ref` when one was pinned, for example `example-org/web-app:docs/plans/session-timeout.md@main`.
+The intent can be a work item (`<provider>#<id>`), an absolute link, or a file. Give a file as the control plane records it: the repository's forge path, then the file's path, then `@ref` when the intent pinned one, for example `example-org/web-app:docs/plans/session-timeout.md@main`.
 
 When there are more flights than fit on one page, gg ends the list with the command for the next page, in the form `More: gg flights --after <cursor>`. `--limit <rows>` sets the page size.
 
@@ -108,7 +108,7 @@ When there are more flights than fit on one page, gg ends the list with the comm
 gg model GG-42 claude-opus-5-5
 ```
 
-gg prints the flight as it now stands. Its `model` line shows the model now in force. The model must be one root lists; any other name is refused.
+gg prints the flight as it now stands. Its `model` line shows the model now in force. The model must be one root lists; the control plane refuses any other name.
 
 ## The same steps in the console
 
@@ -122,6 +122,6 @@ Run `gg` with no arguments, then:
 ## Related
 
 - [First flight](/start-here/first-flight/): a flight from start to finish.
-- [The envelope](/concepts/envelope/): the rules each option above is checked against.
+- [The envelope](/concepts/envelope/): the rules the control plane checks each option above against.
 - [Plan with itineraries](/guides/plan-with-itineraries/): work too large for one flight.
 - [Answer a gate](/guides/answer-a-gate/): what to do when a flight waits for a person.

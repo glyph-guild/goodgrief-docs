@@ -13,20 +13,20 @@ The [control plane](/reference/glossary/#control-plane) holds a **reference** to
 
 Two rules follow from that:
 
-- **The value is always typed at a prompt**, without being echoed. No gg command takes a secret as an argument, because arguments are kept in shell history and are visible to anyone on the machine who lists running processes.
-- **A person authorises moving a credential, not using it.** Sending a credential to another machine costs the sender's passphrase. A machine that has been given a credential opens it by itself, with no one present, for as long as it holds it.
+- **A person always types the value at a prompt**, and gg does not echo it. No gg command takes a secret as an argument, because the shell keeps arguments in its history, and anyone on the machine who lists running processes can see them.
+- **A person authorises moving a credential, not using it.** Sending a credential to another machine costs the sender's passphrase. A machine that has received a credential opens it by itself, with no one present, for as long as it holds it.
 
 ## 1. Create a personal key
 
-A credential is sealed to the person who registers it, so each person needs a key before registering one. Run:
+gg seals a credential to the person who registers it, so each person needs a key before registering one. Run:
 
 ```sh
 gg key create
 ```
 
-gg asks for a passphrase, which protects the private half of the key on this machine. The passphrase is never stored or sent anywhere, and gg keeps no copy of the key: a lost passphrase means creating the credential again at its provider and registering it again.
+gg asks for a passphrase, which protects the private half of the key on this machine. gg never stores the passphrase or sends it anywhere, and keeps no copy of the key: a lost passphrase means creating the credential again at its provider and registering it again.
 
-The public half is registered with the control plane. To list the public keys the organisation's people have registered, run:
+gg registers the public half with the control plane. To list the public keys the organisation's people have registered, run:
 
 ```sh
 gg key list
@@ -38,7 +38,7 @@ gg key list
 
 | Option | For | Example |
 |---|---|---|
-| `--repo <slug>` | A repository, by the name it was registered under. | `gg credential add --repo example-org/web-app` |
+| `--repo <slug>` | A repository, by the name someone registered it under. | `gg credential add --repo example-org/web-app` |
 | `--agent <name>` | An agent's own sign-in token. | `gg credential add --agent claude` |
 | `--tracker <key>` | A work-item tracker, by its key. | `gg credential add --tracker ado` |
 | `--analysis <key>` | A service that scans code and reports findings about a repository, by its key. | `gg credential add --analysis <key>` |
@@ -46,11 +46,11 @@ gg key list
 gg then asks two questions:
 
 1. **Which account the credential acts as**, so that every flight log can say who read what.
-2. **The secret itself**, which is not echoed.
+2. **The secret itself**, which gg does not echo.
 
-The secret is stored on this machine and sealed to the person's key; registering it needs no passphrase. The reference is then registered with the control plane. If the control plane refuses it, gg removes the stored secret again, so nothing is left behind.
+gg stores the secret on this machine and seals it to the person's key; registering it needs no passphrase. gg then registers the reference with the control plane. If the control plane refuses it, gg removes the stored secret again, so nothing is left behind.
 
-Each credential is filed under a name gg derives from what it is for, such as `local:example-org/web-app` for a repository or `local:tracker/ado` for a tracker. `gg credential list` shows these names, and machine settings refer to credentials by them.
+gg files each credential under a name it derives from what it is for, such as `local:example-org/web-app` for a repository or `local:tracker/ado` for a tracker. `gg credential list` shows these names, and machine settings refer to credentials by them.
 
 ### Read or write
 
@@ -82,7 +82,7 @@ gg asks for the passphrase. Nothing is sent anywhere: this changes only who can 
 gg credential send --repo example-org/web-app
 ```
 
-gg first prints the list of machines that need it, and whether each can be reached, before anything moves. It then asks for the passphrase **once**, however many machines are on the list, and sends the credential to each reachable machine. The control plane introduces the two machines but never sees the value: it travels encrypted, and is sealed on arrival to the receiving machine's own key. A machine that cannot be reached is named, and nothing is held for it; send again later.
+gg first prints the list of machines that need it, and whether it can reach each one, before anything moves. It then asks for the passphrase **once**, however many machines are on the list, and sends the credential to each reachable machine. The control plane introduces the two machines but never sees the value: it travels encrypted, and the receiving machine seals it to its own key on arrival. gg names any machine it cannot reach, and nothing is held for it; send again later.
 
 `--agent`, `--tracker` and `--analysis` work the same way as `--repo`.
 
@@ -98,7 +98,7 @@ gg credential send --runner <id|name> --repo example-org/web-app
 
 ### The receiving machine must allow it
 
-A machine accepts a credential this way only if its own configuration file says `"accept-configured": true`. The setting cannot be changed with `gg config set` and cannot be offered by the control plane: turning it on means opening the file on that machine. A machine without it refuses the credential, and gg names the setting.
+A machine accepts a credential this way only if its own configuration file says `"accept-configured": true`. `gg config set` cannot change the setting, and the control plane cannot offer it: turning it on means opening the file on that machine. A machine without it refuses the credential, and gg names the setting.
 
 ### Signing a runner's agent in
 
@@ -124,9 +124,9 @@ To remove one, run:
 gg credential rm <id>
 ```
 
-gg removes the reference from the control plane first, then deletes the secret on this machine. Runners that hold it are told to forget it the next time they check in.
+gg removes the reference from the control plane first, then deletes the secret on this machine. The control plane tells runners that hold it to forget it the next time they check in.
 
-`gg doctor` checks that every registered credential can be opened on this machine, and says where the credential store is and how it is protected.
+`gg doctor` checks that gg can open every registered credential on this machine, and says where the credential store is and what protects it.
 
 ## In the console
 

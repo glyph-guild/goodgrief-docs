@@ -13,7 +13,7 @@ The AI program a runner invokes to do a flight's work, such as Claude Code. The 
 
 ## Airspace
 
-Where an organisation keeps its rules and names: root, its [work kinds](#work-kind), its registered repositories, its [watches](#watch), its [strategies](#strategy) and its fleet profiles. The airspace is held by the control plane and edited like a working copy: `gg airspace pull`, edit, `gg airspace diff`, then `gg airspace apply`.
+Where an organisation keeps its rules and names: root, its [work kinds](#work-kind), its registered repositories, its [watches](#watch), its [strategies](#strategy) and its fleet profiles. The control plane holds the airspace, and a person edits it like a working copy: `gg airspace pull`, edit, `gg airspace diff`, then `gg airspace apply`.
 
 ## Allowance
 
@@ -21,19 +21,19 @@ A metered budget of agent time that a machine spends from, measured over windows
 
 ## Approver
 
-The person, or role, that may decide a [human check](#obligation). Declared on the obligation as `approver:`.
+The person, or role, that may decide a [human check](#obligation). The obligation declares it as `approver:`.
 
 ## Attempt
 
-One try at a flight's work. When a person rejects the work, or the budget runs out and the work is handed back, a new attempt begins. `gg show` numbers attempts `#1`, `#2` and so on. The envelope's `budget.attempts` limits how many times the work is run again automatically after its time runs out.
+One try at a flight's work. When a person rejects the work, or the budget runs out and the work goes back, a new attempt begins. `gg show` numbers attempts `#1`, `#2` and so on. The envelope's `budget.attempts` limits how many times Good Grief runs the work again automatically after its time runs out.
 
 ## Board
 
-The list of [nominations](#nomination) that are waiting for a person: work that has been proposed but not started. `gg board` lists it; `gg board open` turns a nomination into a flight, and `gg board decline` turns it down.
+The list of [nominations](#nomination) that are waiting for a person: work that someone has proposed and no one has started. `gg board` lists it; `gg board open` turns a nomination into a flight, and `gg board decline` turns it down.
 
 ## Console
 
-The terminal application that opens when `gg` is run with no arguments. It shows the queue, flights, the board, runners and more, and every action in it has a key. `?` lists them.
+The terminal application that opens when a person runs `gg` with no arguments. It shows the queue, flights, the board, runners and more, and every action in it has a key. `?` lists them.
 
 ## Control plane
 
@@ -41,19 +41,19 @@ The service gg talks to. It keeps the record of every flight, decides which mach
 
 ## Credential
 
-A secret, such as a repository access token, that a runner uses to act on the organisation's behalf. The control plane holds only a reference to where the secret lives, never the secret itself. `gg credential add` registers one; the value is always prompted for, never passed as an argument.
+A secret, such as a repository access token, that a runner uses to act on the organisation's behalf. The control plane holds only a reference to where the secret lives, never the secret itself. `gg credential add` registers one; gg always prompts for the value and never takes it as an argument.
 
 ## Decision
 
-A person's answer at a [gate](#gate): `approved`, which satisfies the obligation, or `rejected`, which sends the work back with the reason attached. Recorded with `gg decide`.
+A person's answer at a [gate](#gate): `approved`, which satisfies the obligation, or `rejected`, which sends the work back with the reason attached. `gg decide` records it.
 
 ## Destination
 
-Where a flight's finished work goes, such as a pull request, a work-item tracker or new flights. A destination lists the obligations it requires before the work is accepted. See [The envelope: destinations](/concepts/envelope/#destinations).
+Where a flight's finished work goes, such as a pull request, a work-item tracker or new flights. A destination lists the obligations it requires before it accepts the work. See [The envelope: destinations](/concepts/envelope/#destinations).
 
 ## Envelope
 
-The set of rules that governs a flight. It combines root, the flight's work kind, and any repository narrowings, and decides which repositories the flight may concern, where it may run, how the agent works, which files it may change, what must be approved, and where the work goes. See [The envelope](/concepts/envelope/).
+The set of rules that governs a flight. It combines root, the flight's work kind, and any repository narrowings, and decides which repositories the flight may concern, where it may run, how the agent works, which files it may change, what a person must approve, and where the work goes. See [The envelope](/concepts/envelope/).
 
 ## Environment
 
@@ -61,7 +61,7 @@ A named kind of place where work runs, such as `dev` or `ui`. An organisation ch
 
 ## Fact
 
-A recorded observation about a flight, reported by the runner, such as the list of files changed (`change.manifest`) or how the agent's run ended (`loop.outcome`). Facts are what the control plane checks the rules against. `gg facts` lists a flight's facts.
+A recorded observation about a flight, which the runner reports, such as the list of files changed (`change.manifest`) or how the agent's run ended (`loop.outcome`). Facts are what the control plane checks the rules against. `gg facts` lists a flight's facts.
 
 ## Fleet
 
@@ -69,11 +69,11 @@ All of an organisation's runners. A machine joins the fleet by enrolment, with a
 
 ## Flight
 
-One piece of requested work, such as finding out why login times out. Every flight has a number, such as `GG-42`. A flight is opened with `gg fly` and ends `landed`, `failed`, `grounded` or `withdrawn`. See [Anatomy of a flight](/concepts/anatomy-of-a-flight/).
+One piece of requested work, such as finding out why login times out. Every flight has a number, such as `GG-42`. A person opens a flight with `gg fly`, and it ends `landed`, `failed`, `grounded` or `withdrawn`. See [Anatomy of a flight](/concepts/anatomy-of-a-flight/).
 
 ## Floor
 
-The share of an [allowance](#allowance) its owner keeps back, so other people's flights cannot spend all of it. Set with `gg allowances floor`.
+The share of an [allowance](#allowance) its owner keeps back, so other people's flights cannot spend all of it. `gg allowances floor` sets it.
 
 ## Gate
 
@@ -81,7 +81,7 @@ A point where a flight waits for a person to approve or reject something. A gate
 
 ## Grounded
 
-A flight ending: a person stopped the flight while it could still have been done. Recorded with `gg ground`.
+A flight ending: a person stopped the flight while it could still have been done. `gg ground` records it.
 
 ## Intent
 
@@ -89,15 +89,15 @@ What a flight was opened for: a plain-text description, a link (`--uri`), or a w
 
 ## Itinerary
 
-A plan made of several flights, called legs, that pursue one goal together. An itinerary is proposed as a whole, and its legs open once its gate is approved. `gg itinerary show` displays one.
+A plan made of several flights, called legs, that pursue one goal together. Someone proposes an itinerary as a whole, and its legs open once a person approves its gate. `gg itinerary show` displays one.
 
 ## Landed
 
-A flight ending: the work was accepted at its destination. This is the intended outcome.
+A flight ending: its destination accepted the work. This is the intended outcome.
 
 ## Lease
 
-A runner's claim on a flight. While a runner holds the lease, no other machine can take the flight. The runner renews its lease regularly; a lease that is not renewed expires, and the flight becomes available again.
+A runner's claim on a flight. While a runner holds the lease, no other machine can take the flight. The runner renews its lease regularly; a lease the runner does not renew expires, and the flight becomes available again.
 
 ## Leg
 
@@ -109,7 +109,7 @@ The part of the envelope that says how the work is done: which agent or person c
 
 ## Move
 
-One kind of action an agent is allowed to take, such as `read`, `search`, `edit` or `run-tests`. The loop lists the moves an agent may use, and the runner blocks any other.
+One kind of action an agent may take, such as `read`, `search`, `edit` or `run-tests`. The loop lists the moves an agent may use, and the runner blocks any other.
 
 ## Narrowing
 
@@ -129,7 +129,7 @@ A flight that has not ended yet. A flight waiting at a gate or for a free machin
 
 ## Pool
 
-A managed set of identical machines, such as containers, that are kept warm and reset between flights. A [strategy](#strategy) says how a pool is built.
+A managed set of identical machines, such as containers, that a maintaining runner keeps warm and resets between flights. A [strategy](#strategy) says how to build a pool.
 
 ## Root
 
@@ -141,15 +141,15 @@ A machine that takes flights and carries them out. It clones the repository, hol
 
 ## Scope
 
-The files an agent may change during a flight, written as a path pattern such as `**` or `docs/**`. Declared as `context.scope` in the envelope.
+The files an agent may change during a flight, written as a path pattern such as `**` or `docs/**`. The envelope declares it as `context.scope`.
 
 ## Strategy
 
-How a [pool](#pool) is furnished, and the limits it runs within. Applied with `gg strategy apply`. `gg strategies` lists them.
+How to furnish a [pool](#pool), and the limits it runs within. `gg strategy apply` applies one. `gg strategies` lists them.
 
 ## Take over
 
-To take a running flight from its runner and continue the work by hand, then hand it back with an outcome. Done with `gg take`.
+To take a running flight from its runner and continue the work by hand, then hand it back with an outcome. A person does this with `gg take`.
 
 ## Tenant
 

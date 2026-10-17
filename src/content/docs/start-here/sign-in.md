@@ -46,11 +46,11 @@ gg prints an address and a code, then waits:
 2. Sign in with the organisation's usual account, if asked.
 3. Check that the code on the page matches the code gg printed, and approve.
 
-gg notices the approval and prints `Signed in as <name>.` The session is stored on this machine.
+gg notices the approval and prints `Signed in as <name>.` gg stores the session on this machine.
 
-If the code expires before it is approved, or the request is declined, gg says so. Run `gg login` again.
+If the code expires before someone approves it, or someone declines the request, gg says so. Run `gg login` again.
 
-In the console, the same sign-in is offered when no one is signed in: `y` starts it, `o` opens the address in a browser, `l` copies the address and `c` copies the code.
+When no one is signed in, the console offers the same sign-in: `y` starts it, `o` opens the address in a browser, `l` copies the address and `c` copies the code.
 
 ![The gg console when no one is signed in: a window says there is nothing to show yet and offers a Sign in button, and the last line offers y to sign in or esc to carry on signed out.](/screenshots/console/sign-in.svg)
 
@@ -76,7 +76,7 @@ Then run:
 gg doctor
 ```
 
-`gg doctor` checks everything gg needs: that the control plane can be reached and speaks a compatible protocol, that this release is the one the organisation expects, that the session is valid, and more. Each problem it reports comes with a line saying how to fix it. When something seems wrong, `gg doctor` is the first thing to run.
+`gg doctor` checks everything gg needs: that gg can reach the control plane, that the control plane speaks a compatible protocol, that this release is the one the organisation expects, that the session is valid, and more. Each problem it reports comes with a line saying how to fix it. When something seems wrong, `gg doctor` is the first thing to run.
 
 If a command later reports that the session is no longer valid, run `gg login` again.
 
@@ -88,7 +88,7 @@ Run:
 gg logout
 ```
 
-gg asks the control plane to end the session first, then deletes the local copy. If the control plane cannot be reached, gg keeps the local copy and says so, because deleting it would leave a session that still works and can no longer be ended from here. Run `gg logout` again once the control plane can be reached.
+gg asks the control plane to end the session first, then deletes the local copy. If gg cannot reach the control plane, it keeps the local copy and says so, because deleting it would leave a session that still works and that gg can no longer end from here. Run `gg logout` again once gg can reach the control plane.
 
 ## Where the settings live
 
@@ -105,7 +105,7 @@ gg config show
 
 An environment variable takes precedence over the file. For example, `GG_CONTROL_PLANE` overrides the `control-plane` setting. `gg config show` names which source answered for each setting.
 
-The file names credentials but never holds them. Credentials are covered in [Add and send credentials](/guides/credentials/).
+The file names credentials but never holds them. [Add and send credentials](/guides/credentials/) covers credentials.
 
 ## Next steps
 

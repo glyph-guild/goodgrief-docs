@@ -15,8 +15,8 @@ gg bundle
 
 A bundle holds:
 
-- **Whether it is complete.** The first line says `complete` when the [control plane](/reference/glossary/#control-plane) answered, or `local-only` when it could not be reached, with a sentence saying which. A local-only bundle contains only what was found on this machine.
-- **When it was taken.**
+- **Whether it is complete.** The first line says `complete` when the [control plane](/reference/glossary/#control-plane) answered, or `local-only` when gg could not reach it, with a sentence saying which. A local-only bundle contains only what gg found on this machine.
+- **When gg collected it.**
 - **Versions:** the gg release, the protocol it speaks to the control plane, and the [fact](/reference/glossary/#fact) vocabulary it reports.
 - **The machine's environment**, in the same form a runner records on a flight, so that the two can be matched. It is a fingerprint, not a description: a hash of the operating system, the processor architecture, the runtime, the number of processors and, inside a container, the image. Beside it are the versions of the tools that did the work, such as Git.
 - **Every check `gg doctor` ran**, passing or not, with the same marks and fixes as `gg doctor` prints.
@@ -30,7 +30,7 @@ A bundle holds:
 
 A bundle does contain some names that identify the organisation and the person, because `gg doctor` prints them: the control plane's address, the signed-in person's name, the addresses of configured trackers and repository hosts, and credential references. Read the bundle before sending it.
 
-[What leaves the machine](/concepts/what-leaves-the-machine/#diagnostics-bundles) explains how the bundle's limits are tested.
+[What leaves the machine](/concepts/what-leaves-the-machine/#diagnostics-bundles) explains how tests check the bundle's limits.
 
 ## Where it goes
 
@@ -42,7 +42,7 @@ gg bundle > gg-bundle.txt
 
 `gg bundle --json` prints the same bundle as JSON, which is the form to send when the Good Grief team asks for one.
 
-`gg bundle` always exits with `0`, even when the machine it describes has a problem, so it can be run from a script that collects bundles without stopping.
+`gg bundle` always exits with `0`, even when the machine it describes has a problem, so a script that collects bundles can run it without stopping.
 
 ## Sending it
 

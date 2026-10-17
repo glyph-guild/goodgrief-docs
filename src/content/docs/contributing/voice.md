@@ -63,7 +63,7 @@ State facts plainly. Do not presume why the reader did something, and do not lec
 - Messages are full sentences that start with a capital letter and end with a full stop.
 - Labels, table cells, help summaries and `gg doctor` details are fragments: they start in lower case and have no full stop, such as "list this organisation's runners".
 - Name the exact argument, file or setting that was wrong.
-- Commands are shown in backticks on these pages and plain in the terminal.
+- These pages show commands in backticks; the terminal shows them plain.
 - Say what was **not** changed when a command fails part-way: "Nothing was changed."
 
 ### 7. Be honest, and never ahead of the product

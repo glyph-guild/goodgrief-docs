@@ -36,7 +36,7 @@ Run `gg fly`, followed by a plain description of the work:
 gg fly "Why does the login page sign people out after an hour?" --repo web-app
 ```
 
-`--repo` names the repository the work concerns, using the name it was registered under. `gg airspace show` lists the registered names.
+`--repo` names the repository the work concerns, using the name someone registered it under. `gg airspace show` lists the registered names.
 
 gg replies with the flight's number:
 
@@ -81,9 +81,9 @@ gg show GG-42
 
 Some of these lines are worth knowing:
 
-- **"handed to runner"** means a machine picked up the flight. `#1` is the attempt number. If the flight is attempted again, the next attempt is `#2`.
+- **"handed to runner"** means a machine picked up the flight. `#1` is the attempt number. If the agent attempts the flight again, the next attempt is `#2`.
 - **"renewed its claim"** is the runner checking in, about every 40 seconds, to confirm it is still working.
-- **"ended landed"** means the work was accepted somewhere. This is the intended outcome.
+- **"ended landed"** means somewhere accepted the work. This is the intended outcome.
 
 `gg log GG-42` shows the same history as raw events, which helps when investigating a problem.
 
@@ -129,7 +129,7 @@ Every flight ends with one word:
 
 | Ending | Meaning |
 |---|---|
-| `landed` | The work was accepted somewhere. |
+| `landed` | Somewhere accepted the work. |
 | `failed` | The work finished, but nowhere accepted it. |
 | `grounded` | A person stopped it. |
 | `withdrawn` | The question stopped mattering. |

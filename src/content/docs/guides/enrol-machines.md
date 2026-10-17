@@ -5,7 +5,7 @@ sidebar:
   order: 11
 ---
 
-A machine joins the organisation's [fleet](/reference/glossary/#fleet) by **enrolment**. A person creates an enrolment token, the machine is installed with that token, and the machine registers itself as a [runner](/reference/glossary/#runner). No one signs in on it. It takes its configuration from the **fleet profile** the token names, so it is not configured by hand.
+A machine joins the organisation's [fleet](/reference/glossary/#fleet) by **enrolment**. A person creates an enrolment token, someone installs the machine with that token, and the machine registers itself as a [runner](/reference/glossary/#runner). No one signs in on it. It takes its configuration from the **fleet profile** the token names, so no one configures it by hand.
 
 This page assumes the steps in [Run a runner](/guides/run-a-runner/) are familiar.
 
@@ -16,7 +16,7 @@ A fleet profile describes one kind of machine. It is a document in the organisat
 | Field | What it says |
 |---|---|
 | `roles` | What the machine is for: `run` (it takes flights), `maintain` (it keeps a [pool](/reference/glossary/#pool) warm), or both. |
-| `environment` | The [environment](/reference/glossary/#environment) the machine provides. Flights for that environment can be offered to it. |
+| `environment` | The [environment](/reference/glossary/#environment) the machine provides. The control plane can offer it flights for that environment. |
 | `agent` | The [agent](/reference/glossary/#agent) it runs, by name, never by path. Where the program is stays the machine's own setting. |
 | `forges` | The repository hosts it clones from. |
 | `destinations` | Where it may open pull requests. |
@@ -41,7 +41,7 @@ relays:
   - "stun:<relay-host>:3478"
 ```
 
-A profile names credentials but never contains them; each machine resolves its own. Applying a profile for the first time, or adding to what it allows, opens a [gate](/reference/glossary/#gate), so a person approves it. Removing something applies at once. Airspace documents are changed with `gg airspace pull`, `gg airspace diff` and `gg airspace apply`.
+A profile names credentials but never contains them; each machine resolves its own. Applying a profile for the first time, or adding to what it allows, opens a [gate](/reference/glossary/#gate), so a person approves it. Removing something applies at once. `gg airspace pull`, `gg airspace diff` and `gg airspace apply` change airspace documents.
 
 ## 1. Create an enrolment token
 
@@ -57,7 +57,7 @@ gg fleet enroll --profile dev-worker --uses 1 --expires 24h
 
 Both limits are required, so no token stays valid for ever.
 
-The token is printed **once**. Store it somewhere private until it is used.
+gg prints the token **once**. Store it somewhere private until a machine uses it.
 
 A token also decides whose each machine starts as:
 
@@ -68,7 +68,7 @@ A token also decides whose each machine starts as:
 | `--claim --reserve` | Claimed by that person, and **reserved**: it takes only that person's flights. |
 | `--tenant` | **The organisation's**: no one may claim it. Only an administrator can create this kind of token. |
 
-Ownership is covered in more detail [below](#whose-a-machine-is).
+The section [below](#whose-a-machine-is) covers ownership in more detail.
 
 To list the organisation's tokens, without their secrets, run:
 
@@ -86,9 +86,9 @@ In the console, `t` on the runners tab lists the tokens, and `x` revokes the sel
 
 ## 2. Install the machine with the token
 
-**The token is never passed as an argument**, to the installer or to gg, because arguments are kept in shell history and are visible to anyone on the machine who lists running processes. There are two ways to hand it over.
+**No one passes the token as an argument**, to the installer or to gg, because the shell keeps arguments in its history, and anyone on the machine who lists running processes can see them. There are two ways to hand it over.
 
-To type it at a prompt, add `--enroll`. The token is not echoed:
+To type it at a prompt, add `--enroll`. The prompt does not echo the token:
 
 ```sh
 curl -fsSL https://goodgrief.dev/install.sh \
@@ -113,7 +113,7 @@ rm -f /tmp/enroll
 
 On a machine where gg is already installed, `sudo gg service install --control-plane <url> --enroll` does the same; it reads the token from a prompt or from standard input.
 
-On its first start, the runner exchanges the token for a runner credential of its own. The token's use is spent. A token that has expired, been revoked or been used up is refused, and the refusal does not say which.
+On its first start, the runner exchanges the token for a runner credential of its own. The token's use is spent. The control plane refuses a token that has expired, been revoked or been used up, and the refusal does not say which.
 
 ## 3. Finish bringing it up
 
@@ -128,7 +128,7 @@ gg agent login --runner <id|name>
 
 ## Whose a machine is
 
-[Runners in a team](/concepts/runners-in-a-team/) explains which work each kind of machine is offered, and how to keep a machine to its owner's flights. In short, every runner is in one of three states:
+[Runners in a team](/concepts/runners-in-a-team/) explains which work the control plane offers each kind of machine, and how to keep a machine to its owner's flights. In short, every runner is in one of three states:
 
 - **The organisation's**: no one may claim it.
 - **Open**: anyone in the organisation may claim it.
@@ -144,13 +144,13 @@ A claimed machine can also be **reserved**, which means it takes only its owner'
 | `gg runner release <id>` | Lets a reserved machine take anyone's flights again. | Its owner. |
 | `gg runner ownership <id> tenant\|open` | Turns an organisation machine into an open one, or the reverse. | An administrator. |
 
-A machine someone else has claimed cannot be claimed until they unclaim it. An organisation machine can never be claimed. `gg runner ownership` refuses a claimed machine: it must be unclaimed first, so an owner never loses a machine without that being recorded. An administrator unclaiming a machine is how to free one whose owner has left.
+No one can claim a machine someone else has claimed until they unclaim it. No one can ever claim an organisation machine. `gg runner ownership` refuses a claimed machine: someone must unclaim it first, so an owner never loses a machine without a record of it. An administrator unclaiming a machine is how to free one whose owner has left.
 
 In the console, the window for a runner offers `m` to claim it, `o` to hold it back for the organisation, and `h` to keep it to its owner's flights.
 
 ## When a runner's key changes
 
-The console remembers each runner's key the first time it reaches the runner, and checks it every time after. When a machine is reinstalled, its key changes, and gg refuses to send anything to it, because it cannot tell a rebuilt machine from someone substituting a key. If the machine was rebuilt, trust its new key with:
+The console remembers each runner's key the first time it reaches the runner, and checks it every time after. When someone reinstalls a machine, its key changes, and gg refuses to send anything to it, because it cannot tell a rebuilt machine from someone substituting a key. If someone rebuilt the machine, trust its new key with:
 
 ```sh
 gg runner repin <id>

@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-Each entry below starts from what a person sees, then gives the cause and the fix. Messages are quoted as gg and the control plane print them; text in angle brackets, such as `<address>`, stands for a value.
+Each entry below starts from what a person sees, then gives the cause and the fix. This page quotes messages as gg and the control plane print them; text in angle brackets, such as `<address>`, stands for a value.
 
 When a problem is not listed here, run [`gg doctor`](/troubleshooting/gg-doctor/) first. If it offers no fix, [send a diagnostics bundle](/troubleshooting/diagnostics-bundle/).
 
@@ -21,7 +21,7 @@ This machine is not signed in. Run gg login, then try again.
 The sign-in on this machine has expired or been revoked. Run gg login, then try again.
 ```
 
-**Cause.** No one has signed in on this machine, or the session has ended. A session ends when it expires, when it is revoked, or when the control plane no longer accepts it.
+**Cause.** No one has signed in on this machine, or the session has ended. A session ends when it expires, when someone revokes it, or when the control plane no longer accepts it.
 
 **Fix.** Run `gg login` and approve the sign-in in a browser, as described in [Sign in](/start-here/sign-in/). Then run `gg whoami` to check who the machine is signed in as.
 
@@ -35,9 +35,9 @@ On a runner installed as a service, sign in as the service's user, for example `
 Could not reach the control plane at <address>. Run gg doctor to check the connection.
 ```
 
-`gg doctor` then reports a failed `control plane` check. When no address has been set, its detail ends `which is the built-in default because GG_CONTROL_PLANE is not set`, and the address is `http://localhost:5199`.
+`gg doctor` then reports a failed `control plane` check. When no one has set an address, its detail ends `which is the built-in default because GG_CONTROL_PLANE is not set`, and the address is `http://localhost:5199`.
 
-**Cause.** Either gg has not been told where the organisation's [control plane](/reference/glossary/#control-plane) is, or the address is right and the network or the control plane is not answering.
+**Cause.** Either gg does not know where the organisation's [control plane](/reference/glossary/#control-plane) is, or the address is right and the network or the control plane is not answering.
 
 **Fix.** If the address is the built-in default, or is wrong, set it:
 
@@ -55,7 +55,7 @@ The control plane at <address> answered with an error (HTTP <code>). Run the com
 
 ## A flight is refused because its repository is not registered
 
-**What appears.** `gg fly` fails, nothing is created, and the control plane says:
+**What appears.** `gg fly` fails, the control plane creates nothing, and it says:
 
 ```
 '<repository>' is not a registered repository in this organisation, so no flight was opened. Register it with gg airspace repositories add, then open the flight again.
@@ -63,11 +63,11 @@ The control plane at <address> answered with an error (HTTP <code>). Run the com
 
 **Cause.** A flight may concern only a repository the organisation has registered. Registering gives the repository the name flights and rules use.
 
-**Fix.** Register the repository with `gg airspace repositories add`, as described in [Change the airspace: register a repository](/guides/change-the-airspace/#register-a-repository), then open the flight again. A new registration waits for approval at a [gate](/reference/glossary/#gate) before it can be used.
+**Fix.** Register the repository with `gg airspace repositories add`, as described in [Change the airspace: register a repository](/guides/change-the-airspace/#register-a-repository), then open the flight again. A new registration waits for approval at a [gate](/reference/glossary/#gate) before anyone can use it.
 
 ## A flight is refused because of its repository or environment
 
-**What appears.** `gg fly` fails, nothing is created, and the control plane says, for an environment:
+**What appears.** `gg fly` fails, the control plane creates nothing, and it says, for an environment:
 
 ```
 This flight declares environment '<name>', and the composed envelope bounds flights to <names>. Declare one of those, or nothing - which inherits the bound when it names exactly one.
@@ -77,13 +77,13 @@ The same message, with `repository` in place of `environment`, appears for a rep
 
 **Cause.** The organisation's root rules list the [environments](/reference/glossary/#environment) and repositories flights may use, and this flight named one that is not on the list. See [The envelope: `environments:`](/concepts/envelope/#environments).
 
-**Fix.** Open the flight again with one of the names the message lists, or with none when the list has only one entry. If the flight genuinely needs another environment or repository, add it to root's list. Adding one loosens the rules, so it waits for approval. A new environment must also be charted first; see [Change the airspace: chart an environment](/guides/change-the-airspace/#chart-an-environment).
+**Fix.** Open the flight again with one of the names the message lists, or with none when the list has only one entry. If the flight genuinely needs another environment or repository, add it to root's list. Adding one loosens the rules, so it waits for approval. Someone must also chart a new environment first; see [Change the airspace: chart an environment](/guides/change-the-airspace/#chart-an-environment).
 
 ## A flight stays in Ready and no machine takes it
 
-**What appears.** The flight is open and has not been leased. `gg show <flight>` shows no runner.
+**What appears.** The flight is open and no runner has leased it. `gg show <flight>` shows no runner.
 
-**Cause.** When a flight is ready, its environment becomes a requirement on the machine that takes it. Only a [runner](/reference/glossary/#runner) whose labels include `environment=<name>` is offered the flight. If no running machine advertises that label, the flight waits. This is not an error, and nothing times out.
+**Cause.** When a flight is ready, its environment becomes a requirement on the machine that takes it. The control plane offers the flight only to a [runner](/reference/glossary/#runner) whose labels include `environment=<name>`. If no running machine advertises that label, the flight waits. This is not an error, and nothing times out.
 
 **Fix.**
 
@@ -112,7 +112,7 @@ The same message, with `repository` in place of `environment`, appears for a rep
 warn  executor          no agent binary is configured, so this machine will take flights and never start an agent
 ```
 
-**Cause.** gg never installs an [agent](/reference/glossary/#agent). It needs to be told where the agent's program is, and this machine has not been told.
+**Cause.** gg never installs an [agent](/reference/glossary/#agent). Someone needs to tell it where the agent's program is, and no one has told this machine.
 
 **Fix.** Run the fix `gg doctor` prints, for example:
 
@@ -130,9 +130,9 @@ When the agent is already on the PATH, `gg doctor` names its path in the fix.
 HALTED: <reason>
 ```
 
-**Cause.** Good Grief could not tell whether an obligation applies or whether it is met, so it stopped rather than guess. This happens when a fact an obligation reads was never reported or holds a value Good Grief does not recognise, when the flight's rules cannot be determined, or when evidence an obligation asks for cannot be assembled. A halted flight is still open. [Gates and decisions: halting](/concepts/gates-and-decisions/#halting) explains halts in full.
+**Cause.** Good Grief could not tell whether an obligation applies or whether it is met, so it stopped rather than guess. This happens when the runner never reported a fact an obligation reads, or that fact holds a value Good Grief does not recognise, when Good Grief cannot determine the flight's rules, or when it cannot assemble evidence an obligation asks for. A halted flight is still open. [Gates and decisions: halting](/concepts/gates-and-decisions/#halting) explains halts in full.
 
-**Fix.** Read the reason. A halt caused by a missing or unreadable fact clears by itself when the fact arrives. A halt caused by the rules or by evidence stands until the cause is corrected, usually by changing the envelope, as described in [Change the airspace](/guides/change-the-airspace/). If the flight should not continue, stop it with `gg ground <flight> <why>`.
+**Fix.** Read the reason. A halt caused by a missing or unreadable fact clears by itself when the fact arrives. A halt caused by the rules or by evidence stands until someone corrects the cause, usually by changing the envelope, as described in [Change the airspace](/guides/change-the-airspace/). If the flight should not continue, stop it with `gg ground <flight> <why>`.
 
 ## A flight's work does not land because the credential is read-only
 
@@ -142,7 +142,7 @@ HALTED: <reason>
 the credential registered for <repository> carries read and pushing needs write. An envelope declares that a flight may land somewhere; it cannot grant the ability to.
 ```
 
-**Cause.** The rules allow the flight to land as a pull request, but landing is done with the organisation's own [credential](/reference/glossary/#credential) for the repository, and that credential is registered for reading only.
+**Cause.** The rules allow the flight to land as a pull request, but the runner lands the work with the organisation's own [credential](/reference/glossary/#credential) for the repository, and that credential is registered for reading only.
 
 **Fix.** Register the repository's credential with write access:
 
@@ -156,7 +156,7 @@ The token itself must also carry write permission at its provider. Then send it 
 
 **What appears.** The console takes a long time to open, to change tab, or to respond to a key.
 
-**Cause.** Unknown until measured. The console can record where its time goes.
+**Cause.** Unknown until someone measures it. The console can record where its time goes.
 
 **Fix.** Start the console with `GG_TIMING` set to a file, reproduce what felt slow, quit, and read the file:
 
@@ -164,7 +164,7 @@ The token itself must also carry write permission at its provider. Then send it 
 GG_TIMING=/tmp/gg-timing.txt gg
 ```
 
-Each line names a phase, how long it took and, where it explains the time, how many requests it made. [Environment variables: `GG_TIMING`](/reference/environment-variables/#gg_timing-a-slow-console) explains how to read it. The file holds phase names, durations and counts, and no flight data, so it can be sent to the Good Grief team with a description of what was slow.
+Each line names a phase, how long it took and, where it explains the time, how many requests it made. [Environment variables: `GG_TIMING`](/reference/environment-variables/#gg_timing-a-slow-console) explains how to read it. The file holds phase names, durations and counts, and no flight data, so a person can send it to the Good Grief team with a description of what was slow.
 
 ## The installer stops because another program is called gg
 
@@ -174,7 +174,7 @@ Each line names a phase, how long it took and, where it explains the time, how m
 install.sh: another program called gg is at /usr/local/bin/gg, and installing over it would delete it. Run this again with --as <name>, e.g. --as goodgrief, to install Good Grief's command under another name. Nothing was installed.
 ```
 
-When it is run at a terminal, it asks instead:
+When someone runs it at a terminal, it asks instead:
 
 ```
 install.sh: another program called gg is at /usr/local/bin/gg.
@@ -191,7 +191,7 @@ When the other `gg` is only earlier on the PATH, the install continues and ends 
 install.sh: Another program called gg is at <path>, earlier on PATH, so `gg` still runs that one. Install this one under a name of its own with --as <name>, for example --as goodgrief, or put /usr/local/bin first on PATH.
 ```
 
-A runner is always installed as `gg`, so on a runner the installer refuses rather than asking:
+The installer always installs a runner as `gg`, so on a runner the installer refuses rather than asking:
 
 ```
 install.sh: another program called gg is at /usr/local/bin/gg, and a runner's service runs /usr/local/bin/gg. Remove or rename it first; nothing was installed.

@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-A [gate](/reference/glossary/#gate) is a point where a flight waits for a person to approve or reject something, such as a pull request or a running preview. Use this guide when a flight is waiting on a decision: to find it, to understand exactly what is being asked, and to record an answer. Nothing behind a gate proceeds until someone answers it, and waiting at a gate does not end the flight.
+A [gate](/reference/glossary/#gate) is a point where a flight waits for a person to approve or reject something, such as a pull request or a running preview. Use this guide when a flight is waiting on a decision: to find it, to understand exactly what the gate asks, and to record an answer. Nothing behind a gate proceeds until someone answers it, and waiting at a gate does not end the flight.
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ Each entry names the flight and the **[obligation](/reference/glossary/#obligati
 | `because` | Why the gate opened. When the agent stopped to ask a question, the question is the end of this sentence. |
 | `since` | When the gate opened. |
 
-When a flight was proposed by an agent, the entry adds a block that begins `an agent proposed this flight, in its own words`, followed by the kind of work, the environment and repository it asked for, its reason, and any note it left for the next agent. Those are the agent's words, not the organisation's rules, and the person answering the gate is the only review they get before they reach the next agent.
+When an agent proposed a flight, the entry adds a block that begins `an agent proposed this flight, in its own words`, followed by the kind of work, the environment and repository it asked for, its reason, and any note it left for the next agent. Those are the agent's words, not the organisation's rules, and the person answering the gate is the only review they get before they reach the next agent.
 
 When nothing is waiting, gg says `Nothing is waiting on a decision.`
 
@@ -75,21 +75,21 @@ The first line names the version of the rules (the [envelope](/reference/glossar
 Each obligation then appears as `<obligation>: <whether it applied>`, where the second part is one of:
 
 - **`attached`**: the obligation applies to this flight.
-- **`not-attached`**: its condition was checked and did not hold.
-- **`unevaluable`**: its condition could not be answered.
+- **`not-attached`**: Good Grief checked its condition, and it did not hold.
+- **`unevaluable`**: Good Grief could not answer its condition.
 
 The indented lines under it say more:
 
 | Line | Meaning |
 |---|---|
-| `never` | This kind of work can never produce what the rule depends on, so the rule can never apply. This differs from a rule that was checked and did not apply this time. |
+| `never` | This kind of work can never produce what the rule depends on, so the rule can never apply. This differs from a rule that Good Grief checked and that did not apply this time. |
 | `when` | The obligation's condition. |
 | `history` | Each change in whether it applied, with the time, such as `attached 14:38 -> not-attached 14:51`. |
 | `because` | Why it applied or did not. |
 | `verdict` | The result: `satisfied`, `violated` or `unevaluable`. An obligation with no verdict has not been decided yet. |
 | `detail` | More about the result, such as the files outside the allowed scope. |
 
-When gg prints `Nothing has been judged against this flight.`, either the envelope declares no obligation or nothing has been evaluated yet. A flight that has not reached its first gate reads this way; `gg show` gives the stage it is at.
+When gg prints `Nothing has been judged against this flight.`, either the envelope declares no obligation or Good Grief has evaluated nothing yet. A flight that has not reached its first gate reads this way; `gg show` gives the stage it is at.
 
 ## 3. Record a decision
 
@@ -99,7 +99,7 @@ Run `gg decide` with the flight, the obligation and the outcome, `approved` or `
 gg decide GG-42 code-review approved "Correct, and the test covers the expiry path."
 ```
 
-A reason is optional when approving and required when rejecting. A reason may be up to 4,000 characters; a longer one is refused, not shortened.
+A reason is optional when approving and required when rejecting. A reason may be up to 4,000 characters; Good Grief refuses a longer one rather than shortening it.
 
 gg records the decision, then watches the gate until the decision is visible, and reports what it saw:
 
@@ -112,21 +112,21 @@ decided: the obligation is now satisfied
   landing:  not yet - something else this destination requires is outstanding
 ```
 
-- The first line is one of three: **`decided:`** with what the obligation became, **`refused:`** with the reason the control plane gave, or **`not yet visible:`**. The last is not a failure. The decision was sent, and gg stopped watching before it appeared. Run `gg gates` to check before sending it again.
+- The first line is one of three: **`decided:`** with what the obligation became, **`refused:`** with the reason the control plane gave, or **`not yet visible:`**. The last is not a failure. gg sent the decision, and stopped watching before it appeared. Run `gg gates` to check before sending it again.
 - **`looked`** says how many times gg checked and for how long.
-- **`landing`** says whether the work may now be accepted at its [destination](/reference/glossary/#destination). `not yet` means another requirement of the destination is still outstanding. Otherwise the line names the destination and why it now accepts the work.
+- **`landing`** says whether its [destination](/reference/glossary/#destination) may now accept the work. `not yet` means another requirement of the destination is still outstanding. Otherwise the line names the destination and why it now accepts the work.
 
-A decision applies to the gate as it was when gg looked it up, for that exact version of the work. When no gate is open for that obligation, because it has already been answered or a new attempt replaced it, gg says that nothing is waiting on a decision about it and suggests `gg gates`.
+A decision applies to the gate as it was when gg looked it up, for that exact version of the work. When no gate is open for that obligation, because someone has already answered it or a new attempt replaced it, gg says that nothing is waiting on a decision about it and suggests `gg gates`.
 
 ## What rejecting does
 
 Rejecting sends the work back. The agent makes another [attempt](/reference/glossary/#attempt), with the reason attached, which is why a rejection needs a reason that says what to change. `gg show` numbers the attempts `#1`, `#2` and so on.
 
-Rejecting the gate of a plan a person proposed is different: every leg of that plan that is still waiting is declined, and the plan's flight ends `withdrawn`. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
+Rejecting the gate of a plan a person proposed is different: the control plane declines every leg of that plan that is still waiting, and the plan's flight ends `withdrawn`. [Plan with itineraries](/guides/plan-with-itineraries/) covers plans.
 
 ## Who may decide a gate
 
-The `approver` line says who the rules expect to decide. An approver is written in one of two ways:
+The `approver` line says who the rules expect to decide. An approver takes one of two forms:
 
 - **A role**, such as `platform-owner`, written as a bare word.
 - **A named person**, written as `<provider>:<subject>`, the form `gg whoami` prints.
@@ -148,6 +148,6 @@ Run `gg` with no arguments, then:
 
 ## Related
 
-- [The envelope: obligations](/concepts/envelope/#obligations): how obligations, conditions and approvers are declared.
+- [The envelope: obligations](/concepts/envelope/#obligations): how an envelope declares obligations, conditions and approvers.
 - [Anatomy of a flight](/concepts/anatomy-of-a-flight/): why a gate does not end a flight.
 - [Take over a flight](/guides/take-over-a-flight/): continuing the work by hand instead of sending it back.

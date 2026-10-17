@@ -21,29 +21,29 @@ fleet/<name>.yaml
 exposures/<name>.yaml
 ```
 
-Each file is named after its document. A name is lower-case letters, digits and dashes, starts with a letter or digit, and is at most 64 characters. Before a new document can be applied, its name must be declared, as described in [Declare a new name first](/guides/change-the-airspace/#declare-a-new-name-first).
+Each file takes its document's name. A name is lower-case letters, digits and dashes, starts with a letter or digit, and is at most 64 characters. Someone must declare a new document's name before applying the document, as described in [Declare a new name first](/guides/change-the-airspace/#declare-a-new-name-first).
 
 ## Rules every file follows
 
-- **Keys are closed.** Each kind of document allows a fixed set of keys, listed below. A key that is not on the list is refused, with a message naming it, so a misspelt key is never silently ignored. The same is true of the keys inside each section.
-- **`based-on:`** may appear in any file. `gg airspace pull` writes it, naming the version the file was pulled from, such as `based-on: investigate@v7`. It is not a rule; leave it as pull wrote it.
-- **Checking a file.** `gg envelope validate <file>` checks a root, work kind, narrowing or strategy file without sending it anywhere, and prints the form it will be stored in. `gg airspace diff` shows what applying the whole working copy would do.
+- **Keys are closed.** Each kind of document allows a fixed set of keys, listed below. Good Grief refuses a key that is not on the list, with a message naming it, so it never silently ignores a misspelt key. The same is true of the keys inside each section.
+- **`based-on:`** may appear in any file. `gg airspace pull` writes it, naming the version it pulled the file from, such as `based-on: investigate@v7`. It is not a rule; leave it as pull wrote it.
+- **Checking a file.** `gg envelope validate <file>` checks a root, work kind, narrowing or strategy file without sending it anywhere, and prints the form the control plane will store it in. `gg airspace diff` shows what applying the whole working copy would do.
 
 ## Root and work kinds
 
-Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds/<name>.yaml`) holds the rules for one kind of work. Both are layers of the [envelope](/concepts/envelope/), the set of rules that governs a flight, and both are read with the same list of keys. Which layer may set a key is decided when the layers are combined.
+Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds/<name>.yaml`) holds the rules for one kind of work. Both are layers of the [envelope](/concepts/envelope/), the set of rules that governs a flight, and both allow the same list of keys. Combining the layers decides which layer may set a key.
 
 | Key | Layer | What it says |
 |---|---|---|
-| `context` | Both | `scope`: the files the agent may change (the flight gets the overlap of root's and the work kind's). `constitution`: the version of the rules in force, set by root. See [`context.scope`](/concepts/envelope/#contextscope). |
-| `repositories` | Root | The repositories flights may concern. See [`repositories:`](/concepts/envelope/#repositories). `repository` is accepted as a single-name spelling. |
-| `environments` | Root | The environments flights may run in. See [`environments:`](/concepts/envelope/#environments). `environment` is accepted as a single-name spelling. |
-| `models` | Root | The models a person may move one flight to. Left out, no one may; an empty list is refused. |
+| `context` | Both | `scope`: the files the agent may change (the flight gets the overlap of root's and the work kind's). `constitution`: the version of the rules in force, which root sets. See [`context.scope`](/concepts/envelope/#contextscope). |
+| `repositories` | Root | The repositories flights may concern. See [`repositories:`](/concepts/envelope/#repositories). A file may also use `repository` as a single-name spelling. |
+| `environments` | Root | The environments flights may run in. See [`environments:`](/concepts/envelope/#environments). A file may also use `environment` as a single-name spelling. |
+| `models` | Root | The models a person may move one flight to. Left out, no one may; Good Grief refuses an empty list. |
 | `mcp-servers` | Root | The external tool servers loops may use, each defined once. See [MCP servers](/concepts/mcp-servers/). |
-| `offers` | Root | Settings offered to every machine in the organisation, from the keys that can be offered. See [Offered configuration](/reference/configuration/#offered-configuration). |
+| `offers` | Root | Settings the control plane offers to every machine in the organisation, from the keys it can offer. See [Offered configuration](/reference/configuration/#offered-configuration). |
 | `obligations` | Both, added up | Machine checks and human checks. See [`obligations:`](/concepts/envelope/#obligations). |
 | `instructions` | Both, added up | Standing guidance passed to the agent word for word: root's first, then the work kind's. |
-| `learned` | Both, added up | What earlier flights found out about an environment, each entry with `against` (the repository and commit, image or environment it applies to) and `advice` (a list of sentences). Drafted by a flight and reviewed by a person before it applies. |
+| `learned` | Both, added up | What earlier flights found out about an environment, each entry with `against` (the repository and commit, image or environment it applies to) and `advice` (a list of sentences). A flight drafts it and a person reviews it before it applies. |
 | `variables` | Root or work kind | Environment variables set on what a flight runs, as `NAME: value`. A flight with a work kind receives only the work kind's variables; root's apply only to a flight with no work kind. Never a secret. |
 | `loops` | Work kind replaces root | How the work is done. See [`loops:`](/concepts/envelope/#loops). |
 | `destinations` | Work kind replaces root | Where finished work goes. See [`destinations:`](/concepts/envelope/#destinations). |
@@ -52,9 +52,9 @@ Root (`root.yaml`) holds the organisation's base rules. A work kind (`work-kinds
 | `consults` | Work kind | The families of work kinds whose earlier findings on the same intent a flight of this kind receives. See [Investigations and findings](/concepts/investigations-and-findings/). |
 | `description` | Work kind | One line for people choosing a work kind. No agent sees it. |
 | `brief` | Work kind | The job a flight of this kind is to do, in one sentence. It opens the agent's task. |
-| `targeting` | Work kind | Which machine gets the work: `any` (whichever asks first, the default) or `least-spent` (the machine whose [allowance](/reference/glossary/#allowance) has the most left is offered it first). |
+| `targeting` | Work kind | Which machine gets the work: `any` (whichever asks first, the default) or `least-spent` (the control plane offers it first to the machine whose [allowance](/reference/glossary/#allowance) has the most left). |
 | `hosts` | Work kind | The environment where the work's running application must be, when that differs from where the agent runs. |
-| `abstract` | Work kind | `true` for a work kind that is only extended, never flown itself. |
+| `abstract` | Work kind | `true` for a work kind that other work kinds only extend, and that no one flies itself. |
 
 Root must declare `context`, `obligations`, `loops` and `destinations`. A work kind must also declare `produces`, and need not declare `destinations` when it is abstract.
 
@@ -108,9 +108,9 @@ A [narrowing](/reference/glossary/#narrowing) adds obligations to every flight t
 
 | Key | What it says |
 |---|---|
-| `obligations` | Obligations, written as in root. Each is added to the flight's obligations and to its destination's `requires:`. |
+| `obligations` | Obligations, written as in root. The control plane adds each to the flight's obligations and to its destination's `requires:`. |
 
-Narrowings live in two places: `narrowings/<name>.yaml` in the airspace, and a directory inside a registered repository, named when the repository is registered with `gg airspace repositories add --narrowings <dir>`. By convention that directory is `.goodgrief/narrowings/`. Every file under it is read as a narrowing, so each file should hold one concern, which lets a repository's code-owner rules assign each one to its owner.
+Narrowings live in two places: `narrowings/<name>.yaml` in the airspace, and a directory inside a registered repository, which a person names when registering the repository with `gg airspace repositories add --narrowings <dir>`. By convention that directory is `.goodgrief/narrowings/`. The control plane reads every file under it as a narrowing, so each file should hold one concern, which lets a repository's code-owner rules assign each one to its owner.
 
 ```yaml
 # .goodgrief/narrowings/migrations.yaml (an example)
@@ -127,14 +127,14 @@ A [watch](/reference/glossary/#watch) looks at a work-item query on a schedule a
 
 | Key | Required | What it says |
 |---|---|---|
-| `shape` | Yes | What is being watched. `work-items` is the only shape. |
+| `shape` | Yes | What the watch looks at. `work-items` is the only shape. |
 | `trigger` | Yes | `every`: the interval between sweeps, such as `"1h"`. |
 | `host` | Yes | The tracker's address. |
 | `credential` | Yes | A reference to the credential for the tracker. Never the value. |
-| `filter` | Yes | The query to ask the tracker. A blank filter is refused. |
+| `filter` | Yes | The query to ask the tracker. Good Grief refuses a blank filter. |
 | `repository` | Yes | The registered repository that holds the procedure the sweep follows. |
 | `skill` | Yes | The procedure's path in that repository. |
-| `ref` | Yes | The ref the procedure is read at. |
+| `ref` | Yes | The ref the runner reads the procedure at. |
 | `mapping` | Yes | `subject` (the field that identifies an item), `version` (the field that changes when it changes) and `intent-key` (the field that names it outside Good Grief). |
 | `pull-point` | Yes | What carries out each sweep, such as `resident-runner`. |
 | `nominates` | Yes | One `flight` destination: the work kinds a nomination may open, and whether they open at once. |
@@ -145,17 +145,17 @@ A [watch](/reference/glossary/#watch) looks at a work-item query on a schedule a
 
 ## Strategies
 
-A [strategy](/reference/glossary/#strategy) says how a [pool](/reference/glossary/#pool) of machines for one environment is built, and the limits it runs within. It lives at `strategies/<name>.yaml` and is also applied with `gg strategy apply <name> <file>`.
+A [strategy](/reference/glossary/#strategy) says how to build a [pool](/reference/glossary/#pool) of machines for one environment, and the limits it runs within. It lives at `strategies/<name>.yaml`, and `gg strategy apply <name> <file>` also applies it.
 
 | Key | Required | What it says |
 |---|---|---|
-| `kind` | Yes | The infrastructure managed. `docker-host`, containers on the host the maintaining runner lives on, is the only kind. |
+| `kind` | Yes | The infrastructure it manages. `docker-host`, containers on the host the maintaining runner lives on, is the only kind. |
 | `environment` | Yes | The charted environment this pool provides. |
 | `inventory` | Yes | `pool` (the pool's name), `size` (how many machines) and `warm` (how many to keep ready before anything asks; `0` when left out). |
-| `pull-point` | Yes | How decided work reaches the pool: `resident-runner`. A strategy without one is refused. |
+| `pull-point` | Yes | How decided work reaches the pool: `resident-runner`. Good Grief refuses a strategy without one. |
 | `image` | Yes | The image each machine is reset to, pinned by digest. |
 | `bounds` | No | `pool-max` (how many machines may be warm at once; `size` when left out) and `active-hours` (`HH:MM-HH:MMZ`). |
-| `build` | No | Where the next image is built from: `repository`, `path`, `ref`, and optionally `dockerfile`. |
+| `build` | No | Where `gg strategy build` builds the next image from: `repository`, `path`, `ref`, and optionally `dockerfile`. |
 | `built-from` | No | What the image in force was built from: `repository`, `path` and `commit`. A build writes this. |
 | `hooks` | No | The path to the project's own scripts for bringing its application up and down. Never the scripts themselves. |
 | `filesystem` | No | How the working tree reaches the place those scripts run: `shared`, `push` or `pull`. |
@@ -201,7 +201,7 @@ An exposure says where a flight's preview may be published, so that a person can
 
 | Key | Required | What it says |
 |---|---|---|
-| `kind` | Yes | How the address is provided. `cloudflare-tunnel`, one named tunnel per slot, is the only kind. |
+| `kind` | Yes | How the exposure provides the address. `cloudflare-tunnel`, one named tunnel per slot, is the only kind. |
 | `inventory` | Yes | The slots, described below. |
 
 `inventory` allows these keys:
@@ -224,7 +224,7 @@ inventory:
   port: 8080
 ```
 
-The addresses are fixed in advance on purpose: a sign-in provider that will not accept a wildcard return address can be given each one.
+The organisation fixes the addresses in advance on purpose: an administrator can give each one to a sign-in provider that will not accept a wildcard return address.
 
 ## Related
 

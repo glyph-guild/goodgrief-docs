@@ -11,7 +11,7 @@ This page explains the model. [Set up a watch](/guides/set-up-a-watch/) gives th
 
 ## A watch is an airspace document
 
-A watch is one file in the [airspace](/reference/glossary/#airspace)'s `watches/` folder, named after the watch. Like every airspace document, it is versioned, it is checked when it is applied, and a change that loosens it waits for approval.
+A watch is one file in the [airspace](/reference/glossary/#airspace)'s `watches/` folder, named after the watch. Like every airspace document, it is versioned, Good Grief checks it when someone applies it, and a change that loosens it waits for approval.
 
 A watch says six things:
 
@@ -26,16 +26,16 @@ A watch says six things:
 
 Two fields are optional: `bounds`, whose every member is optional and unlimited when left out, and `for`, which says whose watch it is.
 
-When a watch is applied, Good Grief checks it and refuses it, naming the field, when any of these is true:
+When someone applies a watch, Good Grief checks it and refuses it, naming the field, when any of these is true:
 
 - A required field is blank.
-- The filter is blank. A blank filter would read as every item in the tracker, so it is refused rather than taken to mean everything.
+- The filter is blank. A blank filter would read as every item in the tracker, so Good Grief refuses it rather than taking it to mean everything.
 - `trigger.every` is not a positive duration.
 - `nominates` is missing, or is not a `flight` [destination](/concepts/envelope/#destinations).
 - A budget allows no flights, or its window cannot be read.
 - `bounds.active-hours` is not written as `HH:MM-HH:MMZ`, in UTC.
 
-The procedure itself never travels in the document. The watch names where the procedure is kept, and the runner reads it there.
+The procedure itself never travels in the document. The watch names where the procedure lives, and the runner reads it there.
 
 ```yaml
 # watches/triage.yaml (an example)
@@ -73,13 +73,13 @@ bounds:
 The control plane decides when each watch is due, by its own clock:
 
 - A watch that has never swept is due at once.
-- After that, a watch is due when `trigger.every` has passed since its last sweep was decided.
-- Outside `bounds.active-hours`, no sweep is decided. The schedule waits for the window to open.
+- After that, a watch is due when `trigger.every` has passed since the control plane decided its last sweep.
+- Outside `bounds.active-hours`, the control plane decides no sweep. The schedule waits for the window to open.
 - A sweep that no runner has answered holds the next one back for two intervals, so unanswered sweeps do not pile up.
 
 ### Who performs it
 
-`pull-point` names what carries out the sweep. The document accepts three values, but only one is performed today:
+`pull-point` names what carries out the sweep. The document accepts three values, but only one of them performs sweeps today:
 
 | `pull-point` | Status |
 |---|---|
@@ -89,17 +89,17 @@ The control plane decides when each watch is due, by its own clock:
 
 A watch with a pull point that nothing performs is in force but never sweeps.
 
-A runner takes a sweep the way it takes a flight: by asking. It lists the tracker addresses and credentials it holds, and it is offered sweeps for watches that use them. The control plane never reaches the tracker, and never holds the credential.
+A runner takes a sweep the way it takes a flight: by asking. It lists the tracker addresses and credentials it holds, and the control plane offers it sweeps for watches that use them. The control plane never reaches the tracker, and never holds the credential.
 
 Runners perform sweeps by default. Setting `runner-sweeps` to off in the runner's configuration, or `GG_RUNNER_SWEEPS` in its environment, stops a machine from taking them.
 
 ### How the runner performs it
 
-The runner reads the procedure (the `skill`) at the commit its `ref` points to when the sweep is decided, and starts an agent with it. The agent pages through the tracker query, decides which items deserve work, and proposes each one through a nomination tool. It is told to change nothing. Proposing is its whole output.
+The runner reads the procedure (the `skill`) at the commit its `ref` points to when the control plane decides the sweep, and starts an agent with it. The agent pages through the tracker query, decides which items deserve work, and proposes each one through a nomination tool. Its instructions tell it to change nothing. Proposing is its whole output.
 
-Because the ref can move between sweeps, the runner reports the commit and the content of the procedure it actually read. A sweep that does not say what it followed is not accepted.
+Because the ref can move between sweeps, the runner reports the commit and the content of the procedure it actually read. The control plane does not accept a sweep that does not say what it followed.
 
-`gg watches` names what performs a watch's sweeps as `instructions`, meaning an agent following the written procedure. That is the only way a sweep is performed.
+`gg watches` names what performs a watch's sweeps as `instructions`, meaning an agent following the written procedure. No other way of performing a sweep exists.
 
 ## What a sweep may produce
 
@@ -120,16 +120,16 @@ A sweep produces nothing else. It does not comment on items, change them, or rec
 
 ### One nomination per item and version
 
-Each nomination is keyed on the item (qualified by its tracker) and its version. The first nomination for an item at a version is the only one: a later sweep that sees the same item unchanged is told it was nominated already, and nothing is sent again. When the item changes, its version changes, and it can be nominated again.
+The control plane keys each nomination on the item (qualified by its tracker) and its version. The first nomination for an item at a version is the only one: the control plane tells a later sweep that sees the same item unchanged that it was nominated already, and the sweep sends nothing again. When the item changes, its version changes, and a sweep can nominate it again.
 
 ## Bounds
 
-Every bound is optional, and a bound that is left out is unlimited. The control plane enforces them, not the runner.
+Every bound is optional, and a bound the watch leaves out is unlimited. The control plane enforces them, not the runner.
 
 | Bound | What it limits | What happens at the limit |
 |---|---|---|
-| `active-hours` | When a sweep may be decided at all. | Outside the window, no sweep is decided, and the watch is not counted as quiet. |
-| `cap-per-pass` | How many nominations one sweep may stand. | The first ones stand. The rest are not refused; a later sweep can report them again. |
+| `active-hours` | When a sweep may be decided at all. | Outside the window, the control plane decides no sweep and does not count the watch as quiet. |
+| `cap-per-pass` | How many nominations one sweep may stand. | The first ones stand. The control plane does not refuse the rest; a later sweep can report them again. |
 | `budget` | How many flights the watch's nominations may open (`flights`) within a window (`window`), counted across the whole watch. | Further nominations stand on the board as gated, with a reason, until a person opens them or the window moves on. |
 
 A nomination can also be gated for reasons that have nothing to do with the budget: the `nominates` destination says `opens-as: gated`, or it requires a human check. [Nominations and the board](/concepts/nominations-and-the-board/) explains how a nomination opens.
@@ -140,19 +140,19 @@ A watch belongs either to the organisation or to one person, and never to anythi
 
 `gg airspace name watch <name> --personal` declares a watch for the signed-in person and writes `for:` into the file. A personal watch differs from the organisation's in these ways:
 
-- **Only its person may apply it.** Anyone else is refused, including the platform owner.
+- **Only its person may apply it.** The control plane refuses anyone else, including the platform owner.
 - **Only its person answers its gates and its nominations.** A loosening change to a personal watch waits for its person, and a nomination it makes stands on the organisation's board marked as theirs. No one else can open or decline it.
-- **Its work runs only on its person's machines.** Its sweeps, and the flights its nominations open, are offered only to runners the person has claimed. For that reason, a personal watch must use `pull-point: resident-runner`.
+- **Its work runs only on its person's machines.** The control plane offers its sweeps, and the flights its nominations open, only to runners the person has claimed. For that reason, a personal watch must use `pull-point: resident-runner`.
 - **Its flights are its person's.** A flight opened from a personal watch belongs to that person. A flight opened from the organisation's watch belongs to the person who wrote the version of the watch in force.
-- **It never changes owner.** Changing `for` is refused. To move a watch, retire it and declare it again.
+- **It never changes owner.** The control plane refuses a change to `for`. To move a watch, retire it and declare it again.
 
-The person named in `for` must belong to the organisation, and a name declared for one person cannot be used for another.
+The person named in `for` must belong to the organisation, and no one can use a name declared for one person for another.
 
 ## Changing a watch
 
 A change that could make a watch propose more, or propose differently, loosens the rules and waits for approval. These changes loosen:
 
-- Any change to the filter, even one that looks narrower, because whether a new query returns more items cannot be decided in advance.
+- Any change to the filter, even one that looks narrower, because no one can decide in advance whether a new query returns more items.
 - Any change to the repository, procedure, ref, tracker address, credential, shape, pull point or mapping.
 - A shorter interval between sweeps.
 - Removing the budget, or allowing more flights for each unit of time.
@@ -176,9 +176,9 @@ The first line gives the watch's name, what performs its sweeps, how its newest 
 Two other states are worth recognising:
 
 - **`never reported`**: the watch has not swept yet. A watch applied moments ago reads this way, and so does one whose pull point nothing performs.
-- **`quiet since`**: at least two intervals have passed since the watch last reported, counting from when it was applied if it never has. Either no runner is taking its sweeps, or the runners that took them are not reporting. Only watches that runners perform are judged quiet, and only inside their active hours.
+- **`quiet since`**: at least two intervals have passed since the watch last reported, counting from when someone applied it if it never has. Either no runner is taking its sweeps, or the runners that took them are not reporting. The control plane judges quiet only watches that runners perform, and only inside their active hours.
 
-An unreachable sweep's explanation is printed beneath the watch. The console's board (`;`, then `v`) also shows when each watch's next sweep is due.
+gg prints an unreachable sweep's explanation beneath the watch. The console's board (`;`, then `v`) also shows when each watch's next sweep is due.
 
 ## Related
 

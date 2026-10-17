@@ -5,9 +5,9 @@ sidebar:
   order: 5
 ---
 
-An [itinerary](/reference/glossary/#itinerary) is a plan made of several flights, called [legs](/reference/glossary/#leg), that pursue one goal together. Use this guide when a piece of work is too large or too varied for one flight: for example, investigating an item, then implementing it, then reviewing the result. A plan is proposed as a whole, a person approves its shape once, and only then do its legs open.
+An [itinerary](/reference/glossary/#itinerary) is a plan made of several flights, called [legs](/reference/glossary/#leg), that pursue one goal together. Use this guide when a piece of work is too large or too varied for one flight: for example, investigating an item, then implementing it, then reviewing the result. Someone proposes a plan as a whole, a person approves its shape once, and only then do its legs open.
 
-A plan can be written by hand as a file, drafted together with an agent in a Claude Code session, or proposed by a planning flight (a flight whose work kind proposes legs instead of doing the work).
+A person can write a plan by hand as a file or draft it together with an agent in a Claude Code session, or a planning flight (a flight whose work kind proposes legs instead of doing the work) can propose it.
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ The top level holds three keys:
 
 - **`intent`** says what every leg is about. It is a sentence, or a block naming a work item (`provider` and `id`), a link (`uri`), or a file in a registered repository (`repository`, `path` and an optional `ref`).
 - **`legs`** is the list of legs, at most 50.
-- **`planner`** (optional) names the planning work kind whose menu the legs are checked against. It is `plan` when left out.
+- **`planner`** (optional) names the planning work kind whose menu the control plane checks the legs against. It is `plan` when left out.
 
 Each leg takes these keys:
 
@@ -57,11 +57,11 @@ Each leg takes these keys:
 | `after` | The subject of the one leg this leg must wait for. Leave it out for work that can run as soon as a machine is free. |
 | `repository` | The registered repository this leg works in. A plan has no repository of its own, so a leg whose kind works in a repository needs one. |
 | `environment` | The environment this leg runs in, from the planner's menu. |
-| `note` | Advice for whoever flies the leg. It is shown to the next agent as advice and grants nothing. |
+| `note` | Advice for whoever flies the leg. The next agent sees it as advice, and it grants nothing. |
 
-Every key is checked, and an unknown one, such as a misspelt `afer:`, is refused by name.
+Good Grief checks every key, and refuses an unknown one, such as a misspelt `afer:`, by name.
 
-A leg may follow only one other leg, by its subject. A leg that follows itself is refused, and a ring of legs that follow each other is refused when the plan is approved.
+A leg may follow only one other leg, by its subject. Good Grief refuses a leg that follows itself, and the control plane refuses a ring of legs that follow each other when a person approves the plan.
 
 ## 2. Check it
 
@@ -90,7 +90,7 @@ Each leg gets one verdict:
 - **`stands`**: the leg would wait as a [nomination](/reference/glossary/#nomination) until someone opens it.
 - **`refused`**: a rule refuses the leg, and the line below gives the reason.
 
-The lines under a leg can also name the version of the rules it would run under, each gate it would wait on and who answers it, rules that could never apply to it, and what the fleet would need to run it. If the plan as a whole would be refused, gg says so before the legs.
+The lines under a leg can also name the version of the rules it would run under, each gate it would wait on and who answers it, rules that could never apply to it, and what the fleet would need to run it. If the control plane would refuse the plan as a whole, gg says so before the legs.
 
 ## 3. Propose it
 
@@ -106,18 +106,18 @@ proposed ITN-63 - nothing opens until its gate is answered
   waits on plan-reviewed, answered by platform-owner
 ```
 
-Only a plan the check would accept can be proposed. A proposed plan is held by a flight of the planner's kind that no runner ever takes; it exists only to carry the plan's gate. The same plan proposed twice by the same person is one plan.
+A person can propose only a plan the check would accept. A flight of the planner's kind that no runner ever takes holds a proposed plan; that flight exists only to carry the plan's gate. When the same person proposes the same plan twice, it is one plan.
 
-A plan drafted with the agent tools can be revised while its gate is unanswered: proposing the revised draft replaces the earlier plan, whose legs are declined. A plan proposed with `gg itinerary propose` is changed by grounding its flight with `gg ground` and proposing a new one.
+A person can revise a plan drafted with the agent tools while its gate is unanswered: proposing the revised draft replaces the earlier plan and declines its legs. To change a plan proposed with `gg itinerary propose`, ground its flight with `gg ground` and propose a new one.
 
 ## 4. Approve it
 
 The plan's gate appears in `gg gates` like any other. [Answer a gate](/guides/answer-a-gate/) explains how to decide it.
 
-- **When it is approved**, each leg opens as a flight, and each leg's flight is attributed to the person who proposed the plan. The plan's own flight then ends `landed`.
-- **When it is rejected**, every leg that is still waiting is declined, and the plan's flight ends `withdrawn`.
+- **When a person approves it**, each leg opens as a flight, and the control plane attributes each leg's flight to the person who proposed the plan. The plan's own flight then ends `landed`.
+- **When a person rejects it**, the control plane declines every leg that is still waiting, and the plan's flight ends `withdrawn`.
 
-After approval, a leg with `after` is not offered to any machine until the leg it follows has landed. If that leg is grounded or fails, the legs after it stay held, because their premise is false. `gg why` on a held leg names the leg it follows and how that leg ended. A permanently held leg is something a person ends, for example with `gg ground`.
+After approval, the control plane offers a leg with `after` to no machine until the leg it follows has landed. If someone grounds that leg or it fails, the legs after it stay held, because their premise is false. `gg why` on a held leg names the leg it follows and how that leg ended. A permanently held leg is something a person ends, for example with `gg ground`.
 
 ## 5. Follow it
 
@@ -138,13 +138,13 @@ ITN-63 - 3 leg(s), 2 still standing
      A second reading before the change lands.
 ```
 
-Each plan shows how many legs are still standing, what it is about, and each leg in the order it was written, with its state and, once it has opened, the flight it became. `gg itineraries --intent ado#1234` lists the plans for one intent only.
+Each plan shows how many legs are still standing, what it is about, and each leg in the order the plan lists it, with its state and, once it has opened, the flight it became. `gg itineraries --intent ado#1234` lists the plans for one intent only.
 
 `gg itinerary show ITN-63` prints one plan with every leg in full.
 
 ## Draft a plan with an agent
 
-`gg itinerary tools` is a tool server that any Claude Code session can use to draft a plan. The agent and the person edit the same plan file: the server reads the draft fresh on every call and writes it whole, so a hand edit and a tool call are edits to the same plan. Drafts are kept under gg's state directory, one file per draft.
+`gg itinerary tools` is a tool server that any Claude Code session can use to draft a plan. The agent and the person edit the same plan file: the server reads the draft fresh on every call and writes it whole, so a hand edit and a tool call are edits to the same plan. gg keeps drafts under its state directory, one file per draft.
 
 1. Print the line that registers the server with Claude Code:
 
@@ -165,13 +165,13 @@ Each plan shows how many legs are still standing, what it is about, and each leg
    | `set_intent` | Says what the plan is about: text, a link, a work item or a file. |
    | `draft_leg` | Adds a leg, with its subject, work kind and reason. |
    | `revise_leg` | Changes one leg, named by its subject. Legs that follow it follow a rename. |
-   | `drop_leg` | Removes one leg. A leg another leg follows is not removed until that leg is revised. |
+   | `drop_leg` | Removes one leg. It removes a leg that another leg follows only once someone revises that leg. |
    | `show_plan` | Shows the whole draft without changing it. |
    | `propose` | Proposes the draft as the signed-in person, exactly as `gg itinerary propose` does. |
 
-   Every tool answers with the whole draft. The work kinds, repositories and environments a leg may choose are offered from the planner's menu.
+   Every tool answers with the whole draft. The work kinds, repositories and environments a leg may choose come from the planner's menu.
 
-Nothing about the conversation itself is kept when a plan is proposed: only the plan, and which agent helped write it.
+Proposing a plan keeps nothing about the conversation itself: only the plan, and which agent helped write it.
 
 In the console, `n` and then `l` plans the legs of a new flight with an agent, and `l` on the intents tab (`[`) plans from the selected work item.
 
